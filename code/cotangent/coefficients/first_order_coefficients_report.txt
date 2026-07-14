@@ -1,0 +1,302 @@
+First-order coefficient recovery for the QQ cubic family
+
+Inputs
+  part-1.pkl = /Users/daniel/github/daniel/code/cotangent/part-1.pkl
+  cubic JSON = /Users/daniel/github/daniel/code/cotangent/order2/cache/cubic_family_QQ_data.json
+
+Basic data
+  number of SR generators = 16
+  number of degree-3 quotient monomials = 104
+  raw deformation parameters = 1664 = 16 x 104
+  syzygy rows = 38
+  A_1 correction coordinates = 11136
+
+Generator order from part-1.sage
+  F1 corresponds to a1-a104 and starts from f1 = x6*x7*x8
+  F2 corresponds to b1-b104 and starts from f2 = x4*x6*x8
+  F3 corresponds to c1-c104 and starts from f3 = x3*x7*x8
+  F4 corresponds to d1-d104 and starts from f4 = x3*x5*x7
+  F5 corresponds to e1-e104 and starts from f5 = x3*x4*x8
+  F6 corresponds to f1-f104 and starts from f6 = x2*x7*x8
+  F7 corresponds to g1-g104 and starts from f7 = x2*x5*x7
+  F8 corresponds to h1-h104 and starts from f8 = x2*x5*x6
+  F9 corresponds to i1-i104 and starts from f9 = x2*x4*x7
+  F10 corresponds to j1-j104 and starts from f10 = x2*x4*x6
+  F11 corresponds to k1-k104 and starts from f11 = x1*x4*x6
+  F12 corresponds to l1-l104 and starts from f12 = x1*x4*x5
+  F13 corresponds to m1-m104 and starts from f13 = x1*x3*x8
+  F14 corresponds to n1-n104 and starts from f14 = x1*x3*x6
+  F15 corresponds to o1-o104 and starts from f15 = x1*x3*x5
+  F16 corresponds to p1-p104 and starts from f16 = x1*x2*x5
+
+Exact raw-index to old-parameter convention
+  raw index idx is 0-based in the order2 JSON.
+  Write idx = gen_idx * 104 + mon_idx with 0 <= gen_idx <= 15 and 0 <= mon_idx <= 103.
+  Then idx corresponds to the old parameter letter(gen_idx) followed by mon_idx + 1, where
+    gen_idx = 0,1,...,15 means letters a,b,...,p,
+    mon_idx + 1 is the monomial slot in the list below.
+  Examples: raw 0 = a1, raw 103 = a104, raw 104 = b1, raw 1663 = p104.
+
+Degree-3 monomial order used by part-1.sage and by all order2 raw indices
+    1 -> x1^3
+    2 -> x1^2*x2
+    3 -> x1^2*x3
+    4 -> x1^2*x4
+    5 -> x1^2*x5
+    6 -> x1^2*x6
+    7 -> x1^2*x7
+    8 -> x1^2*x8
+    9 -> x1*x2^2
+   10 -> x1*x2*x3
+   11 -> x1*x2*x4
+   12 -> x1*x2*x6
+   13 -> x1*x2*x7
+   14 -> x1*x2*x8
+   15 -> x1*x3^2
+   16 -> x1*x3*x4
+   17 -> x1*x3*x7
+   18 -> x1*x4^2
+   19 -> x1*x4*x7
+   20 -> x1*x4*x8
+   21 -> x1*x5^2
+   22 -> x1*x5*x6
+   23 -> x1*x5*x7
+   24 -> x1*x5*x8
+   25 -> x1*x6^2
+   26 -> x1*x6*x7
+   27 -> x1*x6*x8
+   28 -> x1*x7^2
+   29 -> x1*x7*x8
+   30 -> x1*x8^2
+   31 -> x2^3
+   32 -> x2^2*x3
+   33 -> x2^2*x4
+   34 -> x2^2*x5
+   35 -> x2^2*x6
+   36 -> x2^2*x7
+   37 -> x2^2*x8
+   38 -> x2*x3^2
+   39 -> x2*x3*x4
+   40 -> x2*x3*x5
+   41 -> x2*x3*x6
+   42 -> x2*x3*x7
+   43 -> x2*x3*x8
+   44 -> x2*x4^2
+   45 -> x2*x4*x5
+   46 -> x2*x4*x8
+   47 -> x2*x5^2
+   48 -> x2*x5*x8
+   49 -> x2*x6^2
+   50 -> x2*x6*x7
+   51 -> x2*x6*x8
+   52 -> x2*x7^2
+   53 -> x2*x8^2
+   54 -> x3^3
+   55 -> x3^2*x4
+   56 -> x3^2*x5
+   57 -> x3^2*x6
+   58 -> x3^2*x7
+   59 -> x3^2*x8
+   60 -> x3*x4^2
+   61 -> x3*x4*x5
+   62 -> x3*x4*x6
+   63 -> x3*x4*x7
+   64 -> x3*x5^2
+   65 -> x3*x5*x6
+   66 -> x3*x5*x8
+   67 -> x3*x6^2
+   68 -> x3*x6*x7
+   69 -> x3*x6*x8
+   70 -> x3*x7^2
+   71 -> x3*x8^2
+   72 -> x4^3
+   73 -> x4^2*x5
+   74 -> x4^2*x6
+   75 -> x4^2*x7
+   76 -> x4^2*x8
+   77 -> x4*x5^2
+   78 -> x4*x5*x6
+   79 -> x4*x5*x7
+   80 -> x4*x5*x8
+   81 -> x4*x6^2
+   82 -> x4*x6*x7
+   83 -> x4*x7^2
+   84 -> x4*x7*x8
+   85 -> x4*x8^2
+   86 -> x5^3
+   87 -> x5^2*x6
+   88 -> x5^2*x7
+   89 -> x5^2*x8
+   90 -> x5*x6^2
+   91 -> x5*x6*x7
+   92 -> x5*x6*x8
+   93 -> x5*x7^2
+   94 -> x5*x7*x8
+   95 -> x5*x8^2
+   96 -> x6^3
+   97 -> x6^2*x7
+   98 -> x6^2*x8
+   99 -> x6*x7^2
+  100 -> x6*x8^2
+  101 -> x7^3
+  102 -> x7^2*x8
+  103 -> x7*x8^2
+  104 -> x8^3
+
+Nonzero coefficients of the chosen first-order direction G_1
+  These are exactly the raw coordinates stored in order2/cache/cubic_family_QQ_data.json.
+  raw    4 -> a5   = 1403       (generator F1, monomial #5 = x1^2*x5)
+  raw   21 -> a22  = -1417      (generator F1, monomial #22 = x1*x5*x6)
+  raw   22 -> a23  = -6417      (generator F1, monomial #23 = x1*x5*x7)
+  raw  462 -> e47  = 4225       (generator F5, monomial #47 = x2*x5^2)
+  raw  846 -> i15  = 3849       (generator F9, monomial #15 = x1*x3^2)
+  raw  847 -> i16  = 8966       (generator F9, monomial #16 = x1*x3*x4)
+  raw 1219 -> l76  = -4457      (generator F12, monomial #76 = x4^2*x8)
+  raw 1605 -> p46  = -4457      (generator F16, monomial #46 = x2*x4*x8)
+
+Turned-on old deformation parameters
+  a22 = -1417
+  a23 = -6417
+  a5 = 1403
+  e47 = 4225
+  i15 = 3849
+  i16 = 8966
+  l76 = -4457
+  p46 = -4457
+
+First-order correction polynomials g_i
+  g_1 = 1403*x1^2*x5 - 1417*x1*x5*x6 - 6417*x1*x5*x7
+  g_2 = 0
+  g_3 = 0
+  g_4 = 0
+  g_5 = 4225*x2*x5^2
+  g_6 = 0
+  g_7 = 0
+  g_8 = 0
+  g_9 = 3849*x1*x3^2 + 8966*x1*x3*x4
+  g_10 = 0
+  g_11 = 0
+  g_12 = -4457*x4^2*x8
+  g_13 = 0
+  g_14 = 0
+  g_15 = 0
+  g_16 = -4457*x2*x4*x8
+
+First-order deformed generators F_i = f_i + epsilon * g_i
+  F_1 = x6*x7*x8 + epsilon*(1403*x1^2*x5 - 1417*x1*x5*x6 - 6417*x1*x5*x7)
+  F_2 = x4*x6*x8 + epsilon*(0)
+  F_3 = x3*x7*x8 + epsilon*(0)
+  F_4 = x3*x5*x7 + epsilon*(0)
+  F_5 = x3*x4*x8 + epsilon*(4225*x2*x5^2)
+  F_6 = x2*x7*x8 + epsilon*(0)
+  F_7 = x2*x5*x7 + epsilon*(0)
+  F_8 = x2*x5*x6 + epsilon*(0)
+  F_9 = x2*x4*x7 + epsilon*(3849*x1*x3^2 + 8966*x1*x3*x4)
+  F_10 = x2*x4*x6 + epsilon*(0)
+  F_11 = x1*x4*x6 + epsilon*(0)
+  F_12 = x1*x4*x5 + epsilon*(-4457*x4^2*x8)
+  F_13 = x1*x3*x8 + epsilon*(0)
+  F_14 = x1*x3*x6 + epsilon*(0)
+  F_15 = x1*x3*x5 + epsilon*(0)
+  F_16 = x1*x2*x5 + epsilon*(-4457*x2*x4*x8)
+
+Nonzero A_1 coefficients
+  A_1 is a 38 x 16 matrix of correction polynomials.
+  Each entry below means: in syzygy row r, column j, add coeff * monomial.
+  row  2, col 11: -8966 * x3
+  row  2, col 14: -3849 * x3
+  row  6, col  2: -4457 * x4
+  row  9, col 11: 1417 * x5
+  row  9, col 12: -1403 * x1
+  row  9, col 12: 6417 * x7
+  row 10, col  7: 4225 * x5
+  row 11, col  5: 8966 * x1
+  row 11, col 13: 3849 * x3
+  row 12, col 12: 8966 * x3
+  row 12, col 15: 3849 * x3
+  row 14, col  4: 6417 * x1
+  row 14, col 14: 1417 * x5
+  row 14, col 15: -1403 * x1
+  row 15, col  8: 4225 * x5
+  row 17, col  5: 4457 * x4
+  row 18, col  7: 6417 * x1
+  row 18, col  8: 1417 * x1
+  row 18, col 16: -1403 * x1
+  row 23, col  5: -4457 * x2
+  row 28, col 16: -4225 * x5
+  row 29, col  6: -4457 * x4
+  row 30, col  2: -4457 * x2
+  row 33, col 16: -4225 * x5^2
+  row 34, col  6: -4457 * x4^2
+  row 34, col 12: -8966 * x1*x3
+  row 34, col 15: -3849 * x1*x3
+  row 37, col  2: -4457 * x2*x3
+  row 38, col  2: -4457 * x2*x3*x8
+
+Grouped A_1 entries by syzygy row
+  Row 2 syzygy: (x6) * f9 + (-x7) * f10
+    A_1[2,11] = -8966*x3
+    A_1[2,14] = -3849*x3
+  Row 6 syzygy: (x5) * f11 + (-x6) * f12
+    A_1[6,2] = -4457*x4
+  Row 9 syzygy: (x4) * f1 + (-x7) * f2
+    A_1[9,11] = 1417*x5
+    A_1[9,12] = -1403*x1 + 6417*x7
+  Row 10 syzygy: (x4) * f3 + (-x7) * f5
+    A_1[10,7] = 4225*x5
+  Row 11 syzygy: (x4) * f6 + (-x8) * f9
+    A_1[11,5] = 8966*x1
+    A_1[11,13] = 3849*x3
+  Row 12 syzygy: (x4) * f7 + (-x5) * f9
+    A_1[12,12] = 8966*x3
+    A_1[12,15] = 3849*x3
+  Row 14 syzygy: (x3) * f1 + (-x6) * f3
+    A_1[14,4] = 6417*x1
+    A_1[14,14] = 1417*x5
+    A_1[14,15] = -1403*x1
+  Row 15 syzygy: (x3) * f2 + (-x6) * f5
+    A_1[15,8] = 4225*x5
+  Row 17 syzygy: (x3) * f12 + (-x4) * f15
+    A_1[17,5] = 4457*x4
+  Row 18 syzygy: (x2) * f1 + (-x6) * f6
+    A_1[18,7] = 6417*x1
+    A_1[18,8] = 1417*x1
+    A_1[18,16] = -1403*x1
+  Row 23 syzygy: (x2) * f15 + (-x3) * f16
+    A_1[23,5] = -4457*x2
+  Row 28 syzygy: (x1) * f5 + (-x4) * f13
+    A_1[28,16] = -4225*x5
+  Row 29 syzygy: (x1) * f7 + (-x7) * f16
+    A_1[29,6] = -4457*x4
+  Row 30 syzygy: (x1) * f8 + (-x6) * f16
+    A_1[30,2] = -4457*x2
+  Row 33 syzygy: (x1*x5) * f5 + (-x4*x8) * f15
+    A_1[33,16] = -4225*x5^2
+  Row 34 syzygy: (x1*x5) * f9 + (-x4*x7) * f16
+    A_1[34,6] = -4457*x4^2
+    A_1[34,12] = -8966*x1*x3
+    A_1[34,15] = -3849*x1*x3
+  Row 37 syzygy: (x1*x3) * f8 + (-x3*x6) * f16
+    A_1[37,2] = -4457*x2*x3
+  Row 38 syzygy: (x1*x3*x8) * f8 + (-x3*x6*x8) * f16
+    A_1[38,2] = -4457*x2*x3*x8
+
+Exact first-order verification
+  Checked in the polynomial ring QQ[x1,...,x8], not modulo I.
+  Condition: s G_1 + A_1 f = 0.
+  Number of bad rows = 0
+  All 38 syzygy rows vanish exactly.
+
+Why this is a first-order flat deformation in Michele's sense
+  The deformed generators f_i + epsilon*g_i satisfy the first-order syzygy equations
+      s G_1 + A_1 f = 0
+  exactly over QQ.
+  So the original syzygies lift over QQ[epsilon]/(epsilon^2), which is precisely the
+  first-order deformation criterion implemented in part-1.sage / the Artin-Michele setup.
+  Equivalently, G_1 defines a class in Hom_S(I,S/I)_0, hence an embedded first-order
+  deformation of the SR ideal over the dual numbers.
+
+Short summary
+  Turned-on parameters: a5, a22, a23, e47, i15, i16, l76, p46
+  nnz(G_1) = 8
+  nnz(A_1) = 29

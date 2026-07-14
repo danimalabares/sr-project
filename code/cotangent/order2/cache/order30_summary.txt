@@ -1,0 +1,105 @@
+Formal lift summary
+===================
+
+file = cache/formal_lift_to_order30.sobj
+prime = 32003
+status = success
+start_order = 6
+max_order_target = 30
+max_order_reached = 30
+n_params = 1664
+n_corr = 11136
+n_unknowns = 12800
+
+Ranks by order
+--------------
+order 6 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 7 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 8 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 9 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 10 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 11 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 12 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 13 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 14 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 15 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 16 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 17 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 18 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 19 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 20 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 21 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 22 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 23 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 24 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 25 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 26 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 27 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 28 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 29 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+order 30 rank_A = 2963 rank_augmented = 2963 residual_zero = True
+
+Generator corrections
+---------------------
+G_1 length = 1664 nnz = 8
+G_2 length = 1664 nnz = 4
+G_3 length = 1664 nnz = 1
+G_4 length = 1664 nnz = 0
+G_5 length = 1664 nnz = 0
+G_6 length = 1664 nnz = 0
+G_7 length = 1664 nnz = 0
+G_8 length = 1664 nnz = 0
+G_9 length = 1664 nnz = 0
+G_10 length = 1664 nnz = 0
+G_11 length = 1664 nnz = 0
+G_12 length = 1664 nnz = 0
+G_13 length = 1664 nnz = 0
+G_14 length = 1664 nnz = 0
+G_15 length = 1664 nnz = 0
+G_16 length = 1664 nnz = 0
+G_17 length = 1664 nnz = 0
+G_18 length = 1664 nnz = 0
+G_19 length = 1664 nnz = 0
+G_20 length = 1664 nnz = 0
+G_21 length = 1664 nnz = 0
+G_22 length = 1664 nnz = 0
+G_23 length = 1664 nnz = 0
+G_24 length = 1664 nnz = 0
+G_25 length = 1664 nnz = 0
+G_26 length = 1664 nnz = 0
+G_27 length = 1664 nnz = 0
+G_28 length = 1664 nnz = 0
+G_29 length = 1664 nnz = 0
+G_30 length = 1664 nnz = 0
+
+Syzygy corrections
+------------------
+A_1 length = 11136 nnz = 29
+A_2 length = 11136 nnz = 0
+A_3 length = 11136 nnz = 0
+A_4 length = 11136 nnz = 0
+A_5 length = 11136 nnz = 0
+A_6 length = 11136 nnz = 0
+A_7 length = 11136 nnz = 0
+A_8 length = 11136 nnz = 0
+A_9 length = 11136 nnz = 0
+A_10 length = 11136 nnz = 0
+A_11 length = 11136 nnz = 0
+A_12 length = 11136 nnz = 0
+A_13 length = 11136 nnz = 0
+A_14 length = 11136 nnz = 0
+A_15 length = 11136 nnz = 0
+A_16 length = 11136 nnz = 0
+A_17 length = 11136 nnz = 0
+A_18 length = 11136 nnz = 0
+A_19 length = 11136 nnz = 0
+A_20 length = 11136 nnz = 0
+A_21 length = 11136 nnz = 0
+A_22 length = 11136 nnz = 0
+A_23 length = 11136 nnz = 0
+A_24 length = 11136 nnz = 0
+A_25 length = 11136 nnz = 0
+A_26 length = 11136 nnz = 0
+A_27 length = 11136 nnz = 0
+A_28 length = 11136 nnz = 0
+A_29 length = 11136 nnz = 0
