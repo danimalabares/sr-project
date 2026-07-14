@@ -4,6 +4,26 @@ This is a focused snapshot of computations for the deformation theory of
 the Stanley–Reisner scheme `SR(M)` associated with Grünbaum and Sreedharan's
 8-vertex triangulated 3-sphere.
 
+## The two approaches in this repository
+
+There are two separate deformation attempts:
+
+1. **Gröbner deformation attempt — `code/GN2/`.** This directory tries to
+   obtain `SR(M)` as a coordinate/weight Gröbner degeneration of a
+   Gulliksen–Negård determinantal CY3. This is the approach for which
+   ChatGPT produced the failure proof: the included Gordan certificate
+   proves that the generic determinantal matrix, as well as the specific
+   circulant matrix tested here, cannot Gröbner-degenerate to `SR(M)` by
+   the proposed weight method. The stronger statement covering every
+   possible special matrix remains conjectural.
+
+2. **Order-by-order lifting attempts — `code/cotangent/` and
+   `code/more-lifting/`.** These directories compute first- and
+   higher-order deformations directly, starting with `T^1`, `T^2`, and
+   the quadratic obstruction equations. They include the sparse formal
+   lift and the subsequent flatness tests. The candidate family found by
+   this route is not flat, and no smoothing has been constructed.
+
 ## Current computational picture
 
 **Important status:** `SR(M)` has not been proved smoothable, has not been
@@ -30,11 +50,14 @@ limitations of each claim.
 
 ## Repository map
 
-- `code/cotangent/`: `T^1`, `T^2`, obstruction quadrics, formal lifts, and
-  the flatness failure. The small cached data files are retained because the
-  later scripts use them as reproducible checkpoints.
-- `code/more-lifting/`: higher-order obstruction and flatness experiments.
-- `code/GN2/`: determinantal comparison and non-Gröbner obstruction.
+- `code/GN2/`: the failed ChatGPT-developed Gröbner deformation attempt,
+  including the determinantal comparison and Gordan failure certificate.
+- `code/cotangent/`: the initial lifting attempt: `T^1`, `T^2`, obstruction
+  quadrics, formal lifts, and the flatness failure. The small cached data
+  files are retained because the later scripts use them as reproducible
+  checkpoints.
+- `code/more-lifting/`: continuation of the lifting attempt through
+  higher-order obstruction and flatness experiments.
 - `lean/`: Lean 4 checks for the finite combinatorial certificates. Build
   artifacts are intentionally excluded.
 
