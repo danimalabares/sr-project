@@ -4,10 +4,9 @@ x1..x8) for one whose 16 cubic 3x3 minors admit a single weight omega
 making ALL 16 SR generators the (strict) omega-leading terms -- i.e. a
 system of distinct representatives (minor -> SR gen) that is LP-feasible.
 
-A hit gives a monomial "skeleton" matrix.  The honest smoothing is then
-   A(x) = V + (lower-omega-weight generic linear forms),
-whose minors are a smooth CY3 and whose in_omega is I_SR (verified in M2
-in the next step).
+A hit would give a candidate monomial "skeleton" matrix. One would then
+test whether a perturbation by lower-weight generic linear forms has
+initial ideal I_SR and smooth generic fibre; neither conclusion is assumed.
 
 We compute 3x3 minors of a single-variable matrix combinatorially (no CAS)
 and reuse the incremental matching+LP from gn_common.

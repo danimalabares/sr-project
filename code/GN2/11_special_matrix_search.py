@@ -10,10 +10,10 @@ conv(SR) and conv(S) are separable, which (since the SR centroid is
 
 This script searches matrices with varied sparsity (zero entries) for one
 whose reduced-basis non-SR support S is LP-separable below SR AND whose
-SR-block has rank 16 (so in_omega(W) = (I_SR)_3 in degree 3).  Such a
+SR-block has rank 16 (so in_omega(W) = (I_SR)_3 in degree 3). Such a
 matrix would be a genuine Groebner-degeneration candidate; we'd then test
-its smoothness.  If none is even LP-separable, that is evidence the
-smoothing is non-toric.
+its smoothness. If none is even LP-separable, that is evidence against
+this method, not evidence that a smoothing exists.
 
 Run:  python3 11_special_matrix_search.py [n_trials] [seed]
 """
@@ -119,7 +119,8 @@ def main():
         print("\nNo rank-16 matrix had an omega-separable reduced support.")
         print("=> strong evidence: SR(M) is NOT a coordinate Groebner "
               "degeneration of ANY (smooth or not) determinantal matrix in "
-              "this search.  The smoothing must be non-toric.")
+              "this search.  This does not decide whether a smoothing "
+              "exists.")
     else:
         print("\nFound Groebner-degeneration candidate(s) -- next: test "
               "smoothness of those matrices in M2.")

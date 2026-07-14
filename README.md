@@ -6,6 +6,11 @@ the Stanley–Reisner scheme `SR(M)` associated with Grünbaum and Sreedharan's
 
 ## Current computational picture
 
+**Important status:** `SR(M)` has not been proved smoothable, has not been
+proved to be a degeneration of the determinantal CY3, and has not been
+shown to lie on its Hilbert-scheme component. Matching numerical invariants
+are only necessary evidence, not a construction or proof.
+
 - `dim T^1 = 53` and `dim T^2 = 12`.
 - Generic first-order directions are obstructed at second order.
 - The raw calculation produces 27 quadratic obstruction equations.

@@ -88,9 +88,8 @@ This strongly suggests the universal statement:
 
 > **Conjecture.** No `4x4` matrix of linear forms (smooth or not)
 > Gröbner-degenerates to SR(M); equivalently SR(M) is not an initial
-> ideal of any such `I_A`. Hence the smoothing — if it exists — is
-> **non-toric** (a flat limit where the matrix moves, not a coordinate
-> initial degeneration).
+> ideal of any such `I_A`. If a determinantal smoothing exists, it cannot
+> be obtained by this coordinate initial-degeneration method.
 
 A proof of the conjecture would need the universal claim "rank-16
 SR-block ⟹ reduced support contains `(3/8,...,3/8)`", which should follow
@@ -102,5 +101,5 @@ The twisted-cubic toy example worked precisely because SR(o-o-o-o) **is**
 an initial ideal of the twisted cubic. The Grünbaum case is genuinely
 different: SR(M)'s central balance (every variable in exactly 6 of 16
 non-faces) makes it un-separable, so the gfan/perfect-pairing search was
-doomed from the start. The smoothing must be sought as a non-toric flat
-family.
+doomed from the start. This says nothing about whether a smoothing exists;
+it only restricts how a hypothetical determinantal smoothing could arise.

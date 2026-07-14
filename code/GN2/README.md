@@ -1,4 +1,4 @@
-# GN2 — constructing the smoothing of SR(M) via the determinantal CY3
+# GN2 — testing a possible determinantal smoothing of SR(M)
 
 Goal: build a flat family with special fibre the Stanley–Reisner scheme
 of Grünbaum's 8-vertex 3-sphere, `I_SR` (16 cubic monomials in
@@ -6,22 +6,22 @@ of Grünbaum's 8-vertex 3-sphere, `I_SR` (16 cubic monomials in
 Calabi–Yau threefold in `P^7` (3×3 minors of a 4×4 matrix of linear
 forms).
 
-This directory replaces the order-by-order "lift a first-order
-deformation" approach (which stalled at the `mod I` level — see
-`../cotangent/order2`) with a **geometric** construction: realise SR(M)
-as a degeneration of the determinantal CY3, where flatness is automatic.
+This directory investigates whether `SR(M)` can be realised as a
+degeneration of the determinantal CY3. No such degeneration or smoothing
+has been constructed or proved to exist.
 
 ## What was established (all computational, reproducible)
 
-1. **Numerics match — smoothing target confirmed.** (`03_compare_invariants.m2`)
+1. **Necessary numerical invariants match.** (`03_compare_invariants.m2`)
    `I_SR`, the given circulant determinantal ideal, and a generic
    determinantal ideal ALL have
    - codim 4, degree 20,
    - Hilbert numerator `1 + 4T + 10T^2 + 4T^3 + T^4`,
    - the self-dual Gulliksen–Negård Betti table `1, 16, 30, 16, 1`
      (arithmetically Gorenstein).
-   So a flat degeneration GN ⇝ SR(M) is numerically possible and the
-   minimal resolutions coincide. The CY3 is the right smooth model.
+   Thus these invariants do not rule out a flat degeneration GN ⇝ SR(M).
+   Their agreement does not prove that one exists, that `SR(M)` is
+   smoothable, or that the two schemes lie on the same Hilbert component.
 
 2. **The given circulant matrix is NOT a weight degeneration to I_SR.**
    (`01_match_and_weight.py`) Although 15 of 16 SR monomials appear as a
@@ -50,9 +50,9 @@ as a degeneration of the determinantal CY3, where flatness is automatic.
    that every minor lies in `span(SR)` drives the non-SR coefficient
    mass to ~0 easily (across many random starts), but the SR-rank then
    caps at **≤ 4** — the 16 minors collapse into a rank-4 subspace, never
-   spanning all of `(I_SR)_3`. So I_SR sits on the **boundary** of the
-   determinantal locus: it is a flat *limit*, not an exact determinantal
-   ideal.
+   spanning all of `(I_SR)_3`. This numerical search found no exact
+   presentation of the tested kind; it does not show that `I_SR` is a
+   flat limit or lies on the boundary of the determinantal locus.
 
 6. **Rigorous obstruction + Lean proof.** (`10_obstruction_certificate.py`,
    `PROOF.md`) The "no Gröbner degeneration" fact is now a theorem with an
@@ -65,39 +65,32 @@ as a degeneration of the determinantal CY3, where flatness is automatic.
    Mathlib: `../cotangent/sr_t1/SrT1/GroebnerObstruction.lean`, theorem
    `no_separating_weight` (compiles, exit 0). A search of 1122 rank-16
    matrices (`11_special_matrix_search.py`) finds **zero** escapes across
-   all sparsity levels — strong evidence the statement is universal (the
-   smoothing is non-toric), though the fully general claim is left as a
-   conjecture (see `PROOF.md`).
+   all sparsity levels — evidence for a universal non-Gröbner statement,
+   though the fully general claim is left as a conjecture (see `PROOF.md`).
 
-## Strategic conclusion
+## Current conclusion
 
-SR(M) is a smoothable degeneration of the determinantal CY3, but it lies
-on the **boundary** of the determinantal component of the Hilbert scheme
-— consistent with "SR schemes appear in boundary components of moduli
-spaces." Hence:
+It is **not known from these computations whether `SR(M)` is smoothable**,
+whether it is a degeneration of the determinantal CY3, or whether it lies
+on the determinantal component of the Hilbert scheme.
 
-- the smoothing is a genuine **flat limit**, not a coordinate/weight
-  Gröbner degeneration and not an exact determinantal presentation;
-- this is precisely why the naive order-by-order lift overshoots
-  (`J : t^∞` changes the special fibre) and why the simple weight search
-  could never close.
+What is known here is negative and method-specific: the tested
+coordinate/weight Gröbner routes fail, the restricted exact
+determinantal searches found no presentation, and the current
+order-by-order candidate is not flat. These facts do not imply one
+another and do not rule out a different flat smoothing.
 
 ## Recommended next experiment
 
-Find the 1-parameter matrix family `A(t)` (entry coefficients depending
-on `t`) whose minor ideal has flat limit exactly `I_SR` at `t=0`:
+Test whether there exists a 1-parameter matrix family `A(t)` whose minor
+ideal has flat limit exactly `I_SR` at `t=0`:
 
 - parametrise `A(t) = A_* + t·B`, with `A_*` a special boundary matrix;
 - require the flat limit `(minors(A(t)) : t^∞)|_{t=0} = I_SR`
   (the limit the user's saturation computes — but now solve for the
   coefficients that make it land on I_SR rather than overshoot);
-- equivalently, identify which directions in `T^1(SR)` (dim 53) point
-  INTO the determinantal locus, and seed the lift with one of those
-  rather than an arbitrary first-order direction.
-
-The determinantal locus is smooth/unobstructed, so a first-order
-direction that is tangent to it lifts to all orders automatically —
-giving the honest flat smoothing.
+- investigate whether any directions in `T^1(SR)` (dim 53) arise as
+  limits of determinantal deformations. Their existence is not known.
 
 ## Files
 

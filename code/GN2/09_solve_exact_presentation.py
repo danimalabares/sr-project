@@ -3,7 +3,7 @@ Step 9.  Solve for a 4x4 matrix A0 of linear forms in x1..x8 whose 16
 cubic 3x3 minors all lie in span(SR monomials) -- i.e. every term of
 every minor is one of the 16 SR generators, with the 16 minors linearly
 independent.  Then  minors(A0) = I_SR  exactly (degrees/dims match), and
-A0 + t*(generic) is a flat smoothing.
+one could then test whether A0 + t*(generic) gives a flat smoothing.
 
 Method: numeric optimisation over the 128 entry-coefficients
 (16 entries x 8 variables).  Residual = the 104 non-SR-monomial

@@ -16,8 +16,8 @@ R=(r0<r1<r2), cols C=(c0<c1<c2) is
 So if the 16 such diagonal products are precisely the 16 SR monomials,
 then in_omega( det ideal ) contains all 16 SR generators, and (matching
 Hilbert functions) equals I_SR.  Perturbing the entries by lower-omega-
-weight linear forms keeps the special fibre = SR(M) while making the
-generic fibre a smooth determinantal CY3 -> an honest flat smoothing.
+weight linear forms would produce a candidate family whose special fibre,
+flatness, and generic-fibre smoothness would still need verification.
 
 This script solves the combinatorial design (find the pattern V).
 

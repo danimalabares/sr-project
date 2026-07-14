@@ -10,8 +10,8 @@ squarefree cubic).  Then
 is a family of 3x3-minor determinantal ideals.  As long as the codim
 stays 4 (the expected/maximal value) the Hilbert function is constant
 (determinantal CM), so the family is FLAT; special fibre = SR(M),
-generic fibre = smooth determinantal CY3.  A genuine smoothing, with NO
-obstruction-lifting and NO weight needed.
+generic fibre would then need to be checked separately. If all these
+conditions held, this would give a smoothing; the script does not prove it.
 
 Construction in two stages:
   (7a) support patterns: 0/1 4x4 matrices for which every 3x3 submatrix

@@ -1,18 +1,18 @@
 """
-Common utilities for the GN2 determinantal-smoothing experiments.
+Common utilities for experiments testing a possible determinantal smoothing.
 
 Goal recap
 ----------
 SR(M) is the Stanley-Reisner ideal of Gruenbaum's 8-vertex 3-sphere:
-16 cubic monomials in x1..x8.  We want to realise SR(M) as a Groebner /
-weight degeneration of the Gulliksen-Negard determinantal CY3 in P^7,
-given by the 16 cubic 3x3 minors of a 4x4 matrix of linear forms.
+16 cubic monomials in x1..x8. We test whether SR(M) can be realised as a
+Groebner/weight degeneration of the Gulliksen-Negard determinantal CY3
+in P^7, given by the 16 cubic 3x3 minors of a 4x4 matrix of linear forms.
 
 If we find a weight omega and a matrix A(x) with
     in_omega( ideal of 3x3 minors of A )  ==  I_SR,
-then the homogenisation is automatically a FLAT family with special
-fibre SR(M) and generic fibre the smooth CY3.  Flatness and smoothness
-come for free; no order-by-order obstruction lifting needed.
+then Groebner homogenisation gives a flat family with special fibre SR(M).
+Smoothness of the chosen generic fibre would still need to be verified.
+No such weight and matrix have been found here.
 
 This module: build minors symbolically, extract supports, and run the
 matching + linear-program search for omega.

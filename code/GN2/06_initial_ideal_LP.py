@@ -15,9 +15,10 @@ Two-part test, for a given 4x4 matrix A of linear forms:
       non-SR monomial m' actually occurring in g_a (all a).  Feasible
       => in_omega(W) = (I_SR)_3.
 
-If (a)+(b) hold for the GENERIC (smooth) matrix, the homogenisation is a
-FLAT family with special fibre SR(M) and smooth generic fibre -- a
-smoothing.  (Ideal-level in_omega = I_SR is then verified in M2, step 7.)
+If (a)+(b) held and an ideal-level check verified in_omega(I) = I_SR,
+Groebner homogenisation would give a flat family with special fibre SR(M).
+Smoothness of the generic fibre would also need verification. The test
+below is negative; it does not construct a family.
 
 Run:  python3 06_initial_ideal_LP.py [seed]
 """
