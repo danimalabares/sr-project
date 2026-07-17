@@ -1,6 +1,6 @@
 # Stanley–Reisner deformation computations
 
-This is a focused snapshot of computations for the deformation theory of
+This is a snapshot of computations for the deformation theory of
 the Stanley–Reisner scheme `SR(M)` associated with Grünbaum and Sreedharan's
 8-vertex triangulated 3-sphere, denoted `M`.
 
