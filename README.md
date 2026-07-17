@@ -47,8 +47,13 @@ directions. Here's a preliminary setup:
 
 - The reward criterion should be the
   dimension of certain torsion module
-  which measures flatness failure (so
-  far all my attempts have failed)
+  which measures flatness failure.
+  (I have already tried several deformation
+  directions ---in `code/cotangent`
+  and `code/more-lifting`---, 
+  non of which give a flat
+  family since at some order they have
+  torsion.)
 
 - I need to set up the statistical method
   that would allow the machine to make
