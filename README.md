@@ -2,7 +2,13 @@
 
 This is a focused snapshot of computations for the deformation theory of
 the Stanley–Reisner scheme `SR(M)` associated with Grünbaum and Sreedharan's
-8-vertex triangulated 3-sphere.
+8-vertex triangulated 3-sphere, denoted `M`.
+
+The objective of the project is to construct a smoothing of this
+Stanley–Reisner variety, that is, a flat family whose special fibre is `SR(M)` and
+whose general fibre is smooth. By a result in Stanley–Reisner theory, such
+a smooth general fibre would be a Calabi–Yau (threefold) since `M` is a triangulation
+of the 3-sphere.
 
 ## The two approaches in this repository
 
@@ -23,6 +29,31 @@ There are two separate deformation attempts:
    the quadratic obstruction equations. They include the sparse formal
    lift and the subsequent flatness tests. The candidate family found by
    this route is not flat, and no smoothing has been constructed.
+
+## Reinforcement learning preliminary setup
+
+(Human written.) 
+I intend to implement a RL machine
+that would explore the space of deformation
+directions. Here's a preliminary setup:
+
+- The sample space is a vector
+  (eta1, eta2,...., etaN) where the i-th
+  entry is i-th order correction of one
+  of the original generators of the
+  varietie's ideal. I have to choose a
+  suitable N and also a finite subset
+  of possible values for choosing the eta's.
+
+- The reward criterion should be the
+  dimension of certain torsion module
+  which measures flatness failure (so
+  far all my attempts have failed)
+
+- I need to set up the statistical method
+  that would allow the machine to make
+  better and better choices for the next
+  action as it gathers more data.
 
 ## Current computational picture
 
