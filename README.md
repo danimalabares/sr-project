@@ -59,6 +59,9 @@ directions. Here's a preliminary setup:
   that would allow the machine to make
   better and better choices for the next
   action as it gathers more data.
+  The action is just choosing another
+  eta-vector from the previously fixed
+  finite sample space.
 
 ## Current computational picture
 
