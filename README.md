@@ -10,6 +10,7 @@ whose general fibre is smooth. By a result in Stanley–Reisner theory, such
 a smooth general fibre would be a Calabi–Yau (threefold) since `M` is a triangulation
 of the 3-sphere.
 
+
 ## The two approaches in this repository
 
 There are two separate deformation attempts:
@@ -62,6 +63,7 @@ directions. Here's a preliminary setup:
   The action is just choosing another
   eta-vector from the previously fixed
   finite sample space.
+
 
 ## Current computational picture
 
