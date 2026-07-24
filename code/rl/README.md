@@ -189,13 +189,32 @@ F_i=f_i+t g_i.
 and there's 16 of them. Now we want
 to add an order-two correction, that is,
 we seek for polynomials of the form
-$$
+```
 F_i^{(2)}=f_i+t g_i+t^2h_i.
-$$
+```
 Although every
-(y\in T^1) $y \in T^1$ satisfies the first-order
-syzygy conditions, not every (y) necessarily
+$y\in T^1$ satisfies the first-order
+syzygy conditions, not every $y$ necessarily
 extends to second order.
+
+The equations for the unknown $h_{i}$ form a
+linear system whose right-hand side depends
+quadratically on the 53 coordinates of $y$.
+
+There are two possibilities:
+
+- the system has a solution, so $y$ lifts
+to second order;
+- the system has no solution, so $y$ is
+obstructed.
+
+The resulting conditions on $y$ are the
+quadratic obstruction equations.
+
+Passing this step does not yet prove that the
+family is flat. It only says that the chosen
+first-order direction survives the first
+obstruction test.
 
 # NEXT STEPS
 
