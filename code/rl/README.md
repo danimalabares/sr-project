@@ -216,6 +216,69 @@ family is flat. It only says that the chosen
 first-order direction survives the first
 obstruction test.
 
+## Elementary exercise
+
+## Elementary exercise
+
+Again, start Sage from the repository root:
+
+```sh
+sage
+```
+
+Then run:
+
+```sage
+load("code/rl/sr_environment.sage")  # Load the deformation environment.
+
+y = vector(K, T1_DIM)                # Start with the zero vector in T^1.
+
+y[0] = 1                             # Choose the first T^1 basis direction.
+
+obstruction = second_order_obstruction(y)
+# Compute the quadratic obstruction to lifting y.
+
+obstruction
+# It should be zero, since y_0 lifts to second order.
+
+result = lift_to_second_order(y)
+# Solve for the 16 second-order corrections h_0, ..., h_15.
+
+result
+# Display the complete structured result of the lifting calculation.
+
+F2 = second_order_generators(y)
+# Construct the 16 generators
+# f_i + t*g_i + t^2*h_i.
+
+F2
+# Display the second-order deformed generators.
+```
+
+Thus `F2` is the order-two analogue of `F` from
+Step 2:
+
+[
+F_i^{(2)}=f_i+t g_i+t^2h_i.
+]
+
+For comparison, the direction
+
+```sage
+y = vector(K, T1_DIM)
+y[0] = 1
+y[23] = 1
+```
+
+is obstructed. In this case,
+
+```sage
+second_order_obstruction(y)
+```
+
+is nonzero, and no tuple `F2` exists.
+
+
 # NEXT STEPS
 
 - Verify higher order lifts/obstructions.
