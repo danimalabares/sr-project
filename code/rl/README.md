@@ -179,6 +179,14 @@ Thus Step 3 verifies that the chosen vector
 deformation.
 
 
+
+# STEP 4: lift to second order
+
+Our current deformation polynomials look like 
+[
+F_i=f_i+t g_i.
+]
+
 # NEXT STEPS
 
 - Verify higher order lifts/obstructions.
