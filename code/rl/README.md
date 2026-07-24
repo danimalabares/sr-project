@@ -413,14 +413,14 @@ F3[2] = F2[2] - 5949*t^3*x3*x5*x8
 and similarly for the other five changed
 generators.
 
-The direction (y) therefore admits a
+The direction $y$ therefore admits a
 genuinely nontrivial third-order lift.
 
 
-This constructs a deformation modulo (t^4).
+This constructs a deformation modulo $t^4$.
 It does not yet prove that the cubic
 polynomials define a flat family over
-(K[t]). That is the purpose of Step 6.
+$K[t]$. That is the purpose of Step 6.
 
 
 
