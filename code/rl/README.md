@@ -273,18 +273,137 @@ F  = x2*x4*x7
 F2 = -x1^2*x4*t^2 + x2*x4*x7
 ```
 
-Thus the direction (y=e_0+e_{30}) requires
-nonzero second-order corrections:
-
-[
-h_5=-x_1^2x_8,\qquad
-h_6=-x_1^2x_5,\qquad
-h_8=-x_1^2x_4.
-]
-
-Unlike the direction (e_0), its second-order
-lift is visibly different from its first-order
+Thus the direction $y=e_{0}+e_{30}$ requires
+nonzero second-order corrections, unlike the
+direction $e_{0}$, its second-order lift is
+visibly different from its first-order
 deformation.
+
+# STEP 5: lift to third order
+
+Our current deformation polynomials look
+like
+
+```text
+F_i^(2) = f_i + t*g_i + t^2*h_i.
+```
+
+There are 16 of them. We now want to add
+an order-three correction. That is, we seek
+polynomials of the form
+
+```text
+F_i^(3) = f_i + t*g_i + t^2*h_i + t^3*q_i.
+```
+
+For now, we use the particular second-order
+corrections $h_{i}$ selected by
+`lift_to_second_order(y)`.
+
+The equations for the unknown $q_{i}$ again
+form a linear system. Its right-hand side is
+determined by the first- and second-order
+data $y$ and $h_{i}$.
+
+There are two possibilities:
+
+- the system has a solution, so the chosen
+  second-order deformation lifts to third
+  order;
+- the system has no solution, so it is
+  obstructed at third order.
+
+This is a much stronger filter than the
+second-order obstruction test. Previous
+computations in the repository found that
+many directions which lift to second order
+already fail at third order.
+
+Passing this step does not yet prove that
+
+```text
+f_i + t*g_i + t^2*h_i + t^3*q_i
+```
+
+defines a flat family over $K[t]$. It only
+constructs a deformation modulo $t^4$.
+
+## Elementary exercise
+
+Again, start Sage from the repository root:
+
+```sh
+sage
+```
+
+Then run:
+
+```sage
+load("code/rl/sr_environment.sage")
+# Load the deformation environment.
+
+y = third_order_demo_direction()
+# Load a verified direction which lifts to
+# third order and has a nonzero order-three
+# correction.
+
+F2 = second_order_generators(y)
+# Construct the second-order generators
+# f_i + t*g_i + t^2*h_i.
+
+obstruction = third_order_obstruction(y)
+# Compute the obstruction to extending the
+# chosen second-order lift to third order.
+
+obstruction
+# The obstruction is zero, so this lift
+# extends to third order.
+
+result = lift_to_third_order(y)
+# Solve for the 16 third-order corrections q_i.
+
+result["third_order_corrections"]
+# Display q_0, ..., q_15.
+
+F3 = result["generators"]
+# Extract the generators
+# f_i + t*g_i + t^2*h_i + t^3*q_i.
+
+for i in range(16):
+    if F2[i] != F3[i]:
+        print("Generator", i)
+        print("F2 =", F2[i])
+        print("F3 =", F3[i])
+        print()
+```
+
+At least one generator will visibly acquire
+a nonzero term of degree three in (t).
+
+Thus `F3` is genuinely different from `F2`:
+
+```
+F_i^{(3)}
+=========
+
+F_i^{(2)}+t^3q_i.
+```
+
+The function
+
+```sage
+third_order_demo_direction()
+```
+
+is only a convenient source of a verified,
+nontrivial example. The same functions can
+be applied to any 53-coordinate vector
+`y` which lifts to second order.
+
+
+
+
+
 
 
 # NEXT STEPS
