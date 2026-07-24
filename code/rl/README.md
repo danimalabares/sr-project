@@ -218,8 +218,6 @@ obstruction test.
 
 ## Elementary exercise
 
-## Elementary exercise
-
 Again, start Sage from the repository root:
 
 ```sh
@@ -233,50 +231,60 @@ load("code/rl/sr_environment.sage")  # Load the deformation environment.
 
 y = vector(K, T1_DIM)                # Start with the zero vector in T^1.
 
-y[0] = 1                             # Choose the first T^1 basis direction.
+y[0] = 1                             # Choose the direction e_0 + e_30.
+y[30] = 1
 
 obstruction = second_order_obstruction(y)
-# Compute the quadratic obstruction to lifting y.
+# Compute the obstruction to lifting y to second order.
 
 obstruction
-# It should be zero, since y_0 lifts to second order.
+# The obstruction is zero, so this direction lifts.
+
+F = first_order_generators(y)
+# Construct the first-order generators f_i + t*g_i.
 
 result = lift_to_second_order(y)
-# Solve for the 16 second-order corrections h_0, ..., h_15.
+# Solve for the second-order corrections h_i.
 
-result
-# Display the complete structured result of the lifting calculation.
+F2 = result["generators"]
+# Extract the generators f_i + t*g_i + t^2*h_i.
 
-F2 = second_order_generators(y)
-# Construct the 16 generators
-# f_i + t*g_i + t^2*h_i.
-
-F2
-# Display the second-order deformed generators.
+for i in range(16):
+    if F[i] != F2[i]:
+        print("Generator", i)
+        print("F  =", F[i])
+        print("F2 =", F2[i])
+        print()
 ```
 
-Thus `F2` is the order-two analogue of `F` from
-Step 2:
+The output includes:
+
+```text
+Generator 5
+F  = x2*x7*x8
+F2 = -x1^2*x8*t^2 + x2*x7*x8
+
+Generator 6
+F  = x2*x5*x7
+F2 = -x1^2*x5*t^2 + x2*x5*x7
+
+Generator 8
+F  = x2*x4*x7
+F2 = -x1^2*x4*t^2 + x2*x4*x7
+```
+
+Thus the direction (y=e_0+e_{30}) requires
+nonzero second-order corrections:
 
 [
-F_i^{(2)}=f_i+t g_i+t^2h_i.
+h_5=-x_1^2x_8,\qquad
+h_6=-x_1^2x_5,\qquad
+h_8=-x_1^2x_4.
 ]
 
-For comparison, the direction
-
-```sage
-y = vector(K, T1_DIM)
-y[0] = 1
-y[23] = 1
-```
-
-is obstructed. In this case,
-
-```sage
-second_order_obstruction(y)
-```
-
-is nonzero, and no tuple `F2` exists.
+Unlike the direction (e_0), its second-order
+lift is visibly different from its first-order
+deformation.
 
 
 # NEXT STEPS
