@@ -429,7 +429,8 @@ $K[t]$. That is the purpose of Step 6.
 
 # NEXT STEPS
 
-- Verify higher order lifts/obstructions.
 - Check for flatness.
+
+codex resume 019f9022-2159-7ff2-8fdd-29ada8c6c769
 
 
