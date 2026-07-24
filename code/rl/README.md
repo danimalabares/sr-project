@@ -328,6 +328,7 @@ f_i + t*g_i + t^2*h_i + t^3*q_i
 defines a flat family over $K[t]$. It only
 constructs a deformation modulo $t^4$.
 
+
 ## Elementary exercise
 
 Again, start Sage from the repository root:
@@ -342,25 +343,33 @@ Then run:
 load("code/rl/sr_environment.sage")
 # Load the deformation environment.
 
-y = third_order_demo_direction()
-# Load a verified direction which lifts to
-# third order and has a nonzero order-three
-# correction.
+y = vector(K, T1_DIM)
+# Start with the zero vector in T^1.
+
+y[0] = 1403
+y[2] = 30586
+y[3] = 25586
+y[19] = 4225
+y[33] = 3849
+y[34] = 8966
+y[41] = 27546
+# Choose an explicit direction known to lift
+# nontrivially to third order.
 
 F2 = second_order_generators(y)
 # Construct the second-order generators
 # f_i + t*g_i + t^2*h_i.
 
 obstruction = third_order_obstruction(y)
-# Compute the obstruction to extending the
-# chosen second-order lift to third order.
+# Compute the obstruction to extending this
+# second-order deformation to third order.
 
 obstruction
-# The obstruction is zero, so this lift
-# extends to third order.
+# The obstruction is zero, so the chosen
+# second-order lift extends to third order.
 
 result = lift_to_third_order(y)
-# Solve for the 16 third-order corrections q_i.
+# Solve for the third-order corrections q_i.
 
 result["third_order_corrections"]
 # Display q_0, ..., q_15.
@@ -377,29 +386,41 @@ for i in range(16):
         print()
 ```
 
-At least one generator will visibly acquire
-a nonzero term of degree three in (t).
+The generators which change from second to
+third order are those with indices
 
-Thus `F3` is genuinely different from `F2`:
-
-```
-F_i^{(3)}
-=========
-
-F_i^{(2)}+t^3q_i.
+```text
+0, 2, 3, 5, 6, 8.
 ```
 
-The function
+Their third-order corrections are
 
-```sage
-third_order_demo_direction()
+```text
+q[0] = -5949*x5*x6*x8
+q[2] = -5949*x3*x5*x8
+q[3] = -5949*x3*x5^2
+q[5] = -5949*x2*x5*x8
+q[6] = -5949*x2*x5^2
+q[8] = -4924*x2*x3*x5
 ```
 
-is only a convenient source of a verified,
-nontrivial example. The same functions can
-be applied to any 53-coordinate vector
-`y` which lifts to second order.
+Thus, for example,
 
+```text
+F3[2] = F2[2] - 5949*t^3*x3*x5*x8
+```
+
+and similarly for the other five changed
+generators.
+
+The direction (y) therefore admits a
+genuinely nontrivial third-order lift.
+
+
+This constructs a deformation modulo (t^4).
+It does not yet prove that the cubic
+polynomials define a flat family over
+(K[t]). That is the purpose of Step 6.
 
 
 
