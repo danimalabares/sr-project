@@ -183,9 +183,19 @@ deformation.
 # STEP 4: lift to second order
 
 Our current deformation polynomials look like 
-[
+```
 F_i=f_i+t g_i.
-]
+```
+and there's 16 of them. Now we want
+to add an order-two correction, that is,
+we seek for polynomials of the form
+$$
+F_i^{(2)}=f_i+t g_i+t^2h_i.
+$$
+Although every
+(y\in T^1) $y \in T^1$ satisfies the first-order
+syzygy conditions, not every (y) necessarily
+extends to second order.
 
 # NEXT STEPS
 
