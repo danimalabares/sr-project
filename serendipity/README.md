@@ -201,3 +201,107 @@ The family is therefore a genuine flat
 one-parameter deformation of the original SR
 scheme, but it is not a smoothing.
 
+
+## Geometric interpretation
+
+The family is flat, but it is not a
+smoothing. It is still extremely singular.
+
+The special fibre at $t=0$ is the original
+Stanley--Reisner scheme. Every nonzero fibre
+is instead isomorphic to the fibre at $t=1$.
+
+Thus the family has the form
+
+```text
+Stanley--Reisner fibre
+          |
+          |  flat deformation
+          v
+one fixed singular threefold
+for every t != 0.
+```
+
+The nonzero fibre still has the expected
+numerical invariants:
+
+```text
+projective dimension: 3
+degree: 20
+Hilbert polynomial: 10/3*t^3 + 14/3*t
+```
+
+However, it is very far from smooth. Its
+singular locus has projective dimension $2$,
+so the threefold is singular along a divisor,
+rather than only at a small number of points.
+
+The scheme-theoretic singular locus is
+nonreduced and has degree $29$. Its reduced
+support has 28 irreducible components:
+
+```text
+27 projective planes
++
+1 quadric surface.
+```
+
+The degrees of the reduced components add up
+as expected:
+
+```text
+27*1 + 2 = 29.
+```
+
+Therefore the general nonzero fibre remains
+highly singular and retains a strong
+combinatorial character. It is not merely a
+threefold with a few isolated singularities
+which might be close to smooth.
+
+At the same time, it should not be identified
+with the original SR fibre. The family gives
+a genuine flat deformation to a different
+singular scheme with the same Hilbert
+polynomial.
+
+The conclusion is:
+
+```text
+flat deformation: yes
+nontrivial change of equations: yes
+smooth generic fibre: no
+smoothing: no
+```
+
+For the original smoothing problem, this
+candidate is therefore unsuccessful.
+
+Its main value is methodological:
+
+* it proves that suitable choices of the
+  second- and third-order corrections can
+  produce an exact flat family;
+* it shows that flatness can depend on the
+  chosen representatives $h_i$ and $q_i$,
+  even when the first-order direction $y$ is
+  fixed;
+* it provides a verified negative example
+  against which future search algorithms can
+  be tested;
+* it shows that the eventual search target
+  must include both exact flatness and
+  smoothness of the nonzero fibre.
+
+The next search should therefore aim for
+
+```text
+valid third-order lift
+        |
+        v
+exact flat family
+        |
+        v
+empty projective singular locus.
+```
+

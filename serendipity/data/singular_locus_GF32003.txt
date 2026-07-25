@@ -1,0 +1,442 @@
+Singular locus of the t=1 fibre over GF(32003)
+empty: False
+affine-cone dimension: 3
+projective dimension: 2
+codimension inside fibre: 1
+degree: 29
+Hilbert series: (19*t^9 + 46*t^8 - 92*t^7 - 18*t^6 + 14*t^5 + 20*t^4 + 19*t^3 + 15*t^2 + 5*t + 1)/(-t^3 + 3*t^2 - 3*t + 1)
+Hilbert polynomial: 29/2*t^2 + 29/2*t + 102
+radical: False
+appears reduced: False
+degree of reduced support: 29
+Hilbert polynomial of reduced support: 29/2*t^2 - 37/2*t + 12
+saturation exponent: 3
+used checked intermediate cache: True
+
+Singular-locus ideal generators:
+  x4*x6*x8
+  x3*x5*x8 + 15633*x3*x7*x8
+  x2*x5*x8 + 15633*x2*x7*x8
+  x1*x3*x8 - 3473*x2*x7*x8
+  x2*x5*x7 - 10285*x3*x4*x8
+  x2*x5*x6
+  x2*x4*x6
+  x1*x4*x6
+  x1*x3*x6
+  x3*x5^2 + 15633*x3*x5*x7
+  x2*x5^2 + 2333*x3*x4*x8
+  x1*x4*x5 - 4457*x4^2*x8
+  x1*x3*x5 - 4457*x3*x4*x8
+  x1*x2*x5 - 4457*x2*x4*x8
+  x1^2*x5 + 10104*x1*x5*x6 - 11022*x1*x5*x7 - 4457*x1*x4*x8 + 12359*x5*x6*x8 + 449*x4*x7*x8 + 6136*x6*x7*x8
+  x1*x3^2 + 3112*x1*x3*x4 + 13061*x2*x3*x5 + 9038*x2*x4*x7
+  x2*x7^2*x8 + 4271*x3*x4*x8^2
+  x2*x6*x7*x8
+  x1*x2*x7*x8 + 15794*x2*x4*x8^2
+  x2*x4^2*x8^2 - 2012*x3*x4^2*x8^2
+  x3*x4*x7^2*x8 + 7812*x3*x4^2*x8^2
+  x3*x4^2*x7*x8
+  x2*x4^2*x7*x8
+  x2*x3*x4*x7*x8
+  x3^2*x4^2*x8
+  x1*x4^2*x7*x8^2 + 15794*x4^3*x8^3
+  x3^2*x4*x7*x8^2
+  x2^2*x4*x7*x8^2
+  x5^2*x6^2*x8^2 + 15633*x5*x6^2*x7*x8^2
+  x1*x5*x6^2*x8^2 + 15633*x1*x6^2*x7*x8^2
+  x4^2*x5^2*x8^2 + 15633*x4^2*x5*x7*x8^2
+  x4^3*x5*x8^2 + 15633*x4^3*x7*x8^2
+  x3*x4^3*x8^2
+  x3^3*x4*x8^2
+  x2*x3^2*x4*x8^2
+  x2^2*x3*x4*x8^2
+  x1^2*x2*x4*x8^2 + 8578*x3*x4^2*x8^3
+  x3^2*x6*x7^2*x8
+  x1*x4^3*x7*x8 + 15794*x4^4*x8^2
+  x1*x5*x6^3*x8 + 9558*x1*x5*x6^2*x7*x8 - 4829*x5*x6^3*x8^2 + 3320*x6^3*x7*x8^2
+  x1*x5^2*x6^2*x8 + 15633*x1*x5*x6^2*x7*x8
+  x1^2*x2*x6^2*x8
+  x1*x5^3*x6*x8 + 15633*x1*x5^2*x6*x7*x8
+  x4*x5^4*x8 + 15633*x4*x5^3*x7*x8
+  x4^2*x5^3*x8 + 15633*x4^2*x5^2*x7*x8
+  x2*x3*x4^3*x8
+  x1*x2*x4^3*x8
+  x1^2*x2*x4^2*x8
+  x2*x3*x4^2*x7^2
+  x2^2*x4^2*x7^2
+  x3*x4^2*x5*x6*x7
+  x3^2*x4*x5*x6*x7
+  x1*x2*x3*x4^2*x7
+  x1*x2^2*x4^2*x7 - 7790*x2^2*x3*x4^2*x8 - 415*x2^2*x4^3*x8
+  x1^2*x2*x4^2*x7 - 11022*x1*x2*x4^2*x7^2
+  x1*x5^3*x6^2 + 812*x1*x5^2*x6^3 + 9558*x1*x5^3*x6*x7 - 15633*x1*x5^2*x6^2*x7 - 4829*x5^3*x6^2*x8 + 15221*x5^2*x6^3*x8 + 3320*x5^2*x6^2*x7*x8 + 7588*x5*x6^3*x7*x8
+  x1^2*x2*x3*x4^2 - 1160*x2^2*x4^3*x8
+  x1^3*x3*x4^2 - 11022*x1^2*x3*x4^2*x7
+  x5*x6^2*x7*x8^3 + 15633*x6^2*x7^2*x8^3
+  x4^2*x5*x7*x8^3 + 15633*x4^2*x7^2*x8^3
+  x5*x6^3*x8^3 + 15633*x6^3*x7*x8^3
+  x5^3*x6*x8^3 + 1709*x4*x5^2*x7*x8^3 - 737*x5^2*x6*x7*x8^3 - 5708*x4*x5*x7^2*x8^3 + 15781*x5*x6*x7^2*x8^3 + 10717*x4^2*x5*x8^4 + 3156*x4^2*x7*x8^4
+  x1*x5^2*x6*x8^3 + 9048*x1^2*x4*x7*x8^3 - 737*x1*x5*x6*x7*x8^3 - 5708*x1*x4*x7^2*x8^3 + 15781*x1*x6*x7^2*x8^3 + 10717*x1*x4^2*x8^4 + 299*x4^2*x7*x8^4
+  x2^3*x4*x8^3
+  x1*x2^2*x4*x8^3
+  x3*x6*x7^3*x8^2
+  x3*x6^2*x7^2*x8^2
+  x1*x6^2*x7^2*x8^2
+  x5*x6^3*x7*x8^2 + 15633*x6^3*x7^2*x8^2
+  x3*x6^3*x7*x8^2
+  x1*x6^3*x7*x8^2
+  x3^2*x6^2*x7*x8^2
+  x1^2*x6^2*x7*x8^2
+  x5^3*x6*x7*x8^2 + 15633*x5^2*x6*x7^2*x8^2
+  x1*x5^2*x6*x7*x8^2 + 15633*x1*x5*x6*x7^2*x8^2
+  x3^3*x6*x7*x8^2
+  x1^3*x6*x7*x8^2 - 11022*x1^2*x6*x7^2*x8^2
+  x4*x5^3*x7*x8^2 + 15633*x4*x5^2*x7^2*x8^2
+  x1^3*x4*x7*x8^2 - 11022*x1^2*x4*x7^2*x8^2 + 15794*x1^2*x4^2*x8^3 + 9502*x4^3*x8^4
+  x2*x3^3*x7*x8^2
+  x2^2*x3^2*x7*x8^2
+  x2^3*x3*x7*x8^2
+  x2*x3*x6^3*x8^2
+  x1*x2*x6^3*x8^2
+  x2*x3^2*x6^2*x8^2
+  x2^2*x3*x6^2*x8^2
+  x1*x2^2*x6^2*x8^2
+  x5^4*x6*x8^2 - 15781*x5^2*x6*x7^2*x8^2
+  x2*x3^3*x6*x8^2
+  x2^2*x3^2*x6*x8^2
+  x1^2*x2^2*x6*x8^2
+  x1^3*x2*x6*x8^2
+  x1*x5^4*x8^2 - 737*x1*x5^3*x7*x8^2 + 15781*x1*x5^2*x7^2*x8^2 - 8914*x4*x5^3*x8^3 + 9003*x4*x5^2*x7*x8^3 + 13354*x4*x5*x7^2*x8^3
+  x3*x6^2*x7^3*x8 + 9558*x3*x6*x7^4*x8
+  x1*x5^2*x6*x7^2*x8 + 812*x1*x5*x6^2*x7^2*x8
+  x1^2*x6^3*x7*x8
+  x5^4*x6*x7*x8 + 812*x5^3*x6^2*x7*x8 + 15633*x5^3*x6*x7^2*x8 - 11195*x5^2*x6^2*x7^2*x8
+  x1*x5^4*x7*x8 + 15633*x1*x5^3*x7^2*x8
+  x4^3*x5^2*x7*x8 + 15633*x4^3*x5*x7^2*x8
+  x4^4*x5*x7*x8 + 15633*x4^4*x7^2*x8
+  x1^3*x4^2*x7*x8 - 11022*x1^2*x4^2*x7^2*x8 + 15794*x1^2*x4^3*x8^2 + 9502*x4^4*x8^3
+  x2^2*x3*x6^3*x8
+  x1*x2^2*x6^3*x8
+  x5^4*x6^2*x8 - 737*x5^3*x6^2*x7*x8 + 15781*x5^2*x6^2*x7^2*x8
+  x2^2*x3^2*x6^2*x8
+  x5^5*x6*x8 - 9613*x5^3*x6^2*x7*x8 - 15781*x5^3*x6*x7^2*x8 + 6059*x5^2*x6^2*x7^2*x8
+  x1*x5^5*x8 - 15781*x1*x5^3*x7^2*x8
+  x2^2*x4^4*x8
+  x2*x4^3*x7^3
+  x2^2*x3*x4*x7^3
+  x2^3*x4*x7^3
+  x3*x4*x5*x6^2*x7^2 + 9558*x3*x4*x5*x6*x7^3
+  x3^2*x4*x6^2*x7^2
+  x2*x3^2*x6^2*x7^2
+  x2^2*x3*x6^2*x7^2
+  x1*x2^2*x6^2*x7^2
+  x3*x4^3*x6*x7^2 - 2481*x3*x4^2*x6^2*x7^2
+  x3^2*x4^2*x6*x7^2
+  x3^3*x4*x6*x7^2
+  x2*x3^3*x6*x7^2
+  x2^2*x3^2*x6*x7^2
+  x1*x5^4*x7^2 + 1624*x1*x5^3*x6*x7^2 - 12719*x1*x5^2*x6^2*x7^2 - 4457*x4*x5^3*x7^2*x8
+  x1*x3*x4^3*x7^2
+  x1*x2*x4^3*x7^2
+  x2*x3^3*x4*x7^2
+  x2^2*x3^2*x4*x7^2
+  x1*x2^2*x3*x4*x7^2
+  x1*x2^3*x4*x7^2
+  x1^2*x2^2*x4*x7^2 - 11022*x1*x2^2*x4*x7^3
+  x1*x5^2*x6^3*x7 + 812*x1*x5*x6^4*x7 + 9558*x1*x5^2*x6^2*x7^2 - 15633*x1*x5*x6^3*x7^2 - 4829*x5^2*x6^3*x7*x8 + 15221*x5*x6^4*x7*x8 + 3320*x5*x6^3*x7^2*x8 + 7588*x6^4*x7^2*x8
+  x2^2*x3*x6^3*x7
+  x1*x2^2*x6^3*x7
+  x1^2*x2*x6^3*x7
+  x3*x4^3*x6^2*x7
+  x3^2*x4^2*x6^2*x7
+  x2^2*x3^2*x6^2*x7
+  x1^2*x2^2*x6^2*x7
+  x4*x5^4*x6*x7 + 812*x4*x5^3*x6^2*x7 + 15633*x4*x5^3*x6*x7^2 - 11195*x4*x5^2*x6^2*x7^2
+  x1*x5^4*x6*x7 + 9141*x1*x5*x6^4*x7 - 737*x1*x5^3*x6*x7^2 - 11195*x1*x5^2*x6^2*x7^2 + 1488*x1*x5*x6^3*x7^2 - 15221*x5^3*x6^2*x7*x8 - 9752*x5*x6^4*x7*x8 - 7588*x5^2*x6^2*x7^2*x8 + 9276*x6^4*x7^2*x8
+  x4^2*x5^3*x6*x7 + 15633*x4^2*x5^2*x6*x7^2
+  x4^3*x5^2*x6*x7 - 2481*x4^2*x5^2*x6^2*x7 + 15633*x4^3*x5*x6*x7^2 + 2163*x4^2*x5*x6^2*x7^2
+  x3^3*x4^2*x6*x7 + 3112*x3^2*x4^3*x6*x7
+  x1*x5^5*x7 + 2204*x1*x5*x6^4*x7 + 1582*x1*x5^3*x6*x7^2 + 2976*x1*x5^2*x6^2*x7^2 + 7858*x1*x5*x6^3*x7^2 + 6294*x5^3*x6^2*x7*x8 + 13883*x5*x6^4*x7*x8 + 5750*x4*x5^3*x7^2*x8 - 15123*x5^2*x6^2*x7^2*x8 - 11407*x6^4*x7^2*x8
+  x2^2*x3*x4^3*x7
+  x1^2*x3*x4^3*x7
+  x2*x3^3*x4^2*x7 + 3112*x2*x3^2*x4^3*x7
+  x2^2*x3^2*x4^2*x7
+  x1^2*x2^2*x3*x4*x7
+  x1^3*x2*x3*x4*x7 - 11022*x1^2*x2*x3*x4*x7^2
+  x1*x5^2*x6^4 - 737*x1*x5*x6^4*x7 + 13201*x1*x5^2*x6^2*x7^2 - 3586*x1*x5*x6^3*x7^2 - 4829*x5^2*x6^4*x8 + 7256*x5^2*x6^3*x7*x8 + 9960*x5*x6^4*x7*x8 + 14416*x5*x6^3*x7^2*x8 - 14612*x6^4*x7^2*x8
+  x4*x5^4*x6^2 - 737*x4*x5^3*x6^2*x7 + 15781*x4*x5^2*x6^2*x7^2
+  x4^2*x5^3*x6^2 + 15633*x4^2*x5^2*x6^2*x7
+  x4^3*x5^2*x6^2 + 15633*x4^3*x5*x6^2*x7
+  x3*x4^3*x5*x6^2
+  x3^2*x4^2*x5*x6^2
+  x4*x5^5*x6 - 9613*x4*x5^3*x6^2*x7 - 15781*x4*x5^3*x6*x7^2 + 6059*x4*x5^2*x6^2*x7^2
+  x1*x5^5*x6 - 15716*x1*x5*x6^4*x7 - 15340*x1*x5^3*x6*x7^2 + 6059*x1*x5^2*x6^2*x7^2 + 8554*x1*x5*x6^3*x7^2 + 15176*x5^3*x6^2*x7*x8 + 13451*x5*x6^4*x7*x8 + 8169*x5^2*x6^2*x7^2*x8 - 12230*x6^4*x7^2*x8
+  x4^2*x5^4*x6 - 15781*x4^2*x5^2*x6*x7^2
+  x3^3*x4^2*x5*x6 + 3112*x3^2*x4^3*x5*x6
+  x2^2*x3*x4^3*x5
+  x2*x3^3*x4^2*x5 + 3112*x2*x3^2*x4^3*x5
+  x2^2*x3^2*x4^2*x5
+  x2^3*x3*x4^2*x5 + 6224*x2^3*x4^3*x5 + 5336*x2^3*x4^3*x7
+  x1*x2^2*x3*x4^3 - 5881*x2^3*x4^3*x5
+  x5^2*x6*x7*x8^4 + 9048*x1*x4*x7^2*x8^4 + 1709*x4*x5*x7^2*x8^4 - 737*x5*x6*x7^2*x8^4 - 5708*x4*x7^3*x8^4 + 15781*x6*x7^3*x8^4 + 10717*x4^2*x7*x8^5
+  x1*x4*x7^3*x8^3 + 15794*x4^2*x7^2*x8^4
+  x5^2*x6*x7^2*x8^3 + 15633*x5*x6*x7^3*x8^3
+  x1*x5*x6*x7^2*x8^3 + 15633*x1*x6*x7^3*x8^3
+  x1^2*x6*x7^2*x8^3 - 11022*x1*x6*x7^3*x8^3
+  x4*x5^2*x7^2*x8^3 + 15633*x4*x5*x7^3*x8^3
+  x1^2*x4*x7^2*x8^3 + 12949*x4^3*x8^5
+  x1*x5^3*x7*x8^3 - 737*x1*x5^2*x7^2*x8^3 + 15781*x1*x5*x7^3*x8^3 - 8914*x4*x5^2*x7*x8^4 + 9003*x4*x5*x7^2*x8^4 + 13354*x4*x7^3*x8^4
+  x2^4*x7*x8^3
+  x2^3*x3*x6*x8^3
+  x1*x2^3*x6*x8^3
+  x1*x5*x6*x7^3*x8^2
+  x1*x5^3*x7^2*x8^2 + 15633*x1*x5^2*x7^3*x8^2
+  x1*x5^3*x7^3*x8 + 12719*x1*x5*x6^2*x7^3*x8 - 4457*x4*x5^2*x7^3*x8^2
+  x1*x6^4*x7^2*x8 - 2613*x1*x5*x6^2*x7^3*x8
+  x5^3*x6^2*x7^2*x8 + 812*x5^2*x6^3*x7^2*x8 + 15633*x5^2*x6^2*x7^3*x8 - 11195*x5*x6^3*x7^3*x8
+  x5^3*x6^3*x7*x8 - 737*x5^2*x6^3*x7^2*x8 + 15781*x5*x6^3*x7^3*x8
+  x1^4*x6^2*x7*x8 - 11022*x1^3*x6^2*x7^2*x8
+  x2^3*x3*x6*x7^3
+  x1*x2^3*x6*x7^3
+  x1*x2^3*x3*x7^3
+  x3*x4^2*x6^3*x7^2
+  x1^2*x2^3*x6*x7^2
+  x1^3*x2^2*x6*x7^2 - 11022*x1^2*x2^2*x6*x7^3
+  x1^2*x2^3*x3*x7^2
+  x1^3*x2^2*x3*x7^2 - 11022*x1^2*x2^2*x3*x7^3
+  x1*x5*x6^5*x7 - 12887*x1*x5*x6^4*x7^2 - 13201*x1*x5*x6^3*x7^3 - 4829*x5*x6^5*x7*x8 - 7256*x5*x6^4*x7^2*x8 + 3320*x6^5*x7^2*x8 - 14416*x6^4*x7^3*x8
+  x4*x5^3*x6^3*x7 + 9558*x4*x5^3*x6^2*x7^2 + 15633*x4*x5^2*x6^3*x7^2 - 1793*x4*x5^2*x6^2*x7^3
+  x4^2*x5^2*x6^3*x7 + 15633*x4^2*x5*x6^3*x7^2
+  x1^4*x2*x6^2*x7 - 11022*x1^3*x2*x6^2*x7^2
+  x2^3*x4^4*x5 - 8185*x2^3*x4^4*x7
+  x4*x5*x7^3*x8^4 + 2481*x5*x6*x7^3*x8^4 + 15633*x4*x7^4*x8^4 - 2163*x6*x7^4*x8^4
+  x1*x6*x7^4*x8^3
+  x1*x5^2*x7^3*x8^3 + 15633*x1*x5*x7^4*x8^3 + 1561*x5*x6*x7^3*x8^4 - 15176*x6*x7^4*x8^4
+  x1*x5^2*x7^4*x8^2 - 4457*x4*x5*x7^4*x8^3
+  x5^2*x6^4*x7^2*x8 + 9558*x5^2*x6^3*x7^3*x8 + 15633*x5*x6^4*x7^3*x8 - 1793*x5*x6^3*x7^4*x8
+  x1*x5*x7^5*x8^3 + 13242*x5*x6*x7^4*x8^4 - 4457*x4*x7^5*x8^4 - 15221*x6*x7^5*x8^4
+
+Radical ideal generators:
+  x2*x5
+  x1*x5 - 4457*x4*x8
+  x1*x3
+  x2*x7*x8
+  x5*x6*x8 + 15633*x6*x7*x8
+  x4*x6*x8
+  x4*x5*x8 + 15633*x4*x7*x8
+  x3*x5*x8 + 15633*x3*x7*x8
+  x3*x4*x8
+  x2*x4*x8
+  x2*x4*x7
+  x2*x4*x6
+  x1*x4*x6
+  x3*x5^2 + 15633*x3*x5*x7
+  x3*x6*x7*x8
+  x1*x6*x7*x8
+  x1*x4*x7*x8 + 15794*x4^2*x8^2
+  x2*x3*x6*x8
+  x1*x2*x6*x8
+  x3*x4*x6*x7
+  x2*x3*x6*x7
+  x1*x2*x6*x7
+  x4*x5^2*x6 + 15633*x4*x5*x6*x7
+  x3*x4*x5*x6
+
+Components actually computed: 28
+component 0: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x7
+  x6
+  x5
+  x3
+component 1: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x7
+  x5
+  x4
+  x3
+component 2: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x6
+  x5
+  x4
+  x3
+component 3: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x5
+  x4
+  x3
+  x2
+component 4: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x5
+  x4
+  x3
+  x1
+component 5: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x6
+  x5
+  x3
+  x2
+component 6: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x5
+  x3
+  x2
+  x1
+component 7: projective plane, projective dimension 2, degree 1, prime=True
+  x7
+  x6
+  x5
+  x4
+  x3
+component 8: projective plane, projective dimension 2, degree 1, prime=True
+  x7
+  x5
+  x4
+  x3
+  x2
+component 9: projective plane, projective dimension 2, degree 1, prime=True
+  x7
+  x5
+  x4
+  x3
+  x1
+component 10: projective plane, projective dimension 2, degree 1, prime=True
+  x6
+  x5
+  x4
+  x3
+  x2
+component 11: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x7
+  x6
+  x5
+  x1
+component 12: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x7
+  x5
+  x4
+  x1
+component 13: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x7
+  x5
+  x2
+  x1
+component 14: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x6
+  x5
+  x4
+  x1
+component 15: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x5
+  x4
+  x2
+  x1
+component 16: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x6
+  x5
+  x2
+  x1
+component 17: projective plane, projective dimension 2, degree 1, prime=True
+  x7
+  x6
+  x5
+  x4
+  x1
+component 18: projective plane, projective dimension 2, degree 1, prime=True
+  x7
+  x5
+  x4
+  x2
+  x1
+component 19: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x6
+  x3
+  x2
+  x1
+component 20: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x4
+  x3
+  x2
+  x1
+component 21: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x5 + 15633*x7
+  x3
+  x2
+  x1
+component 22: projective plane, projective dimension 2, degree 1, prime=True
+  x6
+  x4
+  x3
+  x2
+  x1
+component 23: quadric surface in a linear P^3, projective dimension 2, degree 2, prime=True
+  x1*x7 + 15794*x4*x8
+  x6
+  x5 + 15633*x7
+  x3
+  x2
+component 24: projective plane, projective dimension 2, degree 1, prime=True
+  x5 + 15633*x7
+  x4
+  x3
+  x2
+  x1
+component 25: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x6
+  x5 + 15633*x7
+  x2
+  x1
+component 26: projective plane, projective dimension 2, degree 1, prime=True
+  x8
+  x5 + 15633*x7
+  x4
+  x2
+  x1
+component 27: projective plane, projective dimension 2, degree 1, prime=True
+  x6
+  x5 + 15633*x7
+  x4
+  x2
+  x1
+Full primary decomposition: not computed; the minimal primes above are the verified irreducible components of the reduced support.
+
+GF(32003)-rational projective singular points:
+  (1, 0, 0, 0, 0, 0, 0, 0)
+  (0, 1, 0, 0, 0, 0, 0, 0)
+  (0, 0, 1, 0, 0, 0, 0, 0)
+  (0, 0, 0, 1, 0, 0, 0, 0)
+  (0, 0, 0, 0, 1, 0, 0, 0)
+  (0, 0, 0, 0, 0, 1, 0, 0)
+  (0, 0, 0, 0, 0, 0, 1, 0)
+  (0, 0, 0, 0, 0, 0, 0, 1)
+
+Tangent-space samples:
+  point (1, 0, 0, 0, 0, 0, 0, 0): Jacobian rank 1, affine tangent dimension 7, projective tangent dimension 6
+  point (0, 1, 0, 0, 0, 0, 0, 0): Jacobian rank 0, affine tangent dimension 8, projective tangent dimension 7
+  point (0, 0, 1, 0, 0, 0, 0, 0): Jacobian rank 1, affine tangent dimension 7, projective tangent dimension 6
+  point (0, 0, 0, 1, 0, 0, 0, 0): Jacobian rank 1, affine tangent dimension 7, projective tangent dimension 6
+  point (0, 0, 0, 0, 1, 0, 0, 0): Jacobian rank 2, affine tangent dimension 6, projective tangent dimension 5
+  point (0, 0, 0, 0, 0, 1, 0, 0): Jacobian rank 0, affine tangent dimension 8, projective tangent dimension 7
+  point (0, 0, 0, 0, 0, 0, 1, 0): Jacobian rank 0, affine tangent dimension 8, projective tangent dimension 7
+  point (0, 0, 0, 0, 0, 0, 0, 1): Jacobian rank 0, affine tangent dimension 8, projective tangent dimension 7
+
+Runtimes (seconds):
+  construct_and_saturate: 0.018569
+  basic_invariants: 0.034408
+  radical: 1.760784
+  minimal_primes: 0.159215
+  rational_point_search: 0.018367
+  total: 2.635455
