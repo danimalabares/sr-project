@@ -388,9 +388,7 @@ After Step 4, we have 16 polynomials of the
 form
 
 ```text
-F_i^{(3)}
-=
-f_i+t g_i+t^2h_i+t^3q_i.
+F_i^{(3)} = f_i+t g_i+t^2h_i+t^3q_i.
 ```
 
 These polynomials define a valid deformation
@@ -431,7 +429,7 @@ candidate considered by the search machine.
 
 Instead, we first use a cheaper test.
 
-## The low-degree test
+## STEP 5.1 The low-degree test
 
 Choose an $x$-degree $d$.
 
@@ -574,11 +572,213 @@ passes_sampled_test
 
 where `passes_sampled_test` means only that
 the tested low-degree defect is zero.
+That is, when `total_defect` is zero we
+have flatness in this degree. Also, `passes_sampled_test`
+literally says "Ture" when we have
+flatness in this degree.
 
 The purpose of this step is to give the search
 machine a fast numerical reward. The best
 candidates will later be checked using the
 exact and more expensive flatness test.
+
+
+## STEP 5.2: the exact flatness test
+
+Candidates which score well in Step 5.1 now
+receive a more expensive test.
+
+The 16 cubic generators define the ideal
+
+```text
+J=(F_0^{(3)},\ldots,F_{15}^{(3)})
+```
+
+inside
+
+```text
+K[t,x_1,\ldots,x_8].
+```
+
+We compute the colon ideal
+
+```text
+J:t.
+```
+
+This ideal contains all polynomials $u$ such
+that $tu$ belongs to $J$.
+
+We then compare
+
+```text
+J:t
+```
+
+with
+
+```text
+J.
+```
+
+There are two possibilities.
+
+### Flat candidate
+
+If
+
+```text
+J:t=J,
+```
+
+then no $t$-torsion exists. The family passes
+the exact flatness test near $t=0$.
+
+This is much stronger than obtaining score
+zero in Step 5.1.
+
+### Nonflat candidate
+
+If
+
+```text
+J:t \neq J,
+```
+
+then there exists a polynomial $u$ such that
+
+```text
+u \notin J
+```
+
+but
+
+```text
+tu \in J.
+```
+
+The polynomial $u$ is called a
+$t$-torsion witness. It proves that the
+candidate family is not flat.
+
+When a candidate fails, we may perform further
+expensive calculations:
+
+* compute the full saturation $J:t^\infty$;
+* set $t=0$ in the saturated ideal;
+* compare the resulting special fibre with
+  the original SR ideal;
+* list the extra equations which appear.
+
+These additional calculations explain how the
+candidate fails. They are not necessary merely
+to decide whether it is flat.
+
+For efficiency, the search pipeline is:
+
+```text
+cheap low-degree test
+        |
+        v
+exact colon test for good candidates
+        |
+        v
+full saturation analysis only when useful
+```
+
+## Elementary exercise
+
+Again, start Sage from the repository root:
+
+```sh
+sage
+```
+
+Then run:
+
+```sage
+load("code/rl/sr_environment.sage")
+# Load the deformation environment.
+
+y = vector(K, T1_DIM)
+# Start with the zero vector in T^1.
+
+y[0] = 1403
+y[2] = 30586
+y[3] = 25586
+y[19] = 4225
+y[33] = 3849
+y[34] = 8966
+y[41] = 27546
+# Choose the explicit direction from Step 4.
+
+F3 = third_order_generators(y)
+# Construct the 16 cubic candidate generators.
+
+cheap = low_degree_flatness_diagnostic(
+    F3,
+    degrees=(4, 5),
+)
+# Run the cheap test first.
+
+cheap
+# This candidate has total defect zero in
+# degrees 4 and 5, so it deserves the exact
+# test.
+
+exact = exact_flatness_diagnostic(F3)
+# Compute J:t and compare it with J.
+
+exact
+# Display the exact flatness verdict and,
+# when nonflat, a t-torsion witness.
+```
+
+The result should contain at least
+
+```text
+flat
+t_saturated
+torsion_witness
+```
+
+Here `t_saturated` means that
+
+```text
+J:t=J.
+```
+
+Therefore:
+
+* `flat = True` means that the candidate
+  passes the exact flatness test;
+* `flat = False` means that a $t$-torsion
+  witness was found.
+
+To obtain a more detailed explanation of a
+failure, run
+
+```sage
+exact = exact_flatness_diagnostic(
+    F3,
+    analyze_failure=True,
+)
+```
+
+This may additionally compute
+
+```text
+J:t^\infty
+```
+
+and compare its special fibre with the
+original SR ideal.
+
+This detailed analysis is substantially more
+expensive and should not run during every
+search iteration.
+
+
 
 
 
