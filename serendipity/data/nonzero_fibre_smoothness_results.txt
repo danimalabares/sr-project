@@ -1,0 +1,10 @@
+Nonzero fibre smoothness samples over GF(32003)
+requested values: (1, 2, 3, 5, 7)
+tested values: (1,)
+skipped values: (2, 3, 5, 7)
+all nonzero fibres diagonally isomorphic: True
+variable weights: (2, 1, 0, 0, -1, 2, 2, 0)
+generator weights: (4, 2, 2, 1, 0, 3, 2, 2, 3, 3, 4, 1, 2, 4, 1, 2)
+t=1: smooth=False, runtime=121.461708 seconds
+The tested t=1 fibre is singular, and the verified integer rescaling shows that every nonzero fibre, including the geometric generic fibre, is singular.
+total runtime: 121.464986 seconds

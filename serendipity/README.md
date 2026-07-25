@@ -92,9 +92,112 @@ This does not yet prove that the generic fibre
 is singular. It only proves that this
 particular nonzero fibre is singular.
 
-The next step is to test other nonzero values
-of $t$, or to compute the relative singular
-locus of the entire family and determine
-which values of $t$ correspond to singular
+## Generic-fibre smoothness and rescaling
+
+A singular fibre at $t=1$ would not normally
+settle generic smoothness: singularity can
+occur at isolated parameter values. In the
+other direction, finding even one smooth
+nonzero fibre would prove that the generic
+fibre is smooth, because smoothness is an
+open condition.
+
+The script `check_fibre_rescaling.sage`
+tests whether diagonal variable weights
+$w_j$ and generator weights $r_i$ make
+every term $c t^k x^a$ of $F_i$ satisfy
+
+```text
+k + a_1 w_1 + ... + a_8 w_8 = r_i.
+```
+
+When integer weights exist, substituting
+$x_j=t^{w_j}X_j$ identifies all nonzero
+fibres by a diagonal rescaling. Rational
+weights would give the same conclusion
+after a finite base change. Failure to find
+such weights would not prove that the fibres
+are non-isomorphic.
+
+For this family, verified integer weights do
+exist. Consequently the singularity found
+at $t=1$ persists geometrically on every
+nonzero fibre and on the generic fibre.
+Without this rescaling result, several
+singular samples alone would still not prove
+generic singularity.
+
+The smoothness calculation is available as
+`test_fibre_smoothness(t_value)` in
+`test_smoothness.sage`. The sampling script
+uses the rescaling result and therefore does
+not repeat the expensive Jacobian calculation
+at redundant parameter values.
+
+Run:
+
+```sh
+sage serendipity/check_fibre_rescaling.sage
+sage serendipity/test_nonzero_fibres.sage
+```
+
+## All nonzero fibres are singular 😭😭
+
+The singularity of the fibre at $t=1$ could
+have been special to that particular value of
+$t$.
+
+To check this, we looked for a diagonal change
+of variables relating the different nonzero
 fibres.
+
+The calculation found the integer weights
+
+```text
+(w_1,\ldots,w_8)
+=
+(2,1,0,0,-1,2,2,0).
+```
+
+For each generator $F_{i}$, there is also an
+integer $r_{i}$ such that
+
+```text
+F_i(u,u^{w_1}X_1,\ldots,u^{w_8}X_8)
+=
+u^{r_i}F_i(1,X_1,\ldots,X_8).
+```
+
+The generator weights are
+
+```text
+(r_0,\ldots,r_{15})
+=
+(4,2,2,1,0,3,2,2,3,3,4,1,2,4,1,2).
+```
+
+These identities were verified directly in a
+Laurent polynomial ring.
+
+The negative weight $w_{5}=-1$ causes no problem
+when $u\neq0$, because then $u$ is invertible.
+
+Therefore every fibre with $t\neq0$ is
+diagonally isomorphic to the fibre at $t=1$.
+
+Since the fibre at $t=1$ is singular, every
+nonzero fibre is singular. In particular, the
+geometric generic fibre is singular.
+
+Thus the final conclusion for this family is:
+
+```text
+flat family: yes
+smooth generic fibre: no
+smoothing: no
+```
+
+The family is therefore a genuine flat
+one-parameter deformation of the original SR
+scheme, but it is not a smoothing.
 
