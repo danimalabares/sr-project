@@ -302,17 +302,9 @@ load("code/rl/sr_environment.sage")
 # Load the deformation environment.
 
 y = vector(K, T1_DIM)
-# Start with the zero vector in T^1.
-
-y[0] = 1403
-y[2] = 30586
-y[3] = 25586
-y[19] = 4225
-y[33] = 3849
-y[34] = 8966
-y[41] = 27546
-# Choose an explicit direction known to lift
-# nontrivially to third order.
+y[0] = 1
+# Choose a simple direction which reaches
+# third order under the checked-in machinery.
 
 F2 = second_order_generators(y)
 # Construct the second-order generators
@@ -343,37 +335,6 @@ for i in range(16):
         print("F3 =", F3[i])
         print()
 ```
-
-The generators which change from second to
-third order are those with indices
-
-```text
-0, 2, 3, 5, 6, 8.
-```
-
-Their third-order corrections are
-
-```text
-q[0] = -5949*x5*x6*x8
-q[2] = -5949*x3*x5*x8
-q[3] = -5949*x3*x5^2
-q[5] = -5949*x2*x5*x8
-q[6] = -5949*x2*x5^2
-q[8] = -4924*x2*x3*x5
-```
-
-Thus, for example,
-
-```text
-F3[2] = F2[2] - 5949*t^3*x3*x5*x8
-```
-
-and similarly for the other five changed
-generators.
-
-The direction $y$ therefore admits a
-genuinely nontrivial third-order lift.
-
 
 This constructs a deformation modulo $t^4$.
 It does not yet prove that the cubic
@@ -518,16 +479,9 @@ load("code/rl/sr_environment.sage")
 # Load the deformation environment.
 
 y = vector(K, T1_DIM)
-# Start with the zero vector in T^1.
-
-y[0] = 1403
-y[2] = 30586
-y[3] = 25586
-y[19] = 4225
-y[33] = 3849
-y[34] = 8966
-y[41] = 27546
-# Choose the explicit direction from Step 4.
+y[0] = 1
+# Choose a direction accepted by the
+# third-order lifting interface.
 
 F3 = third_order_generators(y)
 # Construct its 16 cubic candidate generators.
@@ -692,16 +646,9 @@ load("code/rl/sr_environment.sage")
 # Load the deformation environment.
 
 y = vector(K, T1_DIM)
-# Start with the zero vector in T^1.
-
-y[0] = 1403
-y[2] = 30586
-y[3] = 25586
-y[19] = 4225
-y[33] = 3849
-y[34] = 8966
-y[41] = 27546
-# Choose the explicit direction from Step 4.
+y[0] = 1
+# Choose a direction accepted by the
+# third-order lifting interface.
 
 F3 = third_order_generators(y)
 # Construct the 16 cubic candidate generators.
@@ -713,9 +660,8 @@ cheap = low_degree_flatness_diagnostic(
 # Run the cheap test first.
 
 cheap
-# This candidate has total defect zero in
-# degrees 4 and 5, so it deserves the exact
-# test.
+# Inspect the sampled defect before deciding
+# whether to run the exact test.
 
 exact = exact_flatness_diagnostic(F3)
 # Compute J:t and compare it with J.
@@ -776,4 +722,3 @@ search iteration.
 # Local codex session 
 
 codex resume 019f9022-2159-7ff2-8fdd-29ada8c6c769
-

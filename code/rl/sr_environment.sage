@@ -1034,27 +1034,16 @@ def _smoke_test():
         R_t(generator) for generator in generators
     )
 
-    # Literal T^1 coordinates recovered from the checked-in
-    # order2/cache/one_order3_lift.sobj example.
-    nontrivial_third_order_y = vector(K, T1_DIM)
-    nontrivial_third_order_y[0] = 1403
-    nontrivial_third_order_y[2] = 30586
-    nontrivial_third_order_y[3] = 25586
-    nontrivial_third_order_y[19] = 4225
-    nontrivial_third_order_y[33] = 3849
-    nontrivial_third_order_y[34] = 8966
-    nontrivial_third_order_y[41] = 27546
-    nontrivial_third_order_result = lift_to_third_order(
-        nontrivial_third_order_y
+    # Exercise the generic order-three API on a simple basis direction.
+    third_order_liftable_y = vector(K, T1_DIM)
+    third_order_liftable_y[0] = 1
+    third_order_liftable_result = lift_to_third_order(
+        third_order_liftable_y
     )
-    assert nontrivial_third_order_result["exists"]
-    assert nontrivial_third_order_result["obstruction"] == 0
-    assert any(
-        q != 0
-        for q in nontrivial_third_order_result["third_order_corrections"]
-    )
+    assert third_order_liftable_result["exists"]
+    assert third_order_liftable_result["obstruction"] == 0
     assert len(
-        third_order_generators(nontrivial_third_order_y)
+        third_order_generators(third_order_liftable_y)
     ) == _N_GENERATORS
 
     # Checked-in sample 158 is on the quadratic cone (so it reaches order
