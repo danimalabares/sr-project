@@ -610,16 +610,7 @@ This ideal contains all polynomials $u$ such
 that $tu$ belongs to $J$.
 
 We then compare
-
-```text
-J:t
-```
-
-with
-
-```text
-J.
-```
+`J:t` with `J`.
 
 There are two possibilities.
 

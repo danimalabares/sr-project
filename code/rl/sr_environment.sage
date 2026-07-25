@@ -1,6 +1,7 @@
 """Reusable first-order deformation space for the Stanley--Reisner example."""
 
 import pickle
+import time
 from pathlib import Path
 
 from sage.all import GF, PolynomialRing, load, matrix, prod, vector
@@ -818,6 +819,161 @@ def _exact_low_degree_rank(cubic_generators, degree):
     ).rank()
 
 
+_EXACT_RING = PolynomialRing(
+    K, ["t"] + ["x%d" % i for i in range(1, 9)], order="degrevlex"
+)
+_exact_t = _EXACT_RING.gen(0)
+_exact_x = _EXACT_RING.gens()[1:]
+_EXACT_SPECIAL_RING = PolynomialRing(
+    K, ["x%d" % i for i in range(1, 9)], order="degrevlex"
+)
+_exact_special_x = _EXACT_SPECIAL_RING.gens()
+
+
+def _monomial_from_exponents(ring_variables, exponents):
+    return prod(
+        variable**int(exponent)
+        for variable, exponent in zip(ring_variables, exponents)
+    )
+
+
+def _build_exact_family_ideal(cubic_generators):
+    """Coerce validated R[t] cubics into K[t,x1,...,x8]."""
+    _, parsed_generators = _parse_cubic_generators(cubic_generators)
+    exact_generators = []
+    for generator_terms in parsed_generators:
+        exact_generator = _EXACT_RING.zero()
+        for t_degree, x_exponents, coefficient in generator_terms:
+            exact_generator += (
+                _EXACT_RING(coefficient)
+                * _exact_t**t_degree
+                * _monomial_from_exponents(_exact_x, x_exponents)
+            )
+        exact_generators.append(exact_generator)
+    return tuple(exact_generators), _EXACT_RING.ideal(exact_generators)
+
+
+def _specialize_exact_ideal_at_t_zero(exact_ideal):
+    """Specialize generators of an exact family ideal at t=0."""
+    specialized_generators = []
+    for generator in exact_ideal.gens():
+        specialized = _EXACT_SPECIAL_RING.zero()
+        for exponents, coefficient in _EXACT_RING(generator).dict().items():
+            exponents = tuple(int(e) for e in exponents)
+            if exponents[0] == 0:
+                specialized += (
+                    _EXACT_SPECIAL_RING(coefficient)
+                    * _monomial_from_exponents(
+                        _exact_special_x, exponents[1:]
+                    )
+                )
+        specialized_generators.append(specialized)
+    return _EXACT_SPECIAL_RING.ideal(specialized_generators)
+
+
+def _exact_special_sr_ideal():
+    return _EXACT_SPECIAL_RING.ideal([
+        _monomial_from_exponents(_exact_special_x, exponents)
+        for exponents in _generator_exponents
+    ])
+
+
+def _verified_torsion_witness(ideal, colon_by_t):
+    """Find and verify u in (J:t)\\J with t*u in J."""
+    ideal_groebner_basis = ideal.groebner_basis()
+    for colon_generator in colon_by_t.gens():
+        witness = _EXACT_RING(colon_generator).reduce(ideal_groebner_basis)
+        if witness == 0:
+            continue
+        if _EXACT_RING(_exact_t * witness).reduce(ideal_groebner_basis) != 0:
+            continue
+        return witness
+    raise RuntimeError("J:t differs from J but no verified torsion witness found")
+
+
+def exact_flatness_diagnostic(cubic_generators, analyze_failure=False):
+    """Test J:t=J exactly; optional analysis saturates and compares fibres."""
+    timings = {}
+
+    started = time.perf_counter()
+    exact_generators, ideal = _build_exact_family_ideal(cubic_generators)
+    timings["construction_seconds"] = time.perf_counter() - started
+
+    started = time.perf_counter()
+    colon_by_t = ideal.quotient(_EXACT_RING.ideal(_exact_t))
+    t_saturated = colon_by_t == ideal
+    timings["colon_seconds"] = time.perf_counter() - started
+
+    torsion_witness = None
+    if not t_saturated:
+        started = time.perf_counter()
+        torsion_witness = _verified_torsion_witness(ideal, colon_by_t)
+        timings["witness_seconds"] = time.perf_counter() - started
+    else:
+        timings["witness_seconds"] = 0.0
+
+    result = {
+        "flat": t_saturated,
+        "t_saturated": t_saturated,
+        "torsion_witness": torsion_witness,
+        "ideal": ideal,
+        "colon_by_t": colon_by_t,
+        "timings": timings,
+    }
+
+    if analyze_failure and not t_saturated:
+        started = time.perf_counter()
+        saturation = ideal
+        next_colon = colon_by_t
+        saturation_steps = 0
+        while next_colon != saturation:
+            saturation = next_colon
+            saturation_steps += 1
+            next_colon = saturation.quotient(_EXACT_RING.ideal(_exact_t))
+
+        special_fibre = _specialize_exact_ideal_at_t_zero(saturation)
+        sr_ideal = _exact_special_sr_ideal()
+        sr_in_special = all(
+            generator in special_fibre for generator in sr_ideal.gens()
+        )
+        special_in_sr = all(
+            generator in sr_ideal for generator in special_fibre.gens()
+        )
+
+        sr_groebner_basis = sr_ideal.groebner_basis()
+        extra_equations = []
+        for generator in special_fibre.gens():
+            remainder = _EXACT_SPECIAL_RING(generator).reduce(
+                sr_groebner_basis
+            )
+            if remainder != 0 and remainder not in extra_equations:
+                extra_equations.append(remainder)
+
+        timings["failure_analysis_seconds"] = (
+            time.perf_counter() - started
+        )
+        result.update({
+            "saturation": saturation,
+            "saturation_steps": saturation_steps,
+            "special_fibre": special_fibre,
+            "special_fibre_equal": sr_in_special and special_in_sr,
+            "sr_in_special_fibre": sr_in_special,
+            "special_fibre_in_sr": special_in_sr,
+            "extra_special_fibre_equations": tuple(extra_equations),
+            "extra_equation_count": len(extra_equations),
+        })
+
+    return result
+
+
+def exact_flatness_score(y, analyze_failure=False):
+    """Lift y cubically and apply the exact J:t=J diagnostic unchanged."""
+    return exact_flatness_diagnostic(
+        third_order_generators(y),
+        analyze_failure=analyze_failure,
+    )
+
+
 def _smoke_test():
     assert tuple(original_ideal().gens()) == generators
     zero_y = [0] * T1_DIM
@@ -930,5 +1086,8 @@ def _smoke_test():
     print("sr_environment smoke test passed")
 
 
-if __name__ == "__main__":
+if (
+    __name__ == "__main__"
+    and not globals().get("_SR_ENVIRONMENT_SKIP_SMOKE", False)
+):
     _smoke_test()
