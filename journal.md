@@ -93,3 +93,14 @@ reward should be in the SR project.
 
 ## Deformations of CY literature review (AI-written)
 
+
+# July 25, 2026
+
+Serendipity. While writing Step 5 of my
+RL machine, which would test for flatness
+of a given order-three-liftable deformation
+direction, we found by chance in the
+example computations a flat family!
+
+Unfortunately the general fibre is still
+far from smooth.
