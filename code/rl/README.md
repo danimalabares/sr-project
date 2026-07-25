@@ -773,9 +773,7 @@ search iteration.
 
 
 
-# NEXT STEPS
-
-- Check for flatness.
+# Local codex session 
 
 codex resume 019f9022-2159-7ff2-8fdd-29ada8c6c769
 
