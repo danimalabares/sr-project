@@ -382,6 +382,203 @@ $K[t]$. That is the purpose of Step 5.
 
 
 
+# STEP 5: measure the flatness defect
+
+After Step 4, we have 16 polynomials of the
+form
+
+```text
+F_i^{(3)}
+=
+f_i+t g_i+t^2h_i+t^3q_i.
+```
+
+These polynomials define a valid deformation
+modulo $t^4$.
+
+We now treat the same polynomials as exact
+polynomials in
+
+```text
+K[t,x_1,\ldots,x_8].
+```
+
+They generate an ideal
+
+```text
+J=(F_0^{(3)},\ldots,F_{15}^{(3)}).
+```
+
+We want to know whether this family is flat.
+
+The exact test would be
+
+```text
+J:t=J.
+```
+
+This means that there is no polynomial
+$u\notin J$ for which $tu\in J$.
+
+Such a polynomial $u$ would be
+$t$-torsion, and its presence would show that
+the family is not flat.
+
+Unfortunately, computing $J:t$ exactly can
+require an expensive Gröbner-basis
+calculation. This is too slow to run for every
+candidate considered by the search machine.
+
+Instead, we first use a cheaper test.
+
+## The low-degree test
+
+Choose an $x$-degree $d$.
+
+We consider all degree-$d$ polynomials which
+are obtained by multiplying the 16 generators
+$F_i^{(3)}$ by monomials.
+
+For example, since every $F_i^{(3)}$ has
+$x$-degree 3, to study degree 4 we multiply
+them by
+
+```text
+x_1,\ldots,x_8.
+```
+
+We write the resulting polynomials as rows of
+a matrix $A_d(t)$.
+
+We then compare two ranks:
+
+* the rank at $t=0$, which describes the
+  original SR fibre;
+* the rank at several nonzero values of $t$,
+  which describes nearby fibres.
+
+The degree-$d$ defect is
+
+```text
+delta_d
+=
+sampled generic rank
+-
+rank at t=0.
+```
+
+If $\delta_d>0$, the family has acquired
+additional relations away from $t=0$. This
+detects a flatness defect in degree $d$.
+
+We combine the tested degrees using
+
+```text
+total defect
+=
+sum of delta_d over the tested degrees.
+```
+
+The score used by the search machine is
+
+```text
+score = - total defect.
+```
+
+Therefore:
+
+* score $0$ is best;
+* a more negative score means that more
+  low-degree torsion was detected.
+
+This is only a fast diagnostic.
+
+A score of $0$ does **not** prove that the
+family is flat. It means only that no defect
+was detected in the degrees and values of $t$
+which were tested.
+
+Promising candidates must later pass the exact
+test
+
+```text
+J:t=J.
+```
+
+## Elementary exercise
+
+Again, start Sage from the repository root:
+
+```sh
+sage
+```
+
+Then run:
+
+```sage
+load("code/rl/sr_environment.sage")
+# Load the deformation environment.
+
+y = vector(K, T1_DIM)
+# Start with the zero vector in T^1.
+
+y[0] = 1403
+y[2] = 30586
+y[3] = 25586
+y[19] = 4225
+y[33] = 3849
+y[34] = 8966
+y[41] = 27546
+# Choose the explicit direction from Step 4.
+
+F3 = third_order_generators(y)
+# Construct its 16 cubic candidate generators.
+
+diagnostic = low_degree_flatness_diagnostic(
+    F3,
+    degrees=(4, 5),
+)
+# Measure the flatness defect in x-degrees
+# 4 and 5.
+
+diagnostic
+# Display the ranks, defects, and total score.
+```
+
+The convenience function
+
+```sage
+diagnostic = low_degree_flatness_score(
+    y,
+    degrees=(4, 5),
+)
+```
+
+performs the same calculation directly from
+the vector $y$.
+
+The result contains, for every tested degree:
+
+* the rank at $t=0$;
+* the ranks at the sampled nonzero values of
+  $t$;
+* the detected defect $\delta_d$.
+
+It also reports
+
+```text
+total_defect
+score
+passes_sampled_test
+```
+
+where `passes_sampled_test` means only that
+the tested low-degree defect is zero.
+
+The purpose of this step is to give the search
+machine a fast numerical reward. The best
+candidates will later be checked using the
+exact and more expensive flatness test.
 
 
 

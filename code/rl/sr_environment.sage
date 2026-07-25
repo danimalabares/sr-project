@@ -3,7 +3,7 @@
 import pickle
 from pathlib import Path
 
-from sage.all import GF, PolynomialRing, load, prod, vector
+from sage.all import GF, PolynomialRing, load, matrix, prod, vector
 
 
 K = GF(32003)
@@ -617,6 +617,207 @@ def third_order_generators(y):
     return result["generators"]
 
 
+_LOW_DEGREE_MONOMIAL_CACHE = {}
+
+
+def _degree_exponent_tuples(nvars, degree):
+    """Return all exponent tuples of a fixed total degree."""
+    if nvars == 1:
+        return [(degree,)]
+    tuples = []
+    for first_exponent in range(degree + 1):
+        for rest in _degree_exponent_tuples(nvars - 1, degree - first_exponent):
+            tuples.append((first_exponent,) + rest)
+    return tuples
+
+
+def _low_degree_basis_data(degree):
+    """Cache multiplier/target monomials and target-column indices."""
+    degree = int(degree)
+    if degree < 3:
+        raise ValueError("flatness diagnostic degrees must be at least 3")
+    if degree not in _LOW_DEGREE_MONOMIAL_CACHE:
+        multipliers = tuple(_degree_exponent_tuples(len(_x), degree - 3))
+        columns = tuple(_degree_exponent_tuples(len(_x), degree))
+        _LOW_DEGREE_MONOMIAL_CACHE[degree] = {
+            "multipliers": multipliers,
+            "columns": columns,
+            "column_index": {
+                exponents: index for index, exponents in enumerate(columns)
+            },
+        }
+    return _LOW_DEGREE_MONOMIAL_CACHE[degree]
+
+
+def _parse_cubic_generators(cubic_generators):
+    """Coerce generators to R[t] and record sparse (t-degree, x-exp, coeff)."""
+    cubic_generators = tuple(cubic_generators)
+    if len(cubic_generators) != _N_GENERATORS:
+        raise ValueError(
+            "expected %d cubic generators, got %d"
+            % (_N_GENERATORS, len(cubic_generators))
+        )
+
+    parsed = []
+    coerced = []
+    for generator_index, candidate in enumerate(cubic_generators):
+        try:
+            candidate = R_t(candidate)
+        except (TypeError, ValueError) as error:
+            raise ValueError(
+                "generator %d does not coerce into %s"
+                % (generator_index, R_t)
+            ) from error
+        if candidate == 0:
+            raise ValueError("generator %d is zero, not a cubic" % generator_index)
+
+        terms = []
+        for t_degree, x_polynomial in enumerate(candidate.list()):
+            for x_exponents, coefficient in R(x_polynomial).dict().items():
+                x_exponents = tuple(int(e) for e in x_exponents)
+                if sum(x_exponents) != 3:
+                    raise ValueError(
+                        "generator %d has a term of x-degree %d, expected 3"
+                        % (generator_index, sum(x_exponents))
+                    )
+                coefficient = K(coefficient)
+                if coefficient:
+                    terms.append((t_degree, x_exponents, coefficient))
+        parsed.append(tuple(terms))
+        coerced.append(candidate)
+    return tuple(coerced), tuple(parsed)
+
+
+def _evaluated_generator_terms(parsed_generators, t_value, base_ring):
+    """Evaluate t in the sparse generator representation."""
+    evaluated = []
+    t_value = base_ring(t_value)
+    for generator_terms in parsed_generators:
+        x_terms = {}
+        for t_degree, x_exponents, coefficient in generator_terms:
+            value = base_ring(coefficient) * t_value**t_degree
+            if value:
+                x_terms[x_exponents] = (
+                    x_terms.get(x_exponents, base_ring.zero()) + value
+                )
+        evaluated.append({
+            exponents: coefficient
+            for exponents, coefficient in x_terms.items()
+            if coefficient
+        })
+    return evaluated
+
+
+def _low_degree_flatness_matrix(parsed_generators, degree, t_value, base_ring=K):
+    """Build A_d(t_value) directly from exponent tuples."""
+    basis = _low_degree_basis_data(degree)
+    multipliers = basis["multipliers"]
+    column_index = basis["column_index"]
+    evaluated = _evaluated_generator_terms(
+        parsed_generators, t_value, base_ring
+    )
+
+    entries = {}
+    row = 0
+    for generator_terms in evaluated:
+        for multiplier in multipliers:
+            for generator_exponents, coefficient in generator_terms.items():
+                product_exponents = tuple(
+                    a + b
+                    for a, b in zip(multiplier, generator_exponents)
+                )
+                column = column_index[product_exponents]
+                key = (row, column)
+                entries[key] = entries.get(key, base_ring.zero()) + coefficient
+                if entries[key] == 0:
+                    del entries[key]
+            row += 1
+    return matrix(
+        base_ring,
+        _N_GENERATORS * len(multipliers),
+        len(basis["columns"]),
+        entries,
+        sparse=True,
+    )
+
+
+def low_degree_flatness_diagnostic(
+    cubic_generators,
+    degrees=(4, 5),
+    sample_t_values=(1, 2, 3),
+):
+    """Score sampled low-degree rank jumps; this does not certify flatness."""
+    _, parsed_generators = _parse_cubic_generators(cubic_generators)
+    degrees = tuple(int(degree) for degree in degrees)
+    if not degrees:
+        raise ValueError("at least one diagnostic degree is required")
+
+    sample_values = tuple(K(value) for value in sample_t_values)
+    if not sample_values:
+        raise ValueError("at least one nonzero t sample is required")
+    if any(value == 0 for value in sample_values):
+        raise ValueError("sample_t_values must not contain zero")
+
+    degree_results = {}
+    total_defect = 0
+    for degree in degrees:
+        basis = _low_degree_basis_data(degree)
+        special_rank = _low_degree_flatness_matrix(
+            parsed_generators, degree, K.zero()
+        ).rank()
+        sampled_ranks = {
+            value: _low_degree_flatness_matrix(
+                parsed_generators, degree, value
+            ).rank()
+            for value in sample_values
+        }
+        sampled_generic_rank = max(sampled_ranks.values())
+        defect = sampled_generic_rank - special_rank
+        degree_results[degree] = {
+            "row_count": _N_GENERATORS * len(basis["multipliers"]),
+            "column_count": len(basis["columns"]),
+            "special_rank": special_rank,
+            "sampled_ranks": sampled_ranks,
+            "sampled_generic_rank": sampled_generic_rank,
+            "defect": defect,
+        }
+        total_defect += defect
+
+    return {
+        "degrees": degree_results,
+        "total_defect": total_defect,
+        "score": -total_defect,
+        "passes_sampled_test": total_defect == 0,
+    }
+
+
+def low_degree_flatness_score(
+    y,
+    degrees=(4, 5),
+    sample_t_values=(1, 2, 3),
+):
+    """Lift y cubically, then run the sampled low-degree rank diagnostic."""
+    return low_degree_flatness_diagnostic(
+        third_order_generators(y),
+        degrees=degrees,
+        sample_t_values=sample_t_values,
+    )
+
+
+def _exact_low_degree_rank(cubic_generators, degree):
+    """Validation-only rank of A_d over K(u), not used by the search score."""
+    _, parsed_generators = _parse_cubic_generators(cubic_generators)
+    parameter_ring = PolynomialRing(K, "u")
+    rational_function_field = parameter_ring.fraction_field()
+    u = rational_function_field(parameter_ring.gen())
+    return _low_degree_flatness_matrix(
+        parsed_generators,
+        degree,
+        u,
+        base_ring=rational_function_field,
+    ).rank()
+
+
 def _smoke_test():
     assert tuple(original_ideal().gens()) == generators
     zero_y = [0] * T1_DIM
@@ -714,6 +915,17 @@ def _smoke_test():
         assert "failed at order 3" in str(error)
     else:
         raise AssertionError("order-three obstructed direction lifted")
+
+    trivial_flatness_sample = low_degree_flatness_score(
+        vector(K, T1_DIM),
+        degrees=(4,),
+        sample_t_values=(1,),
+    )
+    assert trivial_flatness_sample["total_defect"] == 0
+    assert trivial_flatness_sample["score"] == 0
+    assert trivial_flatness_sample["passes_sampled_test"]
+    assert trivial_flatness_sample["degrees"][4]["row_count"] == 128
+    assert trivial_flatness_sample["degrees"][4]["column_count"] == 330
 
     print("sr_environment smoke test passed")
 
