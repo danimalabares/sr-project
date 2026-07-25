@@ -198,30 +198,6 @@ def first_order_generators(y):
     )
 
 
-def _check_corrections_against_syzygies(corrections):
-    """Check the cached syzygy rows for an already constructed correction."""
-    for syzygy_index, row in enumerate(_syzygy_rows):
-        residual = sum(
-            (a_i * g_i for a_i, g_i in zip(row, corrections)),
-            R.zero(),
-        )
-        normal_form = residual.reduce(_original_ideal)
-        if normal_form != 0:
-            raise ValueError(
-                "first-order syzygy %d failed: residual=%s; "
-                "normal form modulo I=%s"
-                % (syzygy_index, residual, normal_form)
-            )
-    return True
-
-
-def check_first_order_syzygies(y):
-    """Verify all cached first syzygies for the T^1 direction y modulo I."""
-    direction = y_to_direction(y)
-    corrections = direction_to_corrections(direction)
-    return _check_corrections_against_syzygies(corrections)
-
-
 def _lift_residual(residual):
     """Find b_i with residual = -sum_i b_i*f_i for the monomial ideal I."""
     b = [R.zero() for _ in range(_N_GENERATORS)]
@@ -247,43 +223,6 @@ def _lift_residual(residual):
         (b_i * f_i for b_i, f_i in zip(b, generators)), R.zero()
     )
     return tuple(b)
-
-
-def lift_first_order_syzygies(y):
-    """Return the 38 lifted coefficient rows (a_i + t*b_i)."""
-    direction = y_to_direction(y)
-    corrections = direction_to_corrections(direction)
-    _check_corrections_against_syzygies(corrections)
-
-    lifted_rows = []
-    deformed_generators = tuple(
-        R_t(f_i) + t * R_t(g_i)
-        for f_i, g_i in zip(generators, corrections)
-    )
-    for syzygy_index, row in enumerate(_syzygy_rows):
-        residual = sum(
-            (a_i * g_i for a_i, g_i in zip(row, corrections)),
-            R.zero(),
-        )
-        b = _lift_residual(residual)
-        lifted_row = tuple(
-            R_t(a_i) + t * R_t(b_i) for a_i, b_i in zip(row, b)
-        )
-
-        relation = sum(
-            (coefficient * deformed_generator
-             for coefficient, deformed_generator
-             in zip(lifted_row, deformed_generators)),
-            R_t.zero(),
-        )
-        residual_mod_t2 = R_t(relation[0]) + t * R_t(relation[1])
-        if residual_mod_t2 != 0:
-            raise RuntimeError(
-                "constructed lift for syzygy %d failed modulo t^2: %s"
-                % (syzygy_index, residual_mod_t2)
-            )
-        lifted_rows.append(lifted_row)
-    return tuple(lifted_rows)
 
 
 def _quadratic_coordinate_vector(y):
@@ -396,7 +335,7 @@ def lift_to_second_order(y):
             "obstruction": obstruction,
         }
 
-    # Use the same deterministic first-syzygy lifts as Step 3.  Their
+    # Use deterministic exact residual lifts for the first syzygies.  Their
     # alpha*g residual differs from the cached Q0 representative only by
     # image(B), so solving the cached B system gives compatible h_i.
     first_syzygy_lifts = []
@@ -459,14 +398,14 @@ def _target_vector_from_residuals(residuals):
 
 
 def _third_order_problem(second_order_result):
-    """Build the cached B*q = -r order-three problem for Step 4's h."""
+    """Build the cached B*q = -r order-three problem for Step 3's h."""
     first_corrections = second_order_result["first_order_corrections"]
     second_corrections = second_order_result["second_order_corrections"]
 
     # The existing order-three scripts use
     #   s*q + alpha*h + beta*g = 0 modulo I.
     # Choose alpha and beta deterministically by the same exact residual lifts
-    # used by the direct Step 4 verification.  This fixes a syzygy lift
+    # used by the direct Step 3 verification.  This fixes a syzygy lift
     # compatible with the particular h returned by lift_to_second_order().
     alpha_rows = []
     beta_rows = []
@@ -517,7 +456,7 @@ def _solve_third_order_problem(problem):
 
 
 def third_order_obstruction(y):
-    """Return the order-three obstruction for Step 4's chosen second lift."""
+    """Return the order-three obstruction for Step 3's chosen second lift."""
     coefficients = list(y)
     if len(coefficients) != T1_DIM:
         raise ValueError(
@@ -609,7 +548,7 @@ def _verify_third_order_relations(
 
 
 def lift_to_third_order(y):
-    """Attempt to extend Step 4's particular second-order lift to order three."""
+    """Attempt to extend Step 3's particular second-order lift to order three."""
     coefficients = list(y)
     if len(coefficients) != T1_DIM:
         raise ValueError(
@@ -700,24 +639,6 @@ def _smoke_test():
         direction_to_corrections(direction)
     ) == direction
 
-    assert check_first_order_syzygies(zero_y)
-    for i in range(T1_DIM):
-        standard_basis_vector = [0] * T1_DIM
-        standard_basis_vector[i] = 1
-        assert check_first_order_syzygies(standard_basis_vector)
-        assert len(lift_first_order_syzygies(standard_basis_vector)) == 38
-
-    invalid_direction = vector(K, RAW_DIM)
-    invalid_direction[0] = 1
-    try:
-        _check_corrections_against_syzygies(
-            direction_to_corrections(invalid_direction)
-        )
-    except ValueError:
-        pass
-    else:
-        raise AssertionError("deliberately invalid raw correction passed")
-
     zero_lift = lift_to_second_order(zero_y)
     assert zero_lift["exists"]
     assert zero_lift["obstruction"] == 0
@@ -780,7 +701,7 @@ def _smoke_test():
     ) == _N_GENERATORS
 
     # Checked-in sample 158 is on the quadratic cone (so it reaches order
-    # two) but the particular Step 4 lift fails the cached order-three solve.
+    # two) but the particular Step 3 lift fails the cached order-three solve.
     quadratic_samples = load(str(_QUADRATIC_SAMPLES_FILE))
     order3_obstructed_y = vector(K, list(quadratic_samples[158]))
     order3_obstructed_result = lift_to_third_order(order3_obstructed_y)

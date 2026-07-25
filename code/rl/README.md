@@ -138,49 +138,7 @@ F
  # Display the first-order deformed ideal generators.
 ```
 
-
-
-# STEP 3: verify first-order syzygies
-
-This is a safety step. It just
-checks whether the chosen direction `y`
-actually satisfies the syzygy conditions,
-but `y` was chosen from the space of
-deformations which do satisfy this condition.
-
-## Elementary exercise
-
-Again, start Sage from the repository root:
-
-```sh
-sage
-```
-
-Then run:
-
-```sage
-load("code/rl/sr_environment.sage")  # Load the deformation environment.
-
-y = vector(K, T1_DIM)                # Start with the zero vector in T^1.
-
-y[0] = 1                             # Choose the first T^1 basis direction.
-
-check_first_order_syzygies(y)        # Check all 38 syzygy conditions modulo the original ideal.
-```
-
-The result should be:
-
-```sage
-True
-```
-
-Thus Step 3 verifies that the chosen vector
-(y) really defines a valid first-order
-deformation.
-
-
-
-# STEP 4: lift to second order
+# STEP 3: lift to second order
 
 Our current deformation polynomials look like 
 ```
@@ -279,7 +237,7 @@ direction $e_{0}$, its second-order lift is
 visibly different from its first-order
 deformation.
 
-# STEP 5: lift to third order
+# STEP 4: lift to third order
 
 Our current deformation polynomials look
 like
@@ -420,7 +378,7 @@ genuinely nontrivial third-order lift.
 This constructs a deformation modulo $t^4$.
 It does not yet prove that the cubic
 polynomials define a flat family over
-$K[t]$. That is the purpose of Step 6.
+$K[t]$. That is the purpose of Step 5.
 
 
 
@@ -432,5 +390,4 @@ $K[t]$. That is the purpose of Step 6.
 - Check for flatness.
 
 codex resume 019f9022-2159-7ff2-8fdd-29ada8c6c769
-
 
