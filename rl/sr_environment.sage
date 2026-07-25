@@ -11,17 +11,36 @@ K = GF(32003)
 T1_DIM = 53
 RAW_DIM = 1664
 
+
+def _find_repository_root():
+    """Find cached legacy data without relying on Sage load() defining __file__."""
+    start = Path.cwd().resolve()
+    for candidate in (start,) + tuple(start.parents):
+        if (
+            (candidate / "code" / "cotangent" / "part-1.pkl").is_file()
+            and (candidate / "rl").is_dir()
+        ):
+            return candidate
+    raise RuntimeError(
+        "could not locate the repository root; run Sage from the "
+        "repository root or one of its subdirectories"
+    )
+
+
+_REPOSITORY_ROOT = _find_repository_root()
 _RAW_DATA_FILE = (
-    Path.cwd()
+    _REPOSITORY_ROOT
     / "code"
     / "cotangent"
     / "order2"
     / "cache"
     / "raw_obstruction_data.sobj"
 )
-_PART1_DATA_FILE = Path.cwd() / "code" / "cotangent" / "part-1.pkl"
+_PART1_DATA_FILE = (
+    _REPOSITORY_ROOT / "code" / "cotangent" / "part-1.pkl"
+)
 _QUADRATIC_SAMPLES_FILE = (
-    Path.cwd()
+    _REPOSITORY_ROOT
     / "code"
     / "cotangent"
     / "order2"

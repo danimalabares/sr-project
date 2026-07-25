@@ -3,7 +3,7 @@
 This directory studies a cubic family over
 $\mathrm{GF}(32003)$ that was discovered
 while constructing the deformation-search
-environment in `code/rl`. The family has
+environment now maintained in `rl/`. The family has
 been frozen as explicit polynomial data, so
 this project does not depend on the RL
 machinery or rerun a lifting solver.
@@ -304,4 +304,3 @@ exact flat family
         v
 empty projective singular locus.
 ```
-

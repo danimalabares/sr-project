@@ -29,7 +29,7 @@ sage
 Then run:
 
 ```sage
-load("code/rl/sr_environment.sage")  # Load the cached T^1 basis and the coordinate-conversion map.
+load("rl/sr_environment.sage")  # Load the cached T^1 basis and the coordinate-conversion map.
 
 print_original_ideal()
 ```
@@ -46,7 +46,7 @@ From the repository root, run its smoke test
 broken) with:
 
 ```sh
-sage code/rl/sr_environment.sage
+sage rl/sr_environment.sage
 ```
 
 The test checks that the zero vector maps to
@@ -76,7 +76,7 @@ sage
 Then run:
 
 ```sage
-load("code/rl/sr_environment.sage")  # Load the cached T^1 basis and the coordinate-conversion map.
+load("rl/sr_environment.sage")  # Load the cached T^1 basis and the coordinate-conversion map.
 
 y = vector(K, T1_DIM)                # Create the zero vector in the 53-dimensional T^1 coordinate space.
 
@@ -117,7 +117,7 @@ F = first_order_generators(y)
 Again, run sage from the repo root, then:
 
 ```
-load("code/rl/sr_environment.sage")  # Load the deformation environment.
+load("rl/sr_environment.sage")  # Load the deformation environment.
 
 y = vector(K, T1_DIM)                # Start with the zero vector in T^1.
 
@@ -185,7 +185,7 @@ sage
 Then run:
 
 ```sage
-load("code/rl/sr_environment.sage")  # Load the deformation environment.
+load("rl/sr_environment.sage")  # Load the deformation environment.
 
 y = vector(K, T1_DIM)                # Start with the zero vector in T^1.
 
@@ -298,7 +298,7 @@ sage
 Then run:
 
 ```sage
-load("code/rl/sr_environment.sage")
+load("rl/sr_environment.sage")
 # Load the deformation environment.
 
 y = vector(K, T1_DIM)
@@ -475,7 +475,7 @@ sage
 Then run:
 
 ```sage
-load("code/rl/sr_environment.sage")
+load("rl/sr_environment.sage")
 # Load the deformation environment.
 
 y = vector(K, T1_DIM)
@@ -642,7 +642,7 @@ sage
 Then run:
 
 ```sage
-load("code/rl/sr_environment.sage")
+load("rl/sr_environment.sage")
 # Load the deformation environment.
 
 y = vector(K, T1_DIM)
