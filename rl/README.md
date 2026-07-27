@@ -269,46 +269,14 @@ print("ambient dimension:",
 print("lift-space dimension:",
       S2["dimension"])
 ```
+
 The output is:
+
 ```
 exists: True
 ambient dimension: 1664
 lift-space dimension: 109
-
-We can compare two points in this affine
-space:
-
-parameters = [0] * S2["dimension"]
-# Set all 109 free parameters to zero.
-
-F2_zero = second_order_generators_from_parameters(
-    y,
-    parameters,
-)
-# Construct the corresponding second-order
-# generators.
-
-parameters[0] = 1
-# Change only the first free parameter.
-
-F2_changed = second_order_generators_from_parameters(
-    y,
-    parameters,
-)
-
-print(F2_zero[0])
-print(F2_changed[0])
 ```
-
-The output is:
-````
-x1^2*x5*t + x6*x7*x8
-
-x1^2*x5*t^2 + x1^2*x5*t + x6*x7*x8
-```
-Thus changing one kernel parameter changes
-the chosen second-order lift while preserving
-the same first-order direction $y$.
 
 
 
