@@ -334,8 +334,27 @@ def _verify_second_order_relations(
     return deformed_generators
 
 
-def lift_to_second_order(y):
-    """Attempt to lift the T^1 direction y through order two."""
+_GENERATOR_CORRECTION_KERNEL_BASIS = None
+
+
+def _generator_correction_kernel_basis():
+    """Cache ker(B) in the 1664 raw generator-correction coordinates."""
+    global _GENERATOR_CORRECTION_KERNEL_BASIS
+    if _GENERATOR_CORRECTION_KERNEL_BASIS is None:
+        basis = tuple(
+            vector(K, list(direction))
+            for direction in _second_order_matrix.right_kernel().basis()
+        )
+        assert all(
+            _second_order_matrix * direction == 0 for direction in basis
+        )
+        assert len(basis) == RAW_DIM - _raw_data["rank_B"]
+        _GENERATOR_CORRECTION_KERNEL_BASIS = basis
+    return _GENERATOR_CORRECTION_KERNEL_BASIS
+
+
+def second_order_lift_space(y):
+    """Return the affine space of raw second-order generator corrections."""
     coefficients = list(y)
     if len(coefficients) != T1_DIM:
         raise ValueError(
@@ -349,10 +368,13 @@ def lift_to_second_order(y):
     if obstruction != 0:
         return {
             "exists": False,
-            "first_order_corrections": first_corrections,
-            "second_order_corrections": None,
-            "generators": None,
             "obstruction": obstruction,
+            "ambient_dimension": RAW_DIM,
+            "dimension": None,
+            "particular_raw": None,
+            "kernel_basis_raw": (),
+            "particular_corrections": None,
+            "first_order_corrections": first_corrections,
         }
 
     # Use deterministic exact residual lifts for the first syzygies.  Their
@@ -378,16 +400,90 @@ def lift_to_second_order(y):
         ) from error
 
     second_direction = vector(K, list(second_direction))
+    assert _second_order_matrix * second_direction == -order2_residual
+    kernel_basis = _generator_correction_kernel_basis()
     second_corrections = direction_to_corrections(second_direction)
     deformed_generators = _verify_second_order_relations(
         first_corrections, second_corrections, first_syzygy_lifts
     )
     return {
         "exists": True,
-        "first_order_corrections": first_corrections,
-        "second_order_corrections": second_corrections,
-        "generators": deformed_generators,
         "obstruction": obstruction,
+        "ambient_dimension": RAW_DIM,
+        "dimension": len(kernel_basis),
+        "particular_raw": second_direction,
+        "kernel_basis_raw": kernel_basis,
+        "particular_corrections": second_corrections,
+        # Internal compatibility data reused by builders and verification.
+        "first_order_corrections": first_corrections,
+        "_first_syzygy_lifts": tuple(first_syzygy_lifts),
+        "_residual_vector": order2_residual,
+        "_generators": deformed_generators,
+    }
+
+
+def _raw_from_affine_parameters(space, parameters, label):
+    """Evaluate a raw affine solution using exactly the advertised parameters."""
+    if not space.get("exists", False):
+        raise ValueError("%s lift space is empty" % label)
+    parameters = list(parameters)
+    dimension = space["dimension"]
+    if len(parameters) != dimension:
+        raise ValueError(
+            "expected %d %s parameters, got %d"
+            % (dimension, label, len(parameters))
+        )
+    raw = vector(K, list(space["particular_raw"]))
+    for coefficient, direction in zip(
+        parameters, space["kernel_basis_raw"]
+    ):
+        coefficient = K(coefficient)
+        if coefficient:
+            raw += coefficient * direction
+    return raw
+
+
+def second_order_corrections_from_parameters(space, parameters):
+    """Evaluate h_0 + sum parameters[j]*kernel_basis[j] as 16 polynomials."""
+    return direction_to_corrections(
+        _raw_from_affine_parameters(space, parameters, "second-order")
+    )
+
+
+def second_order_generators_from_parameters(y, parameters):
+    """Return f+t*g+t^2*h for the selected point of the second lift space."""
+    space = second_order_lift_space(y)
+    if not space["exists"]:
+        raise ValueError(
+            "direction is obstructed at second order: obstruction=%s"
+            % space["obstruction"]
+        )
+    corrections = second_order_corrections_from_parameters(space, parameters)
+    return _verify_second_order_relations(
+        space["first_order_corrections"],
+        corrections,
+        space["_first_syzygy_lifts"],
+    )
+
+
+def lift_to_second_order(y):
+    """Attempt to lift the T^1 direction y through order two."""
+    space = second_order_lift_space(y)
+    if not space["exists"]:
+        return {
+            "exists": False,
+            "first_order_corrections": space["first_order_corrections"],
+            "second_order_corrections": None,
+            "generators": None,
+            "obstruction": space["obstruction"],
+        }
+
+    return {
+        "exists": True,
+        "first_order_corrections": space["first_order_corrections"],
+        "second_order_corrections": space["particular_corrections"],
+        "generators": space["_generators"],
+        "obstruction": space["obstruction"],
     }
 
 
@@ -567,8 +663,8 @@ def _verify_third_order_relations(
     return deformed_generators
 
 
-def lift_to_third_order(y):
-    """Attempt to extend Step 3's particular second-order lift to order three."""
+def _validated_second_order_result(y, second_order_corrections):
+    """Validate supplied h exactly and package it for the order-three system."""
     coefficients = list(y)
     if len(coefficients) != T1_DIM:
         raise ValueError(
@@ -576,16 +672,69 @@ def lift_to_third_order(y):
             % (T1_DIM, len(coefficients))
         )
 
-    second_order_result = lift_to_second_order(coefficients)
+    if second_order_corrections is None:
+        return lift_to_second_order(coefficients)
+
+    supplied = list(second_order_corrections)
+    if len(supplied) != _N_GENERATORS:
+        raise ValueError(
+            "expected %d second-order correction polynomials, got %d"
+            % (_N_GENERATORS, len(supplied))
+        )
+    supplied = tuple(R(correction) for correction in supplied)
+    # This also rejects terms outside the documented 1664-coordinate span.
+    _corrections_to_direction(supplied)
+
+    second_space = second_order_lift_space(coefficients)
+    if not second_space["exists"]:
+        raise ValueError(
+            "supplied corrections cannot lift a second-order obstruction: %s"
+            % second_space["obstruction"]
+        )
+    try:
+        deformed_generators = _verify_second_order_relations(
+            second_space["first_order_corrections"],
+            supplied,
+            second_space["_first_syzygy_lifts"],
+        )
+    except RuntimeError as error:
+        raise ValueError(
+            "supplied corrections are not a valid second-order lift: %s"
+            % error
+        ) from error
+    return {
+        "exists": True,
+        "first_order_corrections": second_space["first_order_corrections"],
+        "second_order_corrections": supplied,
+        "generators": deformed_generators,
+        "obstruction": second_space["obstruction"],
+    }
+
+
+def third_order_lift_space(y, second_order_corrections=None):
+    """Return the affine space of q extending the specified second-order h."""
+    coefficients = list(y)
+    if len(coefficients) != T1_DIM:
+        raise ValueError(
+            "expected %d T^1 coefficients, got %d"
+            % (T1_DIM, len(coefficients))
+        )
+
+    second_order_result = _validated_second_order_result(
+        coefficients, second_order_corrections
+    )
     if not second_order_result["exists"]:
         return {
             "exists": False,
+            "obstruction": second_order_result["obstruction"],
+            "ambient_dimension": RAW_DIM,
+            "dimension": None,
+            "second_order_corrections": None,
+            "particular_raw": None,
+            "kernel_basis_raw": (),
+            "particular_corrections": None,
             "first_order_corrections":
                 second_order_result["first_order_corrections"],
-            "second_order_corrections": None,
-            "third_order_corrections": None,
-            "generators": None,
-            "obstruction": second_order_result["obstruction"],
             "failed_order": 2,
         }
 
@@ -594,16 +743,22 @@ def lift_to_third_order(y):
     if third_direction is None:
         return {
             "exists": False,
-            "first_order_corrections":
-                second_order_result["first_order_corrections"],
+            "obstruction": obstruction,
+            "ambient_dimension": RAW_DIM,
+            "dimension": None,
             "second_order_corrections":
                 second_order_result["second_order_corrections"],
-            "third_order_corrections": None,
-            "generators": None,
-            "obstruction": obstruction,
+            "particular_raw": None,
+            "kernel_basis_raw": (),
+            "particular_corrections": None,
+            "first_order_corrections":
+                second_order_result["first_order_corrections"],
             "failed_order": 3,
+            "_problem": problem,
         }
 
+    assert _second_order_matrix * third_direction == -problem["target"]
+    kernel_basis = _generator_correction_kernel_basis()
     third_corrections = direction_to_corrections(third_direction)
     deformed_generators = _verify_third_order_relations(
         second_order_result["first_order_corrections"],
@@ -614,13 +769,73 @@ def lift_to_third_order(y):
     )
     return {
         "exists": True,
-        "first_order_corrections":
-            second_order_result["first_order_corrections"],
+        "obstruction": obstruction,
+        "ambient_dimension": RAW_DIM,
+        "dimension": len(kernel_basis),
         "second_order_corrections":
             second_order_result["second_order_corrections"],
-        "third_order_corrections": third_corrections,
-        "generators": deformed_generators,
-        "obstruction": obstruction,
+        "particular_raw": third_direction,
+        "kernel_basis_raw": kernel_basis,
+        "particular_corrections": third_corrections,
+        "first_order_corrections":
+            second_order_result["first_order_corrections"],
+        "failed_order": None,
+        "_problem": problem,
+        "_generators": deformed_generators,
+    }
+
+
+def third_order_corrections_from_parameters(space, parameters):
+    """Evaluate q_0 + sum parameters[j]*kernel_basis[j] as 16 polynomials."""
+    return direction_to_corrections(
+        _raw_from_affine_parameters(space, parameters, "third-order")
+    )
+
+
+def third_order_generators_from_parameters(
+    y, second_order_corrections, third_order_parameters
+):
+    """Return f+t*g+t^2*h+t^3*q for selected second/third lift data."""
+    space = third_order_lift_space(y, second_order_corrections)
+    if not space["exists"]:
+        raise ValueError(
+            "chosen second-order lift does not extend to third order: "
+            "obstruction=%s" % space["obstruction"]
+        )
+    third_corrections = third_order_corrections_from_parameters(
+        space, third_order_parameters
+    )
+    problem = space["_problem"]
+    return _verify_third_order_relations(
+        space["first_order_corrections"],
+        space["second_order_corrections"],
+        third_corrections,
+        problem["alpha_rows"],
+        problem["beta_rows"],
+    )
+
+
+def lift_to_third_order(y):
+    """Attempt to extend Step 3's particular second-order lift to order three."""
+    space = third_order_lift_space(y)
+    if not space["exists"]:
+        return {
+            "exists": False,
+            "first_order_corrections": space["first_order_corrections"],
+            "second_order_corrections":
+                space["second_order_corrections"],
+            "third_order_corrections": None,
+            "generators": None,
+            "obstruction": space["obstruction"],
+            "failed_order": space["failed_order"],
+        }
+    return {
+        "exists": True,
+        "first_order_corrections": space["first_order_corrections"],
+        "second_order_corrections": space["second_order_corrections"],
+        "third_order_corrections": space["particular_corrections"],
+        "generators": space["_generators"],
+        "obstruction": space["obstruction"],
         "failed_order": None,
     }
 
@@ -635,6 +850,94 @@ def third_order_generators(y):
             % (result["failed_order"], result["obstruction"])
         )
     return result["generators"]
+
+
+def build_cubic_candidate(
+    y, second_order_parameters=None, third_order_parameters=None
+):
+    """Build a cubic candidate from explicit affine lift-space parameters."""
+    coefficients = list(y)
+    if len(coefficients) != T1_DIM:
+        raise ValueError(
+            "expected %d T^1 coefficients, got %d"
+            % (T1_DIM, len(coefficients))
+        )
+    y_vector = vector(K, coefficients)
+    second_space = second_order_lift_space(y_vector)
+    if not second_space["exists"]:
+        return {
+            "exists": False,
+            "y": y_vector,
+            "second_order_space_dimension": None,
+            "third_order_space_dimension": None,
+            "second_order_parameters": None,
+            "third_order_parameters": None,
+            "first_order_corrections":
+                second_space["first_order_corrections"],
+            "second_order_corrections": None,
+            "third_order_corrections": None,
+            "generators": None,
+            "obstruction": second_space["obstruction"],
+            "failed_order": 2,
+        }
+
+    if second_order_parameters is None:
+        second_order_parameters = [0] * second_space["dimension"]
+    second_order_parameters = tuple(
+        K(parameter) for parameter in second_order_parameters
+    )
+    second_corrections = second_order_corrections_from_parameters(
+        second_space, second_order_parameters
+    )
+    third_space = third_order_lift_space(y_vector, second_corrections)
+    if not third_space["exists"]:
+        return {
+            "exists": False,
+            "y": y_vector,
+            "second_order_space_dimension": second_space["dimension"],
+            "third_order_space_dimension": None,
+            "second_order_parameters": second_order_parameters,
+            "third_order_parameters": None,
+            "first_order_corrections":
+                second_space["first_order_corrections"],
+            "second_order_corrections": second_corrections,
+            "third_order_corrections": None,
+            "generators": None,
+            "obstruction": third_space["obstruction"],
+            "failed_order": 3,
+        }
+
+    if third_order_parameters is None:
+        third_order_parameters = [0] * third_space["dimension"]
+    third_order_parameters = tuple(
+        K(parameter) for parameter in third_order_parameters
+    )
+    third_corrections = third_order_corrections_from_parameters(
+        third_space, third_order_parameters
+    )
+    problem = third_space["_problem"]
+    deformed_generators = _verify_third_order_relations(
+        third_space["first_order_corrections"],
+        second_corrections,
+        third_corrections,
+        problem["alpha_rows"],
+        problem["beta_rows"],
+    )
+    return {
+        "exists": True,
+        "y": y_vector,
+        "second_order_space_dimension": second_space["dimension"],
+        "third_order_space_dimension": third_space["dimension"],
+        "second_order_parameters": second_order_parameters,
+        "third_order_parameters": third_order_parameters,
+        "first_order_corrections":
+            second_space["first_order_corrections"],
+        "second_order_corrections": second_corrections,
+        "third_order_corrections": third_corrections,
+        "generators": deformed_generators,
+        "obstruction": third_space["obstruction"],
+        "failed_order": None,
+    }
 
 
 _LOW_DEGREE_MONOMIAL_CACHE = {}
@@ -1025,6 +1328,48 @@ def _smoke_test():
     known_liftable[0] = 1
     liftable_result = lift_to_second_order(known_liftable)
     assert liftable_result["exists"]
+    second_space = second_order_lift_space(known_liftable)
+    assert second_space["ambient_dimension"] == RAW_DIM
+    assert second_space["dimension"] == len(
+        second_space["kernel_basis_raw"]
+    )
+    assert (
+        _second_order_matrix * second_space["particular_raw"]
+        == -second_space["_residual_vector"]
+    )
+    assert all(
+        _second_order_matrix * kernel_direction == 0
+        for kernel_direction in second_space["kernel_basis_raw"]
+    )
+    zero_second_parameters = [0] * second_space["dimension"]
+    assert second_order_corrections_from_parameters(
+        second_space, zero_second_parameters
+    ) == liftable_result["second_order_corrections"]
+
+    second_basis = second_space["kernel_basis_raw"]
+    assert second_basis[0] != second_basis[1]
+    for _ in range(3):
+        first_parameter = K.random_element()
+        second_parameter = K.random_element()
+        raw = (
+            second_space["particular_raw"]
+            + K(first_parameter) * second_basis[0]
+            + K(second_parameter) * second_basis[1]
+        )
+        assert (
+            _second_order_matrix * raw
+            == -second_space["_residual_vector"]
+        )
+    varied_second_parameters = list(zero_second_parameters)
+    varied_second_parameters[0] = 1
+    varied_second_corrections = second_order_corrections_from_parameters(
+        second_space, varied_second_parameters
+    )
+    _verify_second_order_relations(
+        second_space["first_order_corrections"],
+        varied_second_corrections,
+        second_space["_first_syzygy_lifts"],
+    )
 
     # The cached quadrics show that y0 + y23 is obstructed.
     known_obstructed = [0] * T1_DIM
@@ -1064,6 +1409,49 @@ def _smoke_test():
     assert len(
         third_order_generators(third_order_liftable_y)
     ) == _N_GENERATORS
+    third_space = third_order_lift_space(
+        third_order_liftable_y,
+        third_order_liftable_result["second_order_corrections"],
+    )
+    assert third_space["ambient_dimension"] == RAW_DIM
+    assert third_space["dimension"] == len(
+        third_space["kernel_basis_raw"]
+    )
+    assert (
+        _second_order_matrix * third_space["particular_raw"]
+        == -third_space["_problem"]["target"]
+    )
+    assert third_space["kernel_basis_raw"] is second_basis
+    zero_third_parameters = [0] * third_space["dimension"]
+    assert third_order_corrections_from_parameters(
+        third_space, zero_third_parameters
+    ) == third_order_liftable_result["third_order_corrections"]
+    for _ in range(3):
+        first_parameter = K.random_element()
+        second_parameter = K.random_element()
+        raw = (
+            third_space["particular_raw"]
+            + K(first_parameter) * third_space["kernel_basis_raw"][0]
+            + K(second_parameter) * third_space["kernel_basis_raw"][1]
+        )
+        assert (
+            _second_order_matrix * raw
+            == -third_space["_problem"]["target"]
+        )
+    varied_third_parameters = list(zero_third_parameters)
+    varied_third_parameters[0] = 1
+    third_order_generators_from_parameters(
+        third_order_liftable_y,
+        third_space["second_order_corrections"],
+        varied_third_parameters,
+    )
+    cubic_candidate = build_cubic_candidate(third_order_liftable_y)
+    assert cubic_candidate["exists"]
+    assert cubic_candidate["second_order_space_dimension"] == len(second_basis)
+    assert cubic_candidate["third_order_space_dimension"] == len(second_basis)
+    second_obstructed_candidate = build_cubic_candidate(known_obstructed)
+    assert not second_obstructed_candidate["exists"]
+    assert second_obstructed_candidate["failed_order"] == 2
 
     # Checked-in sample 158 is on the quadratic cone (so it reaches order
     # two) but the particular Step 3 lift fails the cached order-three solve.
@@ -1073,6 +1461,9 @@ def _smoke_test():
     assert not order3_obstructed_result["exists"]
     assert order3_obstructed_result["failed_order"] == 3
     assert order3_obstructed_result["obstruction"] != 0
+    third_obstructed_candidate = build_cubic_candidate(order3_obstructed_y)
+    assert not third_obstructed_candidate["exists"]
+    assert third_obstructed_candidate["failed_order"] == 3
     try:
         third_order_generators(order3_obstructed_y)
     except ValueError as error:

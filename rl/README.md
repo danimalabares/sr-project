@@ -268,9 +268,9 @@ print("ambient dimension:",
       S2["ambient_dimension"])
 print("lift-space dimension:",
       S2["dimension"])
-
+```
 The output is:
-
+```
 exists: True
 ambient dimension: 1664
 lift-space dimension: 109
