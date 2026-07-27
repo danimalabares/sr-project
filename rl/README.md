@@ -298,15 +298,6 @@ polynomials of the form
 F_i^(3) = f_i + t*g_i + t^2*h_i + t^3*q_i.
 ```
 
-For now, we use the particular second-order
-corrections $h_{i}$ selected by
-`lift_to_second_order(y)` (which is mostly
-for human visualization since it's a very
-particular solution). The machine
-will compute the whole space of order-3
-lifts with respect to the first and second
-order choices made up to this point.
-
 The equations for the unknown $q_{i}$ again
 form a linear system. Its right-hand side is
 determined by the first- and second-order
@@ -335,6 +326,22 @@ f_i + t*g_i + t^2*h_i + t^3*q_i
 defines a flat family over $K[t]$. It only
 constructs a deformation modulo $t^4$.
 
+
+Whenever a third-order lift exists, all such
+lifts form an affine space
+```
+q = q_0 + d_1 l_1 + ... + d_109 l_109.
+```
+The function `third_order_lift_space(y, h)`
+computes this space for the chosen
+second-order correction $h$.
+
+The exercise function
+`lift_to_third_order(y)`
+uses the default second-order lift and sets
+all third-order kernel parameters equal to
+zero. This was implemented for human
+visualization.
 
 ## Exercise: choose a third-order lift and print the deformed polynomials
 
@@ -390,8 +397,39 @@ It does not yet prove that the cubic
 polynomials define a flat family over
 $K[t]$. That is the purpose of Step 5.
 
+## Exercise: explore the third-order lift space
 
+```
+load("rl/sr_environment.sage")
 
+y = vector(K, T1_DIM)
+y[0] = 1
+# Choose a first-order direction.
+
+S2 = second_order_lift_space(y)
+
+h = second_order_corrections_from_parameters(
+    S2,
+    [0] * S2["dimension"],
+)
+# Choose the zero-parameter second-order lift.
+
+S3 = third_order_lift_space(y, h)
+# Compute the complete space of third-order
+# lifts extending this particular h.
+
+print("exists:", S3["exists"])
+print("ambient dimension:",
+      S3["ambient_dimension"])
+print("lift-space dimension:",
+      S3["dimension"])
+```
+The output is:
+```
+exists: True
+ambient dimension: 1664
+lift-space dimension: 109
+```
 # STEP 4: measure the flatness defect
 
 After Step 3, we have 16 polynomials of the
