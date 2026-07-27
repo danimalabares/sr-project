@@ -17,7 +17,7 @@ coordinate changes we reduce the number to 53.
 Thus the dimension of T^1, the space
 of first order deformations is 53.
 
-## Elementary exercise
+## Exercise: print the original ideal
 
 To print the original SR ideal, start Sage
 from the root directory of the repository:
@@ -37,9 +37,9 @@ print_original_ideal()
 # STEP 1: pick a first-order deformation
 
 `sr_environment.sage` loads the previously
-computed (=cached) 53-dimensional \(T^1\) 
+computed (=cached) 53-dimensional $T^1$
 basis over the field
-\(\mathrm{GF}(32003)\).
+$\mathrm{GF}(32003)$.
 
 From the repository root, run its smoke test
 (a quick test to check the program is not
@@ -48,11 +48,6 @@ broken) with:
 ```sh
 sage rl/sr_environment.sage
 ```
-
-The test checks that the zero vector maps to
-zero and that every standard basis vector
-maps to the corresponding cached \(T^1\)
-basis vector.
 
 While it seems to be more managable
 to work in the 53-dimensional space,
@@ -63,9 +58,10 @@ converts a first-order deformation direction
 `y`, initially a vector with 53 entries,
 into its corresponding 1664-coordinate vector.
 
-## Elementary exercise
+## Exercise: pick a first-order deformation
 
-To pick a first-order deformation direction,
+To pick a first-order deformation direction
+yourself,
 start Sage from the root directory of the
 repository:
 
@@ -92,27 +88,13 @@ More generally, assigning several entries of
 cached (T^1) basis vectors, e.g.
 you can choose `y[3]=-4` and so on.
 
-# STEP 2: print deformed polynomials
+## Exercise: print deformed polynomials
 
-Now we map the 1664-vector `d` obtained
-from the deformation direction `y` to a
-16-polynomial tuple, which are
-the 16 polynomials we add to the
-original 16 monomials to obtain a
-first-order deformation.
-This is done by
-`direction_to_corrections(d)`.
-
-After that, we can create the first-order
-deformation using
-
-```
-d = y_to_direction(y)
-corrections = direction_to_corrections(d)
-F = first_order_generators(y)
-```
-
-## Elementary exercise
+A deformation direction $y$ induces
+a new set of 16 polynomials obtained
+from the original 16 monomials.
+We can see this set of deformed polynomials
+as follows.
 
 Again, run sage from the repo root, then:
 
@@ -138,7 +120,7 @@ F
  # Display the first-order deformed ideal generators.
 ```
 
-# STEP 3: lift to second order
+# STEP 2: lift to second order
 
 Our current deformation polynomials look like 
 ```
@@ -174,7 +156,19 @@ family is flat. It only says that the chosen
 first-order direction survives the first
 obstruction test.
 
-## Elementary exercise
+The elementary exercise below shows a single
+valid solution for an order-2 lift. The
+actual machine will choose between different
+order-2 lifts, so in this step we compute
+the whole space of order-2 lifts.
+The function
+`
+second_order_lift_space(y)
+`
+computes this complete affine space.
+
+
+## Exercise: find a second order lift and print the deformed polynomials
 
 Again, start Sage from the repository root:
 
@@ -237,7 +231,89 @@ direction $e_{0}$, its second-order lift is
 visibly different from its first-order
 deformation.
 
-# STEP 4: lift to third order
+## Exercise: explore the space of order-2 lifts
+
+When a second-order lift exists, it is usually
+not unique.
+
+The equation for the second-order correction
+$h$ has 1664 unknown coordinates. The matrix
+of the equation has rank 1555. Therefore its
+kernel has dimension
+
+1664 - 1555 = 109.
+
+Consequently, all second-order lifts form an
+affine space of dimension 109:
+```
+h = h_0 + c_1 k_1 + ... + c_109 k_109.
+```
+Here $h_0$ is one particular lift and the
+$k_i$ form a basis of the kernel.
+
+```
+load("rl/sr_environment.sage")
+
+y = vector(K, T1_DIM)
+y[0] = 1
+y[30] = 1
+# Choose a first-order direction.
+
+S2 = second_order_lift_space(y)
+# Compute the complete space of second-order
+# lifts.
+
+print("exists:", S2["exists"])
+print("ambient dimension:",
+      S2["ambient_dimension"])
+print("lift-space dimension:",
+      S2["dimension"])
+
+The output is:
+
+exists: True
+ambient dimension: 1664
+lift-space dimension: 109
+
+We can compare two points in this affine
+space:
+
+parameters = [0] * S2["dimension"]
+# Set all 109 free parameters to zero.
+
+F2_zero = second_order_generators_from_parameters(
+    y,
+    parameters,
+)
+# Construct the corresponding second-order
+# generators.
+
+parameters[0] = 1
+# Change only the first free parameter.
+
+F2_changed = second_order_generators_from_parameters(
+    y,
+    parameters,
+)
+
+print(F2_zero[0])
+print(F2_changed[0])
+```
+
+The output is:
+````
+x1^2*x5*t + x6*x7*x8
+
+x1^2*x5*t^2 + x1^2*x5*t + x6*x7*x8
+```
+Thus changing one kernel parameter changes
+the chosen second-order lift while preserving
+the same first-order direction $y$.
+
+
+
+
+# STEP 3: lift to third order
 
 Our current deformation polynomials look
 like
@@ -256,7 +332,12 @@ F_i^(3) = f_i + t*g_i + t^2*h_i + t^3*q_i.
 
 For now, we use the particular second-order
 corrections $h_{i}$ selected by
-`lift_to_second_order(y)`.
+`lift_to_second_order(y)` (which is mostly
+for human visualization since it's a very
+particular solution). The machine
+will compute the whole space of order-3
+lifts with respect to the first and second
+order choices made up to this point.
 
 The equations for the unknown $q_{i}$ again
 form a linear system. Its right-hand side is
@@ -287,7 +368,7 @@ defines a flat family over $K[t]$. It only
 constructs a deformation modulo $t^4$.
 
 
-## Elementary exercise
+## Exercise: choose a third-order lift and print the deformed polynomials
 
 Again, start Sage from the repository root:
 
@@ -343,9 +424,9 @@ $K[t]$. That is the purpose of Step 5.
 
 
 
-# STEP 5: measure the flatness defect
+# STEP 4: measure the flatness defect
 
-After Step 4, we have 16 polynomials of the
+After Step 3, we have 16 polynomials of the
 form
 
 ```text
@@ -390,7 +471,7 @@ candidate considered by the search machine.
 
 Instead, we first use a cheaper test.
 
-## STEP 5.1 The low-degree test
+## STEP 4.1 The low-degree test
 
 Choose an $x$-degree $d$.
 
@@ -464,7 +545,7 @@ test
 J:t=J.
 ```
 
-## Elementary exercise
+## Exercise: cheap flatness test for a given order-3 lift
 
 Again, start Sage from the repository root:
 
@@ -525,11 +606,13 @@ passes_sampled_test
 ```
 
 where `passes_sampled_test` means only that
-the tested low-degree defect is zero.
-That is, when `total_defect` is zero we
-have flatness in this degree. Also, `passes_sampled_test`
-literally says "Ture" when we have
-flatness in this degree.
+the tested low-degree defect is zero. That
+is, when `total_defect` is zero we have
+flatness in this degree. Also,
+`passes_sampled_test` literally says "True"
+when no flatness defect was detected
+in the tested degrees and sampled values
+of $t$.
 
 The purpose of this step is to give the search
 machine a fast numerical reward. The best
@@ -537,7 +620,7 @@ candidates will later be checked using the
 exact and more expensive flatness test.
 
 
-## STEP 5.2: the exact flatness test
+## STEP 4.2: the exact flatness test
 
 Candidates which score well in Step 5.1 now
 receive a more expensive test.
@@ -631,7 +714,7 @@ exact colon test for good candidates
 full saturation analysis only when useful
 ```
 
-## Elementary exercise
+## Exercise: expensive test
 
 Again, start Sage from the repository root:
 
