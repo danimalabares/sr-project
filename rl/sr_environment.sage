@@ -14,10 +14,22 @@ RAW_DIM = 1664
 
 def _find_repository_root():
     """Find cached legacy data without relying on Sage load() defining __file__."""
-    start = Path.cwd().resolve()
-    for candidate in (start,) + tuple(start.parents):
+    starts = [Path.cwd().resolve()]
+    try:
+        starts.append(Path(__file__).resolve().parent)
+    except NameError:
+        pass
+    candidates = []
+    for start in starts:
+        candidates.extend((start,) + tuple(start.parents))
+    for candidate in candidates:
         if (
-            (candidate / "code" / "cotangent" / "part-1.pkl").is_file()
+            (
+                candidate
+                / "old-code"
+                / "cotangent"
+                / "part-1.pkl"
+            ).is_file()
             and (candidate / "rl").is_dir()
         ):
             return candidate
@@ -30,18 +42,18 @@ def _find_repository_root():
 _REPOSITORY_ROOT = _find_repository_root()
 _RAW_DATA_FILE = (
     _REPOSITORY_ROOT
-    / "code"
+    / "old-code"
     / "cotangent"
     / "order2"
     / "cache"
     / "raw_obstruction_data.sobj"
 )
 _PART1_DATA_FILE = (
-    _REPOSITORY_ROOT / "code" / "cotangent" / "part-1.pkl"
+    _REPOSITORY_ROOT / "old-code" / "cotangent" / "part-1.pkl"
 )
 _QUADRATIC_SAMPLES_FILE = (
     _REPOSITORY_ROOT
-    / "code"
+    / "old-code"
     / "cotangent"
     / "order2"
     / "cache"

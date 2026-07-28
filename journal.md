@@ -1,4 +1,4 @@
-# July 23, 2026
+# July 23, 2026 (first day)
 
 First day of work after XXII EDG conference.
 Starting today, I'll try to set up
@@ -23,7 +23,7 @@ computes the deformed polynomials induced
 from $y$. Next steps: lift to order 2
 and check flatness.
 
-# July 24, 2026
+# July 24, 2026 (literature)
 
 ## Unicamp group literature review (AI-written)
 
@@ -91,10 +91,83 @@ underlying pure mathematics.
    deciding what the agent, actions and
 reward should be in the SR project.
 
-## Deformations of CY literature review (AI-written)
+## Deformations literature review (AI-written)
 
+### Computational deformation theory
 
-# July 25, 2026
+[Nathan Ilten,
+*VersalDeformations*](https://arxiv.org/abs/1107.2416)
+
+Explains the computational passage:
+
+T¹ → obstruction equations → higher-order
+corrections → local Hilbert scheme.
+
+[Jan Stevens,
+*Computing versal
+deformations*](https://eudml.org/doc/226690)
+
+Explains how versal deformation spaces
+can be computed by extending infinitesimal
+deformations order by order.
+
+[Jan Stevens,
+*Computing Versal Deformations of
+Singularities with Hauser’s
+Algorithm*](https://link.springer.com/chapter/10.1007/978-3-642-39131-6_6)
+
+Presents an alternative algorithm which
+does not construct the deformation by
+extending it one order at a time.
+
+### SR and toric smoothings
+
+[Ingrid Fausk,
+*Pfaffian Calabi–Yau Threefolds,
+Stanley–Reisner Schemes and Mirror
+Symmetry*](https://arxiv.org/abs/1205.4871)
+
+The closest geometric precedent: smoothing
+SR schemes of triangulated 3-spheres into
+Calabi–Yau threefolds.
+
+[Klaus Altmann,
+*The Versal Deformation of an Isolated
+Toric Gorenstein
+Singularity*](https://arxiv.org/abs/alg-geom/9403004)
+
+Shows how combinatorial data can describe
+versal components and genuine flat
+families.
+
+### The wider smoothing problem
+
+[Gert-Martin Greuel,
+*Deformation and Smoothing of
+Singularities*](https://arxiv.org/abs/1903.03661)
+
+A general survey of smoothability and
+smoothing components.
+
+[Friedman–Laza,
+*Deformations of Calabi–Yau Varieties
+with k-Liminal
+Singularities*](https://www.cambridge.org/core/journals/forum-of-mathematics-sigma/article/deformations-of-calabiyau-varieties-with-kliminal-singularities/49D80A37510C84DB1797253A76250EC9)
+
+Places smoothing inside the wider question
+of which singular Calabi–Yau varieties
+occur on the boundaries of moduli spaces.
+
+If my SR scheme smooths to the
+Gulliksen–Negård threefold, it gives an
+explicit combinatorial boundary point of
+the GN Hilbert-scheme component.
+
+The stronger goal is to locate and
+understand this smoothing component inside
+the 53-dimensional deformation space.
+
+# July 25, 2026 (serendipity)
 
 Serendipity. While writing Step 5 of my
 RL machine, which would test for flatness

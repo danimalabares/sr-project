@@ -304,3 +304,20 @@ exact flat family
         v
 empty projective singular locus.
 ```
+
+## Historical $y_8,y_{20}$ branch
+
+The independent subproject in
+`serendipity/y8-y20-branch/` reconstructs and
+studies the historical flat $y_8,y_{20}$
+families without merging their loaders or
+data with the main family above.
+
+All 56 historical finite-field pairs were
+independently reconstructed and confirmed
+flat. The four pairs
+$(1,1),(2,1),(3,1),(5,1)$ were tested for
+smoothness at $t=1$, and all four tested
+fibres were singular. This does not rule out
+smooth fibres for other pairs or at other
+nonzero values of $t$.

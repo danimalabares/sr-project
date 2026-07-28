@@ -17,6 +17,42 @@ coordinate changes we reduce the number to 53.
 Thus the dimension of T^1, the space
 of first order deformations is 53.
 
+## Directory structure
+
+```text
+rl/
+├── README.md
+├── sr_environment.sage
+├── search/
+│   ├── evaluate_candidate.sage
+│   ├── random_q_search.sage
+│   └── random_hq_search.sage
+├── tests/
+│   └── test_search_pipeline.sage
+└── runs/
+    └── .gitignore
+```
+
+`sr_environment.sage` contains the mathematical
+deformation and flatness functions. `search/`
+contains scripts which run searches from
+different steps. `tests/` contains safety
+scripts that check that everything works
+correctly and behaves as expected. `runs/`
+stores configurations, logs, sampled
+parameters, summaries, and successful
+candidates from each search run. The cached
+historical deformation data consumed by the
+environment remain under the legacy
+`old-code/` directory.
+
+From the repository root, run:
+
+```sh
+sage rl/tests/test_search_pipeline.sage
+sage rl/search/random_q_search.sage --samples 100 --seed 0
+```
+
 ## Exercise: print the original ideal
 
 To print the original SR ideal, start Sage
@@ -34,7 +70,9 @@ load("rl/sr_environment.sage")  # Load the cached T^1 basis and the coordinate-c
 print_original_ideal()
 ```
 
-# STEP 1: pick a first-order deformation
+# Machine learning pipeline
+
+## STEP 1: pick a first-order deformation
 
 `sr_environment.sage` loads the previously
 computed (=cached) 53-dimensional $T^1$
@@ -58,7 +96,7 @@ converts a first-order deformation direction
 `y`, initially a vector with 53 entries,
 into its corresponding 1664-coordinate vector.
 
-## Exercise: pick a first-order deformation
+### Exercise: pick a first-order deformation
 
 To pick a first-order deformation direction
 yourself,
@@ -88,7 +126,7 @@ More generally, assigning several entries of
 cached (T^1) basis vectors, e.g.
 you can choose `y[3]=-4` and so on.
 
-## Exercise: print deformed polynomials
+### Exercise: print deformed polynomials
 
 A deformation direction $y$ induces
 a new set of 16 polynomials obtained
@@ -120,7 +158,7 @@ F
  # Display the first-order deformed ideal generators.
 ```
 
-# STEP 2: lift to second order
+## STEP 2: lift to second order
 
 Our current deformation polynomials look like 
 ```
@@ -168,7 +206,7 @@ second_order_lift_space(y)
 computes this complete affine space.
 
 
-## Exercise: find a second order lift and print the deformed polynomials
+### Exercise: find a second order lift and print the deformed polynomials
 
 Again, start Sage from the repository root:
 
@@ -231,7 +269,7 @@ direction $e_{0}$, its second-order lift is
 visibly different from its first-order
 deformation.
 
-## Exercise: explore the space of order-2 lifts
+### Exercise: explore the space of order-2 lifts
 
 When a second-order lift exists, it is usually
 not unique.
@@ -281,7 +319,7 @@ lift-space dimension: 109
 
 
 
-# STEP 3: lift to third order
+## STEP 3: lift to third order
 
 Our current deformation polynomials look
 like
@@ -343,7 +381,7 @@ all third-order kernel parameters equal to
 zero. This was implemented for human
 visualization.
 
-## Exercise: choose a third-order lift and print the deformed polynomials
+### Exercise: choose a third-order lift and print the deformed polynomials
 
 Again, start Sage from the repository root:
 
@@ -397,7 +435,7 @@ It does not yet prove that the cubic
 polynomials define a flat family over
 $K[t]$. That is the purpose of Step 5.
 
-## Exercise: explore the third-order lift space
+### Exercise: explore the third-order lift space
 
 ```
 load("rl/sr_environment.sage")
@@ -430,382 +468,54 @@ exists: True
 ambient dimension: 1664
 lift-space dimension: 109
 ```
-# STEP 4: measure the flatness defect
 
-After Step 3, we have 16 polynomials of the
-form
+# Learning strategy
 
-```text
-F_i^{(3)} = f_i+t g_i+t^2h_i+t^3q_i.
+To run the machine efficiently we may want
+to start by fixing first and second-order
+directions `y` and `h_i`, and barely survey
+choices of possible third-order lifts `q_i`
+and test only those for flatness.
+
+Thus we write different scripts to run
+the machine starting at different STEPS.
+We shall gather data, which is to be
+analysed statistically and considered for
+future searches.
+
+This directory is structured as follows:
+```
+rl/
+├── README.md
+├── sr_environment.sage
+├── search/
+│   ├── evaluate_candidate.sage
+│   ├── random_q_search.sage
+│   └── random_hq_search.sage
+├── tests/
+│   └── test_search_pipeline.sage
+└── runs/
+    └── .gitignore
 ```
 
-These polynomials define a valid deformation
-modulo $t^4$.
-
-We now treat the same polynomials as exact
-polynomials in
-
-```text
-K[t,x_1,\ldots,x_8].
-```
-
-They generate an ideal
-
-```text
-J=(F_0^{(3)},\ldots,F_{15}^{(3)}).
-```
-
-We want to know whether this family is flat.
-
-The exact test would be
-
-```text
-J:t=J.
-```
-
-This means that there is no polynomial
-$u\notin J$ for which $tu\in J$.
-
-Such a polynomial $u$ would be
-$t$-torsion, and its presence would show that
-the family is not flat.
-
-Unfortunately, computing $J:t$ exactly can
-require an expensive Gröbner-basis
-calculation. This is too slow to run for every
-candidate considered by the search machine.
-
-Instead, we first use a cheaper test.
-
-## STEP 4.1 The low-degree test
-
-Choose an $x$-degree $d$.
-
-We consider all degree-$d$ polynomials which
-are obtained by multiplying the 16 generators
-$F_i^{(3)}$ by monomials.
-
-For example, since every $F_i^{(3)}$ has
-$x$-degree 3, to study degree 4 we multiply
-them by
-
-```text
-x_1,\ldots,x_8.
-```
-
-We write the resulting polynomials as rows of
-a matrix $A_d(t)$.
-
-We then compare two ranks:
-
-* the rank at $t=0$, which describes the
-  original SR fibre;
-* the rank at several nonzero values of $t$,
-  which describes nearby fibres.
-
-The degree-$d$ defect is
-
-```text
-delta_d
-=
-sampled generic rank
--
-rank at t=0.
-```
-
-If $\delta_d>0$, the family has acquired
-additional relations away from $t=0$. This
-detects a flatness defect in degree $d$.
-
-We combine the tested degrees using
-
-```text
-total defect
-=
-sum of delta_d over the tested degrees.
-```
-
-The score used by the search machine is
-
-```text
-score = - total defect.
-```
-
-Therefore:
-
-* score $0$ is best;
-* a more negative score means that more
-  low-degree torsion was detected.
-
-This is only a fast diagnostic.
-
-A score of $0$ does **not** prove that the
-family is flat. It means only that no defect
-was detected in the degrees and values of $t$
-which were tested.
-
-Promising candidates must later pass the exact
-test
-
-```text
-J:t=J.
-```
-
-## Exercise: cheap flatness test for a given order-3 lift
-
-Again, start Sage from the repository root:
-
-```sh
-sage
-```
-
-Then run:
-
-```sage
-load("rl/sr_environment.sage")
-# Load the deformation environment.
-
-y = vector(K, T1_DIM)
-y[0] = 1
-# Choose a direction accepted by the
-# third-order lifting interface.
-
-F3 = third_order_generators(y)
-# Construct its 16 cubic candidate generators.
-
-diagnostic = low_degree_flatness_diagnostic(
-    F3,
-    degrees=(4, 5),
-)
-# Measure the flatness defect in x-degrees
-# 4 and 5.
-
-diagnostic
-# Display the ranks, defects, and total score.
-```
-
-The convenience function
-
-```sage
-diagnostic = low_degree_flatness_score(
-    y,
-    degrees=(4, 5),
-)
-```
-
-performs the same calculation directly from
-the vector $y$.
-
-The result contains, for every tested degree:
-
-* the rank at $t=0$;
-* the ranks at the sampled nonzero values of
-  $t$;
-* the detected defect $\delta_d$.
-
-It also reports
-
-```text
-total_defect
-score
-passes_sampled_test
-```
-
-where `passes_sampled_test` means only that
-the tested low-degree defect is zero. That
-is, when `total_defect` is zero we have
-flatness in this degree. Also,
-`passes_sampled_test` literally says "True"
-when no flatness defect was detected
-in the tested degrees and sampled values
-of $t$.
-
-The purpose of this step is to give the search
-machine a fast numerical reward. The best
-candidates will later be checked using the
-exact and more expensive flatness test.
-
-
-## STEP 4.2: the exact flatness test
-
-Candidates which score well in Step 5.1 now
-receive a more expensive test.
-
-The 16 cubic generators define the ideal
-
-```text
-J=(F_0^{(3)},\ldots,F_{15}^{(3)})
-```
-
-inside
-
-```text
-K[t,x_1,\ldots,x_8].
-```
-
-We compute the colon ideal
-
-```text
-J:t.
-```
-
-This ideal contains all polynomials $u$ such
-that $tu$ belongs to $J$.
-
-We then compare
-`J:t` with `J`.
-
-There are two possibilities.
-
-### Flat candidate
-
-If
-
-```text
-J:t=J,
-```
-
-then no $t$-torsion exists. The family passes
-the exact flatness test near $t=0$.
-
-This is much stronger than obtaining score
-zero in Step 5.1.
-
-### Nonflat candidate
-
-If
-
-```text
-J:t \neq J,
-```
-
-then there exists a polynomial $u$ such that
-
-```text
-u \notin J
-```
-
-but
-
-```text
-tu \in J.
-```
-
-The polynomial $u$ is called a
-$t$-torsion witness. It proves that the
-candidate family is not flat.
-
-When a candidate fails, we may perform further
-expensive calculations:
-
-* compute the full saturation $J:t^\infty$;
-* set $t=0$ in the saturated ideal;
-* compare the resulting special fibre with
-  the original SR ideal;
-* list the extra equations which appear.
-
-These additional calculations explain how the
-candidate fails. They are not necessary merely
-to decide whether it is flat.
-
-For efficiency, the search pipeline is:
-
-```text
-cheap low-degree test
-        |
-        v
-exact colon test for good candidates
-        |
-        v
-full saturation analysis only when useful
-```
-
-## Exercise: expensive test
-
-Again, start Sage from the repository root:
-
-```sh
-sage
-```
-
-Then run:
-
-```sage
-load("rl/sr_environment.sage")
-# Load the deformation environment.
-
-y = vector(K, T1_DIM)
-y[0] = 1
-# Choose a direction accepted by the
-# third-order lifting interface.
-
-F3 = third_order_generators(y)
-# Construct the 16 cubic candidate generators.
-
-cheap = low_degree_flatness_diagnostic(
-    F3,
-    degrees=(4, 5),
-)
-# Run the cheap test first.
-
-cheap
-# Inspect the sampled defect before deciding
-# whether to run the exact test.
-
-exact = exact_flatness_diagnostic(F3)
-# Compute J:t and compare it with J.
-
-exact
-# Display the exact flatness verdict and,
-# when nonflat, a t-torsion witness.
-```
-
-The result should contain at least
-
-```text
-flat
-t_saturated
-torsion_witness
-```
-
-Here `t_saturated` means that
-
-```text
-J:t=J.
-```
-
-Therefore:
-
-* `flat = True` means that the candidate
-  passes the exact flatness test;
-* `flat = False` means that a $t$-torsion
-  witness was found.
-
-To obtain a more detailed explanation of a
-failure, run
-
-```sage
-exact = exact_flatness_diagnostic(
-    F3,
-    analyze_failure=True,
-)
-```
-
-This may additionally compute
-
-```text
-J:t^\infty
-```
-
-and compare its special fibre with the
-original SR ideal.
-
-This detailed analysis is substantially more
-expensive and should not run during every
-search iteration.
-
-
-
+Where:
+
+* `sr_environment.sage` contains the
+  mathematical deformation and flatness
+  functions.
+
+* `search/` contains the scripts which run
+  searches starting from different steps of
+  the pipeline.
+
+* `tests/` contains safety scripts that
+  check everything is working good and looks
+  just like it should.
+
+* `runs/` stores the configuration, logs,
+  sampled parameters, summaries, and
+  successful candidates produced by each
+  search run.
 
 
 # Local codex session 

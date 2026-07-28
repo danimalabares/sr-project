@@ -13,9 +13,10 @@ of the 3-sphere.
 
 ## The two approaches in this repository
 
+Historical deformation computations are retained under `old-code/`.
 There are two separate deformation attempts:
 
-1. **Gröbner deformation attempt — `code/GN2/`.** This directory tries to
+1. **Gröbner deformation attempt — `old-code/GN2/`.** This directory tries to
    obtain `SR(M)` as a coordinate/weight Gröbner degeneration of a
    Gulliksen–Negård determinantal CY3. This is the approach for which
    ChatGPT produced the failure proof: the included Gordan certificate
@@ -24,8 +25,8 @@ There are two separate deformation attempts:
    the proposed weight method. The stronger statement covering every
    possible special matrix remains conjectural.
 
-2. **Order-by-order lifting attempts — `code/cotangent/` and
-   `code/more-lifting/`.** These directories compute first- and
+2. **Order-by-order lifting attempts — `old-code/cotangent/` and
+   `old-code/more-lifting/`.** These directories compute first- and
    higher-order deformations directly, starting with `T^1`, `T^2`, and
    the quadratic obstruction equations. They include the sparse formal
    lift and the subsequent flatness tests. The candidate family found by
@@ -50,8 +51,8 @@ directions. Here's a preliminary setup:
   dimension of certain torsion module
   which measures flatness failure.
   (I have already tried several deformation
-  directions ---in `code/cotangent`
-  and `code/more-lifting`---, 
+  directions ---in `old-code/cotangent`
+  and `old-code/more-lifting`---,
   non of which give a flat
   family since at some order they have
   torsion.)
@@ -91,13 +92,13 @@ limitations of each claim.
 
 ## Repository map
 
-- `code/GN2/`: the failed ChatGPT-developed Gröbner deformation attempt,
+- `old-code/GN2/`: the failed ChatGPT-developed Gröbner deformation attempt,
   including the determinantal comparison and Gordan failure certificate.
-- `code/cotangent/`: the initial lifting attempt: `T^1`, `T^2`, obstruction
+- `old-code/cotangent/`: the initial lifting attempt: `T^1`, `T^2`, obstruction
   quadrics, formal lifts, and the flatness failure. The small cached data
   files are retained because the later scripts use them as reproducible
   checkpoints.
-- `code/more-lifting/`: continuation of the lifting attempt through
+- `old-code/more-lifting/`: continuation of the lifting attempt through
   higher-order obstruction and flatness experiments.
 - `lean/`: Lean 4 checks for the finite combinatorial certificates. Build
   artifacts are intentionally excluded.
@@ -111,17 +112,17 @@ The scripts use SageMath, Macaulay2, Python 3 with NumPy/SciPy/SymPy, and
 Lean 4 with Mathlib.
 
 There is no single one-command pipeline yet. Start with the README files in
-the code directories; the numbered filenames record the experimental
-sequence.
+the legacy `old-code/` directories; the numbered filenames record the
+experimental sequence.
 
 ## Quick independent checks
 
 From the repository root:
 
 ```bash
-python3 code/cotangent/verify_M.py
-python3 code/cotangent/compute_T1_AC.py
-python3 code/GN2/10_obstruction_certificate.py
+python3 old-code/cotangent/verify_M.py
+python3 old-code/cotangent/compute_T1_AC.py
+python3 old-code/GN2/10_obstruction_certificate.py
 ```
 
 Some longer Sage scripts consume the included cached checkpoints rather than

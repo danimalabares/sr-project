@@ -1,0 +1,17 @@
+Loading first-order and quotient data
+-------------------------------------
+base field = Finite Field of size 32003
+number of variables = 8
+number of generators = 16
+monomials in (S/I)_3 = 104
+raw deformation parameters = 1664
+T^1 quotient basis length = 53
+
+Syzygy total-degree histogram:
+{4: 30, 5: 6, 6: 2}
+
+Reconstructed correction columns
+--------------------------------
+correction unknowns per order = 11136
+total unknowns per higher-order step = 12800
+

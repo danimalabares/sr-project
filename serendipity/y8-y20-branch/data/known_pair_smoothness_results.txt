@@ -1,0 +1,12 @@
+Known y8,y20 pair smoothness results over GF(32003)
+pair (1, 1): flat=True, t=1 smooth=False, projective_dimension=3, degree=20, runtime=131.808185 seconds
+  rescaling: {'exists': False, 'integer': False}
+pair (2, 1): flat=True, t=1 smooth=False, projective_dimension=3, degree=20, runtime=147.840627 seconds
+  rescaling: {'exists': False, 'integer': False}
+pair (3, 1): flat=True, t=1 smooth=False, projective_dimension=3, degree=20, runtime=136.045325 seconds
+  rescaling: {'exists': False, 'integer': False}
+pair (5, 1): flat=True, t=1 smooth=False, projective_dimension=3, degree=20, runtime=137.340785 seconds
+  rescaling: {'exists': False, 'integer': False}
+smooth fibre found: False
+These four known flat families are not smooth.
+total runtime: 0.414604 seconds
