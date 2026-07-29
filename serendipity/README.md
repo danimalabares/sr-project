@@ -1,12 +1,24 @@
 # Serendipity cubic family
 
-This directory studies a cubic family over
-$\mathrm{GF}(32003)$ that was discovered
-while constructing the deformation-search
-environment now maintained in `rl/`. The family has
-been frozen as explicit polynomial data, so
-this project does not depend on the RL
-machinery or rerun a lifting solver.
+While writing the RL machine in the
+directory `rl/`, an example computation
+produced a flat family. Thinking this was
+an extraordinary coincidence, I
+immediately checked for smoothness of 
+the general fibre---which is singular.
+In this directory I store those
+computations.
+I later realised that in my old data
+I had also found other flat families,
+and I also checked if their general
+fibres are smooth (they aren't)
+in `serendipity/y8-y20-branch`.
+
+In the remainder of this README file
+I describe the initial serendipity family
+found while writing the RL machine.
+It is a cubic family over
+$\mathrm{GF}(32003)$.
 
 The first-order direction that led to the
 family is:

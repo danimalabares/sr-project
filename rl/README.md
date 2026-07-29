@@ -42,9 +42,11 @@ rl/
 ├── README.md
 ├── sr_environment.sage
 ├── search/
+│   ├── README.md
 │   ├── evaluate_candidate.sage
+│   ├── pipeline_common.sage
+│   ├── random_h_search.sage
 │   ├── random_q_search.sage
-│   └── random_hq_search.sage
 ├── tests/
 │   └── test_search_pipeline.sage
 └── runs/
@@ -184,6 +186,11 @@ F = first_order_generators(y)
 F
  # Display the first-order deformed ideal generators.
 ```
+
+Recall that you can choose a different
+deformation direction $y$ by manually
+choosing other coordinates, e.g.
+`y[3]=8`, `y[43]=-4`, etc.
 
 ## STEP 2: lift to second order
 
@@ -498,17 +505,31 @@ lift-space dimension: 109
 
 # Learning strategy
 
-To run the machine efficiently we may want
-to start by fixing first and second-order
-directions `y` and `h_i`, and barely survey
-choices of possible third-order lifts `q_i`
-and test only those for flatness.
+The initial search interface consists of
+three independent one-record stages:
 
-Thus we write different scripts to run
-the machine starting at different STEPS.
-We shall gather data, which is to be
-analysed statistically and considered for
-future searches.
+1. `random_h_search.sage` accepts one
+   first-order direction $y$, computes its
+   complete second-order lift space, and
+   samples one correction $h$.
+2. `random_q_search.sage` accepts that exact
+   pair $(y,h)$ and samples one compatible
+   third-order correction $q$.
+3. `evaluate_candidate.sage` verifies the
+   supplied triple $(y,h,q)$ and tests the
+   resulting cubic family for flatness.
+
+The cheap low-degree test runs first. A
+positive defect already proves nonflatness,
+so the expensive exact colon test is skipped
+in that case. No stage runs a smoothness
+calculation.
+
+Every invocation saves exactly one dictionary
+under `rl/runs/`, including obstruction
+failures. See `rl/search/README.md` for the
+library functions, filenames, and command-line
+examples.
 
 # Local codex session 
 

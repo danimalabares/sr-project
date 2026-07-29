@@ -177,3 +177,26 @@ example computations a flat family!
 
 Unfortunately the general fibre is still
 far from smooth.
+
+# July 29, 2026 (sampling and testing functions)
+
+Now we're one step away from writing
+the actual learning algorithm!
+Up to this point I have configured 
+
+- the elementary mathematical functions that
+deal with the linear algebra (the
+deformation directions as vectors,
+obstruction vector spaces, etc.) in
+`sr_environment.sage`
+
+- (today) the elementary sampling functions
+`random_h_search.sage`,
+`random_q_search.sage` and
+`evaluate_candidate.sage`,
+which explore the vector spaces and
+store the result of the lifting/flatness
+tests for the given deformation directions.
+
+Next up: design a way for the machine
+to iterate this process intelligently.
