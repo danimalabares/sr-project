@@ -21,6 +21,10 @@ takes for input an order-3-liftable
 choice $(y,h,q)$ and runs the flatness
 test. The output is the result of the test.
 
+4. The three scripts above share a bunch
+of code, which is stored in 
+`pipeline_common.sage` for simplicity.
+
 The outputs are stored in files like this:
 ```
 rl/runs/h-20260729-a83f21.sobj
@@ -36,6 +40,16 @@ file is a `.sobj` file
 to be read in Sage/Python
 and contains dictionary with the output
 data collected.
+
+NOTE: 29/07/2026. I accidentally noticed
+that the "random" choices made in the above
+functions are actually just fixing all
+coordinates to be zero and assigning a
+random nonzero value to a random entry of
+the vector. So it's not completely random
+but might be computationally reasonable for
+the first runs.
+
 
 ## Exercise
 
