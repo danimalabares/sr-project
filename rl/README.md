@@ -6,7 +6,9 @@ is a set of 16 polynomials
 obtained by modifying each
 of the original monomials by adding
 some combination of the remaining 104 
-monomials. Therefore a first order
+monomials
+(see below "Exercise: print deformed
+polynomials"). Therefore a first order
 deformation is initially given by
 16 · 104 = 1664 coefficients.
 
@@ -14,8 +16,24 @@ Imposing syzygy constraints, we reduce
 the problem to only 109 
 coefficients. Quotienting by certain
 coordinate changes we reduce the number to 53.
-Thus the dimension of T^1, the space
+Thus the dimension of $T^1$, the space
 of first order deformations is 53.
+
+This RL machine attempts to
+explore the space $T^1$
+in search for a deformation direction
+$y$ for which the corresponding family
+is flat and the general fibre is smooth
+(this is what we call a "smoothing"
+of the SR variety).
+
+We do this in steps: for each first-order
+direction we check whether it admits lifts
+to second and third-order directions,
+and if such tests pass we do a flatness
+test. If the latter is also positive,
+then we check for smoothness of the general
+fibre.
 
 ## Directory structure
 
@@ -33,25 +51,34 @@ rl/
     └── .gitignore
 ```
 
-`sr_environment.sage` contains the mathematical
-deformation and flatness functions. `search/`
+* `sr_environment.sage` contains the functions
+which test each deformation direction
+for lifting, flatness (and,
+eventually, smoothness). 
+
+* `search/`
 contains scripts which run searches from
-different steps. `tests/` contains safety
+different steps---e.g. it might be convenient
+to start by fixing a second-order lift
+and barely test for flatness of the
+corresponding admissible third-order lifts.
+
+* `tests/` contains safety
 scripts that check that everything works
-correctly and behaves as expected. `runs/`
+correctly and behaves as expected.
+ 
+* `runs/`
 stores configurations, logs, sampled
 parameters, summaries, and successful
-candidates from each search run. The cached
-historical deformation data consumed by the
-environment remain under the legacy
-`old-code/` directory.
-
-From the repository root, run:
-
-```sh
-sage rl/tests/test_search_pipeline.sage
-sage rl/search/random_q_search.sage --samples 100 --seed 0
-```
+candidates from each search run.
+This is data the RL machine uses
+to learn.
+ 
+The cached historical deformation data
+consumed by the environment remain under the
+legacy `old-code/` directory
+(this work was produced in another,
+private repository in the past years).
 
 ## Exercise: print the original ideal
 
@@ -482,41 +509,6 @@ the machine starting at different STEPS.
 We shall gather data, which is to be
 analysed statistically and considered for
 future searches.
-
-This directory is structured as follows:
-```
-rl/
-├── README.md
-├── sr_environment.sage
-├── search/
-│   ├── evaluate_candidate.sage
-│   ├── random_q_search.sage
-│   └── random_hq_search.sage
-├── tests/
-│   └── test_search_pipeline.sage
-└── runs/
-    └── .gitignore
-```
-
-Where:
-
-* `sr_environment.sage` contains the
-  mathematical deformation and flatness
-  functions.
-
-* `search/` contains the scripts which run
-  searches starting from different steps of
-  the pipeline.
-
-* `tests/` contains safety scripts that
-  check everything is working good and looks
-  just like it should.
-
-* `runs/` stores the configuration, logs,
-  sampled parameters, summaries, and
-  successful candidates produced by each
-  search run.
-
 
 # Local codex session 
 
