@@ -133,9 +133,7 @@ preliminary and need a more careful analysis.
 
 # Current computational picture
 
-**Status:** `SR(M)` has not been
-proved smoothable nor
-non-smoothable. The following claims
+Note: the following claims
 have been found using AI and would be
 verified more thoroughly upon a conclusive
 answer to our problem.
