@@ -91,33 +91,33 @@ singular.
 from the repository where I used to work
 before July 2026:
 
-- `old-code/GN2/` contains my attempts
-to deform $SR(\mathcal{M})$
-to Gulliksen–Negård's variety. 
-I tried to use initial ideals,
-homogenization forms and Gröbner fans
-(see [Eisenbud, *Commutative Algebra: with a View Toward
-Algebraic Geometry*, Theorem 15.17](https://doi.org/10.1007/978-1-4612-5350-1)).
-My own attempts failed since
-the computations are too heavy.
-Later, AI claimed to have produced
-a Lean-certified proof that this method
-cannot possibly work, documented in
-`lean/`.
+  - `old-code/GN2/` contains my attempts
+    to deform $SR(\mathcal{M})$
+    to Gulliksen–Negård's variety. 
+    I tried to use initial ideals,
+    homogenization forms and Gröbner fans
+    (see [Eisenbud, *Commutative Algebra: with a View Toward
+    Algebraic Geometry*, Theorem 15.17](https://doi.org/10.1007/978-1-4612-5350-1)).
+    My own attempts failed since
+    the computations are too heavy.
+    Later, AI claimed to have produced
+    a Lean-certified proof that this method
+    cannot possibly work, documented in
+    `lean/`.
 
-- `old-code/cotangent/` contains the initial
-computations of the first and second
-order deformation spaces, obstructions,
-and lifts. In particular, we found
-a set of first-order directions which
-lift formally up to order 30, but
-never managed to find a family from these
-formal lifts. The current work in `rl/`
-continues the search in this spirit.
+  - `old-code/cotangent/` contains the initial
+    computations of the first and second
+    order deformation spaces, obstructions,
+    and lifts. In particular, we found
+    a set of first-order directions which
+    lift formally up to order 30, but
+    never managed to find a family from these
+    formal lifts. The current work in `rl/`
+    continues the search in this spirit.
 
-- `old-code/more-lifting/` is just like
-`old-code/cotangent`. (To do: merge these
-two directories).
+  - `old-code/more-lifting/` is just like
+    `old-code/cotangent`. (To do: merge these
+    two directories).
 
 * `lean/` contains at least two Lean 4
 certificates: the failure of GN-to-$SR(\mathcal{M})$
