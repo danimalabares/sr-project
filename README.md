@@ -5,8 +5,7 @@ discovered a triangulation
 $\mathcal{M}$ of the 3-sphere
 with interesting combinatorial properties.
 The Stanley-Reisner variety
-$SR(\mathcal{M})$ associated
-to $\mathcal{M}$ is a union of linear
+$SR(\mathcal{M})$ is a union of linear
 subspaces in $\mathbb{P}^7$, and is highly
 singular. We look for a smoothing of
 $SR(\mathcal{M})$,
