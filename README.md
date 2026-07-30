@@ -1,4 +1,4 @@
-# Search for a smoothing of SR variety of Grünbaum-Shreedharan's sphere
+# Search for a smoothing of SR variety of Grünbaum-Sreedharan's sphere
 
 In a [1967 paper](https://doi.org/10.1016/S0021-9800(67)80055-3), Grünbaum and Sreedharan
 discovered a triangulation 
@@ -17,19 +17,19 @@ and whose general fibre is a smooth variety.
 It is not known whether such a smoothing
 exists. So far, we have found:
 
-* A projective variety [studied by Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
+* A smooth projective variety [studied by
+Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
 whose Betti numbers match identically with
-those of $SR(\mathcal{M})$.
-We could prove that these two varieties
-are not deformation-equivalent via
-Gröbner deformations. They could still
-be so via another method.
+those of $SR(\mathcal{M})$. We have not
+managed to prove whether they are
+deformation-equivalent.
 
 * The dimension of the space $T^1$ of first-order
 deformations of $SR(\mathcal{M})$,
 which is 53. This has been confirmed
 with two methods: using a result by
-[Christophersen-Altmann](https://doi.org/10.1007/s00229-004-0496-3) where 
+[Altmann–Christophersen, *Deforming Stanley–Reisner
+schemes*](https://doi.org/10.1007/s00208-010-0490-x) where 
 such dimension is computed using the
 combinatorial structure of the underlying
 simplicial complex; and by direct
@@ -37,9 +37,9 @@ computation of the general first-order
 deformation space considering syzygy
 constraints.
 
-* The dimension of the second-order deformation space
-$T^2$, which is 12, and a set of 30
-quadratic obstruction equations.
+* The dimension of the obstruction space
+$T^2$, which is 12, and a set of 
+27 preliminary quadratic obstruction equations.
 
 * Several formal families which lift up
 to high orders; and a few flat families, 
@@ -90,7 +90,7 @@ singular.
 
 * `old-code` captures the essential results
 from the repository where I used to work
-before July 2027:
+before July 2026:
 
 - `old-code/GN2/` contains my attempts
 to deform $SR(\mathcal{M})$
@@ -153,11 +153,6 @@ obstruction equations.
  order 30, but the resulting naive cubic
 family is not flat: we found torsion
 witnesses.
-
-- Generic points of all 27 quadratic
-components meet higher-order obstructions; a
-smoothing direction, if present, must lie on
-a smaller special locus.
 
 - The determinantal Gulliksen–Negård
 Calabi–Yau has matching numerical
