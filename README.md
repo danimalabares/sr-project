@@ -1,4 +1,4 @@
-# Search for a smoothing of SR variety of Grünbaum-Sreedharan's sphere
+# Smoothing of a Stanley-Reisner variety
 
 In a [1967 paper](https://doi.org/10.1016/S0021-9800(67)80055-3), Grünbaum and Sreedharan
 discovered a triangulation 
