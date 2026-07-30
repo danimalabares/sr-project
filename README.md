@@ -121,10 +121,10 @@ before July 2026:
 
 * `lean/` contains at least two Lean 4
 certificates: the failure of GN-to-$SR(\mathcal{M})$
-deformation-equivalence explained above,
+deformation-equivalence explained above;
 and the confirmation that
-$\dim T^1 = 53$ but by syzygy computations
-and using Christopher-Altmann combinatorial
+$\dim T^1 = 53$ both via syzygy computations
+and via Christopher-Altmann combinatorial
 formula. Note: these files/results are
 preliminary and need a more careful analysis.
 
