@@ -5,13 +5,13 @@ discovered a triangulation
 $\mathcal{M}$ of the 3-sphere
 with interesting combinatorial properties.
 The Stanley-Reisner variety
-$\operatorname{SR}(\mathcal{M})$ associated
+$SR(\mathcal{M})$ associated
 to $\mathcal{M}$ is a union of linear
 subspaces in $\mathbb{P}^7$, and is highly
 singular. We look for a smoothing of
-$\operatorname{SR}(\mathcal{M})$,
+$SR(\mathcal{M})$,
 that is, a flat family whose singular
-fibre is $\operatorname{SR}(\mathcal{M})$
+fibre is $SR(\mathcal{M})$
 and whose general fibre is a smooth variety.
 
 It is not known whether such a smoothing
@@ -19,14 +19,14 @@ exists. So far, we have found:
 
 * A projective variety [studied by Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
 whose Betti numbers match identically with
-those of $\operatorname{SR}(\mathcal{M})$.
+those of $SR(\mathcal{M})$.
 We could prove that these two varieties
 are not deformation-equivalent via
 Gröbner deformations. They could still
 be so via another method.
 
 * The dimension of the space $T^1$ of first-order
-deformations of $\operatorname{SR}(\mathcal{M})$,
+deformations of $SR(\mathcal{M})$,
 which is 53. This has been confirmed
 with two methods: using a result by
 [Christophersen-Altmann](https://doi.org/10.1007/s00229-004-0496-3) where 
@@ -93,7 +93,7 @@ from the repository where I used to work
 before July 2027:
 
 - `old-code/GN2/` contains my attempts
-to deform $\operatorname{SR}(\mathcal{M})$
+to deform $SR(\mathcal{M})$
 to Gulliksen–Negård's variety. 
 I tried to use initial ideals,
 homogenization forms and Gröbner fans
@@ -121,7 +121,7 @@ continues the search in this spirit.
 two directories).
 
 * `lean/` contains at least two Lean 4
-certificates: the failure of GN-to-$\operatorname{SR}(\mathcal{M})$
+certificates: the failure of GN-to-$SR(\mathcal{M})$
 deformation-equivalence explained above,
 and the confirmation that
 $\dim T^1 = 53$ but by syzygy computations
@@ -163,7 +163,7 @@ a smaller special locus.
 Calabi–Yau has matching numerical
 invariants, but the tested coordinate
 Gröbner-degeneration route to 
-$\operatorname{SR}(\mathcal{M})$ is
+$SR(\mathcal{M})$ is
 obstructed. A finite Gordan certificate is
 included, together with its Lean
 formalization.
