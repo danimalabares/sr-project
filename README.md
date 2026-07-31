@@ -23,10 +23,11 @@ that of $SR(\mathcal{M})$. We have not
 managed to prove whether they are
 deformation-equivalent.
 
-* the dimension of the space $T^1$ of first-order
+* preliminary computations show
+the dimension of the space $T^1$ of first-order
 deformations of $SR(\mathcal{M})$,
-which is 53. This has been confirmed
-with two methods: using a formula by
+which is 53. This has been observed via 
+two methods: using a formula by
 [Altmann–Christophersen, *Deforming Stanley–Reisner
 schemes*](https://doi.org/10.1007/s00208-010-0490-x) 
 which relies on the
@@ -35,14 +36,14 @@ simplicial complex; and by direct
 computation considering syzygy
 constraints.
 
-* the dimension of the obstruction space
-$T^2$, which is 12, and a set of
-27 quadratic obstruction conditions
-(which must be verified).
+* preliminary computations show
+the dimension of the obstruction space
+$T^2$ is 12, and the existence of a set of
+27 quadratic obstruction conditions.
 
 * several directions which lift up
 to high orders; and a few flat families, 
-but none has been shown to have
+but none which has been shown to have
 smooth general fibre.
 
 
@@ -109,7 +110,7 @@ before July 2026:
     a set of first-order directions which
     lift up to order 30, but
     never managed to find a family from these
-    formal lifts. The current work in `rl/`
+    finite-order lifts. The current work in `rl/`
     continues the search in this spirit.
 
   - `old-code/more-lifting/` is just like
