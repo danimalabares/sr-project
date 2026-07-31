@@ -28,8 +28,8 @@ deformations of $SR(\mathcal{M})$,
 which is 53. This has been confirmed
 with two methods: using a formula by
 [Altmann–Christophersen, *Deforming Stanley–Reisner
-schemes*](https://doi.org/10.1007/s00208-010-0490-x) where 
-which relies
+schemes*](https://doi.org/10.1007/s00208-010-0490-x) 
+which relies on the
 combinatorial structure of the underlying
 simplicial complex; and by direct
 computation of the general first-order
