@@ -1,4 +1,4 @@
-# Smoothing of a Stanley-Reisner variety
+# In search of a smoothing 
 
 In a [1967 paper](https://doi.org/10.1016/S0021-9800(67)80055-3), Grünbaum and Sreedharan
 discovered a triangulation 
@@ -9,40 +9,42 @@ $SR(\mathcal{M})$ is a union of linear
 subspaces in $\mathbb{P}^7$, and is highly
 singular. We look for a smoothing of
 $SR(\mathcal{M})$,
-that is, a flat family whose singular
+that is, a flat family whose special 
 fibre is $SR(\mathcal{M})$
 and whose general fibre is a smooth variety.
 
 It is not known whether such a smoothing
 exists. So far, we have found:
 
-* A smooth projective variety [studied by
+* a smooth projective variety [studied by
 Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
-whose Betti numbers match identically with
-those of $SR(\mathcal{M})$. We have not
+whose graded  Betti table matches identically with
+that of $SR(\mathcal{M})$. We have not
 managed to prove whether they are
 deformation-equivalent.
 
-* The dimension of the space $T^1$ of first-order
+* the dimension of the space $T^1$ of first-order
 deformations of $SR(\mathcal{M})$,
 which is 53. This has been confirmed
-with two methods: using a result by
+with two methods: using a formula by
 [Altmann–Christophersen, *Deforming Stanley–Reisner
 schemes*](https://doi.org/10.1007/s00208-010-0490-x) where 
-such dimension is computed using the
+which relies
 combinatorial structure of the underlying
 simplicial complex; and by direct
 computation of the general first-order
 deformation space considering syzygy
 constraints.
 
-* The dimension of the obstruction space
-$T^2$, which is 12, and a set of 
-27 preliminary quadratic obstruction equations.
+* the dimension of the obstruction space
+$T^2$, which is 12, and a set of
+27 quadratic obstruction conditions
+(which must be verified).
 
-* Several formal families which lift up
+* several directions which lift up
 to high orders; and a few flat families, 
-but none with smooth general fibre.
+but none has been shown to have
+smooth general fibre.
 
 
 # Repository map
@@ -72,9 +74,9 @@ sr-project/
 can find a more detailed explanation of
 the mathematics and computations there.
 The directory's name comes from the motivation of
-constructing a Reinforcement Learning
-machine which would explore efficiently the
-spaces of deformations, which have been
+constructing a reinforcement learning
+machine to explore the deformation
+space, which has been
 found to be computationally unmanageable. As
 of 30/7/2026, I have constructed the basic
 mathematical functions, and I'm ready
@@ -83,9 +85,8 @@ which would make the machine ``learn''.
 
 * `serendipity/` records a few
 flat families found by serendipity
-during the search, along with the computations
-which show that their general fibres are
-singular.
+during the search, along with the
+smoothness tests performed so far.
 
 * `old-code` captures the essential results
 from the repository where I used to work
@@ -100,17 +101,14 @@ before July 2026:
     Algebraic Geometry*, Theorem 15.17](https://doi.org/10.1007/978-1-4612-5350-1)).
     My own attempts failed since
     the computations are too heavy.
-    Later, AI claimed to have produced
-    a Lean-certified proof that this method
-    cannot possibly work, documented in
-    `lean/`.
 
   - `old-code/cotangent/` contains the initial
-    computations of the first and second
-    order deformation spaces, obstructions,
-    and lifts. In particular, we found
+    computations of the first-order
+    deformation space $T^1$, the obstruction
+    space $T^2$, and higher-order lifts.
+    In particular, we found
     a set of first-order directions which
-    lift formally up to order 30, but
+    lift up to order 30, but
     never managed to find a family from these
     formal lifts. The current work in `rl/`
     continues the search in this spirit.
@@ -119,46 +117,12 @@ before July 2026:
     `old-code/cotangent`. (To do: merge these
     two directories).
 
-* `lean/` contains at least two Lean 4
-certificates: the failure of GN-to-$SR(\mathcal{M})$
-deformation-equivalence explained above;
-and the confirmation that
-$\dim T^1 = 53$ both via syzygy computations
-and via Christopher-Altmann combinatorial
-formula. Note: these files/results are
-preliminary and need a more careful analysis.
+* `lean/` contains preliminary Lean
+certificates on some of the above results.
+I need to check the details of these files.
 
 * `journal.md` is the working research journal.
 
-
-# Current computational picture
-
-Note: the following claims
-have been found using AI and would be
-verified more thoroughly upon a conclusive
-answer to our problem.
-
-- $dim T^1 = 53$ and $dim T^2 = 12$.
-
-- Generic first-order directions are
-obstructed at second order.
-
-- The raw calculation produces 27 quadratic
-obstruction equations.
-
-- A sparse branch lifts formally through
- order 30, but the resulting naive cubic
-family is not flat: we found torsion
-witnesses.
-
-- The determinantal Gulliksen–Negård
-Calabi–Yau has matching numerical
-invariants, but the tested coordinate
-Gröbner-degeneration route to 
-$SR(\mathcal{M})$ is
-obstructed. A finite Gordan certificate is
-included, together with its Lean
-formalization.
 
 ## Software
 
