@@ -14,16 +14,10 @@ fibre is $SR(\mathcal{M})$
 and whose general fibre is a smooth variety.
 
 It is not known whether such a smoothing
-exists. So far, we have found:
+exists. The current state of the project
+may be summarized as follows:
 
-* a smooth projective variety [studied by
-Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
-whose graded  Betti table matches identically with
-that of $SR(\mathcal{M})$. We have not
-managed to prove whether they are
-deformation-equivalent.
-
-* preliminary computations which show
+* Preliminary computations show
 the dimension of the space $T^1$ of first-order
 deformations of $SR(\mathcal{M})$,
 which is 53. This has been observed via 
@@ -36,15 +30,23 @@ simplicial complex; and by direct
 computation considering syzygy
 constraints.
 
-* preliminary computations which show
+* Preliminary computations show
 the dimension of the obstruction space
 $T^2$ is 12, and the existence of a set of
 27 quadratic obstruction conditions.
 
-* several directions which lift up
-to high orders; and a few flat families, 
-but none which has been shown to have
-smooth general fibre.
+* We found several deformation directions
+which lift up to high orders; and a few flat
+families, but none which has been shown to
+have smooth general fibre.
+
+* There exists a smooth projective variety
+ [studied by
+Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
+whose graded  Betti table matches
+identically with that of $SR(\mathcal{M})$.
+We have not managed to prove whether they
+are deformation-equivalent.
 
 
 # Repository map
