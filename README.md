@@ -98,7 +98,7 @@ before July 2026:
     homogenization forms and Gröbner fans
     (see [Eisenbud, *Commutative Algebra: with a View Toward
     Algebraic Geometry*, Theorem 15.17](https://doi.org/10.1007/978-1-4612-5350-1)).
-    My own attempts failed since
+    My attempts failed because
     the computations are too heavy.
 
   - `old-code/cotangent/` contains the initial
