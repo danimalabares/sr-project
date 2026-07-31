@@ -19,8 +19,8 @@ may be summarized as follows:
 
 * Preliminary computations show
 the dimension of the space $T^1$ of first-order
-deformations of $SR(\mathcal{M})$,
-which is 53. This has been observed via 
+deformations of $SR(\mathcal{M})$
+is 53. This has been observed via 
 two methods: using a formula by
 [Altmann–Christophersen, *Deforming Stanley–Reisner
 schemes*](https://doi.org/10.1007/s00208-010-0490-x) 
@@ -32,11 +32,11 @@ constraints.
 
 * Preliminary computations show
 the dimension of the obstruction space
-$T^2$ is 12, and the existence of a set of
+$T^2$ is 12, and that there are
 27 quadratic obstruction conditions.
 
 * We found several deformation directions
-which lift up to high orders; and a few flat
+which lift up to high orders (up to 30); and a few flat
 families, but none which has been shown to
 have smooth general fibre.
 
