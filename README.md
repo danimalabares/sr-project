@@ -36,9 +36,9 @@ $T^2$ is 12, and that there are
 27 quadratic obstruction conditions.
 
 * We found several deformation directions
-which lift up to high orders (up to 30); and a few flat
-families, but none which has been shown to
-have smooth general fibre.
+which lift up to high orders (up to 30); and
+a few flat families, but none which has been
+shown to have smooth general fibre.
 
 * There exists a smooth projective variety
  [studied by

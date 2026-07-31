@@ -530,7 +530,3 @@ under `rl/runs/`, including obstruction
 failures. See `rl/search/README.md` for the
 library functions, filenames, and command-line
 examples.
-
-# Local codex session 
-
-codex resume 019f9022-2159-7ff2-8fdd-29ada8c6c769
