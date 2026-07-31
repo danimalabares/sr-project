@@ -23,7 +23,7 @@ that of $SR(\mathcal{M})$. We have not
 managed to prove whether they are
 deformation-equivalent.
 
-* preliminary computations show
+* preliminary computations which show
 the dimension of the space $T^1$ of first-order
 deformations of $SR(\mathcal{M})$,
 which is 53. This has been observed via 
@@ -36,7 +36,7 @@ simplicial complex; and by direct
 computation considering syzygy
 constraints.
 
-* preliminary computations show
+* preliminary computations which show
 the dimension of the obstruction space
 $T^2$ is 12, and the existence of a set of
 27 quadratic obstruction conditions.
