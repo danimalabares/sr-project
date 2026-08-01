@@ -512,16 +512,13 @@ J=(F_0^{(3)},\ldots,F_{15}^{(3)}).
 ```
 
 We want to know whether this family is flat.
-
 The exact test would be
 
 ```text
 J:t=J.
 ```
-
 This means that there is no polynomial
 $u\notin J$ for which $tu\in J$.
-
 Such a polynomial $u$ would be
 $t$-torsion, and its presence would show that
 the family is not flat.
@@ -531,13 +528,19 @@ require an expensive Gröbner-basis
 calculation. This is too slow to run for every
 candidate considered by the search machine.
 
-Instead, we first use a cheaper test.
+Instead, we split the flatness test
+into a computationally cheap test
+which may rule out most candidates,
+and reserve a complete test for
+the candidates which pass the first test.
 
 ## STEP 4.1 The low-degree test
 
-Choose an $x$-degree $d$.
+The idea is to check for flatness
+for low-degree polynomials.
 
-We consider all degree-$d$ polynomials which
+Choose an $x$-degree $d$.
+We consider all degree $d$ polynomials which
 are obtained by multiplying the 16 generators
 $F_i^{(3)}$ by monomials.
 
@@ -562,11 +565,7 @@ We then compare two ranks:
 The degree-$d$ defect is
 
 ```text
-delta_d
-=
-sampled generic rank
--
-rank at t=0.
+delta_d = sampled generic rank - rank at t=0.
 ```
 
 If $\delta_d>0$, the family has acquired
@@ -609,13 +608,7 @@ J:t=J.
 
 ## Exercise: cheap flatness test for a given order-3 lift
 
-Again, start Sage from the repository root:
-
-```sh
-sage
-```
-
-Then run:
+Start Sage from the repository root and run:
 
 ```sage
 load("rl/sr_environment.sage")
@@ -659,7 +652,7 @@ The result contains, for every tested degree:
   $t$;
 * the detected defect $\delta_d$.
 
-It also reports
+It also reports the easy-to-read variables
 
 ```text
 total_defect
@@ -667,20 +660,12 @@ score
 passes_sampled_test
 ```
 
-where `passes_sampled_test` means only that
-the tested low-degree defect is zero. That
-is, when `total_defect` is zero we have
-flatness in this degree. Also,
+Here `passes_sampled_test` means only that
+the tested low-degree defect is zero. 
 `passes_sampled_test` literally says "True"
 when no flatness defect was detected
 in the tested degrees and sampled values
 of $t$.
-
-The purpose of this step is to give the search
-machine a fast numerical reward. The best
-candidates will later be checked using the
-exact and more expensive flatness test.
-
 
 ## STEP 4.2: the exact flatness test
 
@@ -688,64 +673,24 @@ Candidates which score well in Step 5.1 now
 receive a more expensive test.
 
 The 16 cubic generators define the ideal
+$J=(F_0^{(3)},\ldots,F_{15}^{(3)})$
+inside $K[t,x_1,\ldots,x_8$.
 
-```text
-J=(F_0^{(3)},\ldots,F_{15}^{(3)})
-```
-
-inside
-
-```text
-K[t,x_1,\ldots,x_8].
-```
-
-We compute the colon ideal
-
-```text
-J:t.
-```
-
+We compute the colon ideal $J:t$
 This ideal contains all polynomials $u$ such
 that $tu$ belongs to $J$.
-
 We then compare
-`J:t` with `J`.
+$J:t$ with $J$.
 
-There are two possibilities.
-
-### Flat candidate
-
-If
-
-```text
-J:t=J,
-```
-
+There are two possibilities:
+* If $J:t=J$
 then no $t$-torsion exists. The family passes
 the exact flatness test near $t=0$.
 
-This is much stronger than obtaining score
-zero in Step 5.1.
-
-### Nonflat candidate
-
-If
-
-```text
-J:t \neq J,
-```
-
+* If $J:t \neq J$
 then there exists a polynomial $u$ such that
-
-```text
-u \notin J
-```
-
-but
-
-```text
-tu \in J.
-```
+$u \notin J$ but
+$ tu \in J$.
 
 The polynomial $u$ is called a
 $t$-torsion witness. It proves that the
