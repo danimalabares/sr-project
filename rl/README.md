@@ -822,12 +822,8 @@ three independent one-record stages:
 3. `evaluate_candidate.sage` verifies the
    supplied triple $(y,h,q)$ and tests the
    resulting cubic family for flatness.
-
-The cheap low-degree test runs first. A
-positive defect already proves nonflatness,
-so the expensive exact colon test is skipped
-in that case. No stage runs a smoothness
-calculation.
+   (To do: rename this script to
+   `flatness_test.sage`.)
 
 Every invocation saves exactly one dictionary
 under `rl/runs/`, including obstruction
