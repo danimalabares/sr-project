@@ -81,14 +81,16 @@ machine to explore the deformation
 space, which has been
 found to be computationally unmanageable. As
 of 30/7/2026, I have constructed the basic
-mathematical functions, and I'm ready
+mathematical functions; the next step is
 to implement a statistical method
 which would make the machine ``learn''.
 
 * `serendipity/` records a few
-flat families found by serendipity
-during the search, along with the
-smoothness tests performed so far.
+flat families found 
+during the search (one of them
+by serendipity), along with the
+corresponding 
+smoothness tests.
 
 * `old-code` captures the essential results
 from the repository where I used to work
