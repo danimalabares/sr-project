@@ -606,7 +606,7 @@ test
 J:t=J.
 ```
 
-## Exercise: cheap flatness test for a given order-3 lift
+### Exercise: cheap flatness test for a given order-3 lift
 
 Start Sage from the repository root and run:
 
@@ -665,7 +665,10 @@ the tested low-degree defect is zero.
 `passes_sampled_test` literally says "True"
 when no flatness defect was detected
 in the tested degrees and sampled values
-of $t$.
+of $t$. Score is literally `-total_defect`;
+we define this because the we want 
+the algorithm to maximize the score, it's
+a convention.
 
 ## STEP 4.2: the exact flatness test
 
@@ -721,15 +724,10 @@ exact colon test for good candidates
 full saturation analysis only when useful
 ```
 
-## Exercise: expensive test
+### Exercise: expensive test
 
-Again, start Sage from the repository root:
-
-```sh
-sage
-```
-
-Then run:
+Start Sage from the repository root
+and run:
 
 ```sage
 load("rl/sr_environment.sage")
