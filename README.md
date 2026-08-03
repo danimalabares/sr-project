@@ -32,7 +32,7 @@ constraints.
 
 * Preliminary computations show
 the dimension of the obstruction space
-$T^2$ is 12, and that there are
+$T^2$ is 12 and that there are
 27 quadratic obstruction conditions.
 
 * We found several deformation directions
@@ -52,6 +52,9 @@ are deformation-equivalent.
 **Note.** This repository is currently being
 restructured for a more transparent
 computational flow and easier reading.
+Currently, the directory `rl/` contains the
+friendliest explanations and even some
+coding exercises.
 
 # Repository map
 
@@ -76,18 +79,16 @@ sr-project/
     └── y8-y20-branch/
 ```
 
-* `rl/` is the current workspace---you
-can find a more detailed explanation of
-the mathematics and computations there.
-The directory's name comes from the motivation of
-constructing a reinforcement learning
-machine to explore the deformation
-space, which has been
-found to be computationally unmanageable. As
-of 30/7/2026, I have constructed the basic
-mathematical functions; the next step is
-to implement a statistical method
-which would make the machine ``learn''.
+* `rl/` is the current workspace.
+The directory's name comes from the
+motivation of constructing a reinforcement
+learning machine to explore the deformation
+space, which has been found to be
+computationally unmanageable. As of
+30/7/2026, I have constructed the basic
+mathematical functions; the next step is to
+implement a statistical method which would
+make the machine ``learn''.
 
 * `serendipity/` records a few
 flat families found 
@@ -136,4 +137,6 @@ I need to check the details of these files.
 
 The scripts use SageMath, Macaulay2, Python
 3 with NumPy/SciPy/SymPy, and Lean 4 with
-Mathlib.
+Mathlib. I work with ChatGPT Pro, both in
+the online version and local Codex terminal
+sessions.
