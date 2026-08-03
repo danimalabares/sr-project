@@ -49,6 +49,10 @@ We have not managed to prove whether they
 are deformation-equivalent.
 
 
+**Note.** This repository is currently being
+restructured for a more transparent
+computational flow and easier reading.
+
 # Repository map
 
 ```text

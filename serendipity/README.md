@@ -153,7 +153,7 @@ sage serendipity/check_fibre_rescaling.sage
 sage serendipity/test_nonzero_fibres.sage
 ```
 
-## All nonzero fibres are singular 😭😭
+### Computations
 
 The singularity of the fibre at $t=1$ could
 have been special to that particular value of
@@ -253,9 +253,7 @@ nonreduced and has degree $29$. Its reduced
 support has 28 irreducible components:
 
 ```text
-27 projective planes
-+
-1 quadric surface.
+27 projective planes + 1 quadric surface.
 ```
 
 The degrees of the reduced components add up

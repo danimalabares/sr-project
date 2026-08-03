@@ -1,4 +1,4 @@
-# Sage script for SR(M) deformation - Analysis mode
+# Sage script for SR(M) deformation
 # This script loads pre-computed data and continues analysis
 
 # Load all pre-computed data from file

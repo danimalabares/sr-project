@@ -666,18 +666,18 @@ the tested low-degree defect is zero.
 when no flatness defect was detected
 in the tested degrees and sampled values
 of $t$. Score is literally `-total_defect`;
-we define this because the we want 
+we define this because we want 
 the algorithm to maximize the score, it's
 a convention.
 
 ## STEP 4.2: the exact flatness test
 
-Candidates which score well in Step 5.1 now
+Candidates which score well in Step 4.1 now
 receive a more expensive test.
 
 The 16 cubic generators define the ideal
 $J=(F_0^{(3)},\ldots,F_{15}^{(3)})$
-inside $K[t,x_1,\ldots,x_8$.
+inside $K[t,x_1,\ldots,x_8]$.
 
 We compute the colon ideal $J:t$
 This ideal contains all polynomials $u$ such
