@@ -212,5 +212,13 @@ direct syzygy computations) and T^1 (via AC
 formula). Actually, there was a mistake: by
 a convention established in the AC paper
 which we did not consider before, we
-discovered that dim T_{0}^2 = 27 and not 12 as
-we thought.
+discovered that dim T_{0}^2 = 27 and not 12
+as we thought.
+
+At this point I also created `foundations/`
+for the basic combinatorial data script
+`M_FACETS.py` and the basic algebra
+and syzygy computations `part-1.sage`.
+
+The T^1 and T^2 scripts lie in
+`deformation-basics`.
