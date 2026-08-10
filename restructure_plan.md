@@ -9,11 +9,13 @@
 
 ## 1. Current situation
 
-The project currently lives across two repositories.
+The project currently lives across two
+repositories.
 
 ### 1.1 `sr-project`
 
-The public repository already contains most of the central computational chain:
+The public repository already contains most
+of the central computational chain:
 
 - the corrected facet list of the Grünbaum–Sreedharan sphere;
 - the 16 cubic Stanley–Reisner generators;

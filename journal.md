@@ -200,3 +200,17 @@ tests for the given deformation directions.
 
 Next up: design a way for the machine
 to iterate this process intelligently.
+
+# August 10 (restructuring)
+
+I'm checking that my past computations are
+correct before continuing. This means
+restructuring the repository. So far, we
+re-wrote the scripts which compute the
+dimensions of T^1 (both via AC formula and
+direct syzygy computations) and T^1 (via AC
+formula). Actually, there was a mistake: by
+a convention established in the AC paper
+which we did not consider before, we
+discovered that dim T_{0}^2 = 27 and not 12 as
+we thought.
