@@ -2,6 +2,11 @@
 # This script computes the Groebner basis constraints and saves them to a file
 # Run this script when you need to recompute constraints (rarely)
 
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PICKLE_FILE = SCRIPT_DIR / "part-1.pkl"
+
 # 1. Define the polynomial ring in variables x1 to x8
 R = PolynomialRing(QQ, 8, 'x1,x2,x3,x4,x5,x6,x7,x8', order='lex')
 x1,x2,x3,x4,x5,x6,x7,x8 = R.gens()
@@ -255,9 +260,9 @@ constraints_data.update({
     'F9_S': F9_S, 'F10_S': F10_S, 'F11_S': F11_S, 'F12_S': F12_S, 'F13_S': F13_S, 'F14_S': F14_S, 'F15_S': F15_S, 'F16_S': F16_S
 })
 
-with open('part-1.pkl', 'wb') as f:
+with PICKLE_FILE.open('wb') as f:
     pickle.dump(constraints_data, f)
 
-print(f"\nAll data saved to part-1.pkl on {constraints_data['timestamp']}")
+print(f"\nAll data saved to {PICKLE_FILE} on {constraints_data['timestamp']}")
 print("You can now run syzygy.sage which will load this data")
 print(f"Saved data includes {len(basis)} constraints and all results through step 9")
