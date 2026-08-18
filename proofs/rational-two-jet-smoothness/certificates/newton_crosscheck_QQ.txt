@@ -1,0 +1,68 @@
+Command:
+  env HOME=/tmp/sr-sage-home sage proofs/rational-two-jet-smoothness/verify_local_smoothness.sage
+
+Result: exit status 0 (2026-08-18; approximately 188 seconds)
+
+sr_environment smoke test passed
+INPUT: universal two-jet SHA-256 = 40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795
+INPUT: exact QQ first-order direction verified; 16 universal two-jet rows
+RIDGES: 40/40 logarithmic critical ideals are [1]
+RIDGES: (1,2,8) first smooths at order 2; conic determinant = 5600
+EDGES: E3, 7/7 total Jacobian singular ideals are [1]
+EDGES: E4, 9/9 total Jacobian singular ideals are [1]
+EDGES: E5, 9/9 total Jacobian singular ideals are [1]
+EDGES: E6, 3/3 total Jacobian singular ideals are [1]
+NORMAL SLICES: ridge walls=1/2,1; E3=1/3, E4=1/2, E5/E6=1
+VERTICES: radial Newton breakpoints verified exactly
+VERTEX lambda=1/3 v=1: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=2: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=3: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=4: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=5: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=6: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=7: face supports=32; nonfaces=[]
+VERTEX lambda=1/3 v=8: face supports=32; nonfaces=[]
+VERTEX lambda=1/2 v=1: face supports=18; nonfaces=[((2, 3, 4, 7), True), ((5, 6, 7, 8), True)]
+VERTEX lambda=1/2 v=2: face supports=18; nonfaces=[((1, 3, 6, 7), True), ((3, 4, 5, 8), True)]
+VERTEX lambda=1/2 v=3: face supports=18; nonfaces=[((1, 2, 4, 7), True), ((2, 5, 6, 8), True)]
+VERTEX lambda=1/2 v=4: face supports=25; nonfaces=[((3, 5, 6, 7), True)]
+VERTEX lambda=1/2 v=5: face supports=18; nonfaces=[((2, 3, 4, 8), True), ((1, 6, 7, 8), True)]
+VERTEX lambda=1/2 v=6: face supports=25; nonfaces=[((3, 4, 5, 7), True)]
+VERTEX lambda=1/2 v=7: face supports=18; nonfaces=[((1, 2, 3, 6), True), ((1, 4, 5, 8), True)]
+VERTEX lambda=1/2 v=8: face supports=18; nonfaces=[((2, 3, 5, 6), True), ((1, 4, 5, 7), True)]
+VERTEX lambda=3/5 v=1: face supports=18; nonfaces=[((2, 4, 7), True), ((6, 7, 8), True)]
+VERTEX lambda=3/5 v=2: face supports=18; nonfaces=[((1, 3, 6), True), ((3, 4, 8), True)]
+VERTEX lambda=3/5 v=3: face supports=18; nonfaces=[((2, 5, 6), True), ((2, 4, 7), True)]
+VERTEX lambda=3/5 v=4: face supports=25; nonfaces=[((3, 5, 7), True)]
+VERTEX lambda=3/5 v=5: face supports=18; nonfaces=[((3, 4, 8), True), ((6, 7, 8), True)]
+VERTEX lambda=3/5 v=6: face supports=25; nonfaces=[((3, 5, 7), True)]
+VERTEX lambda=3/5 v=7: face supports=18; nonfaces=[((1, 4, 5), True), ((1, 3, 6), True)]
+VERTEX lambda=3/5 v=8: face supports=18; nonfaces=[((1, 4, 5), True), ((2, 5, 6), True)]
+VERTEX lambda=2/3 v=1: face supports=0; nonfaces=[((2, 7, 8), False), ((2, 4, 7, 8), True), ((2, 6, 7, 8), True)]
+VERTEX lambda=2/3 v=2: face supports=0; nonfaces=[((1, 3, 8), False), ((1, 3, 4, 8), True), ((1, 3, 6, 8), True)]
+VERTEX lambda=2/3 v=3: face supports=0; nonfaces=[((2, 4, 6), False), ((2, 4, 5, 6), True), ((2, 4, 6, 7), True)]
+VERTEX lambda=2/3 v=4: face supports=25; nonfaces=[((3, 5, 7), True)]
+VERTEX lambda=2/3 v=5: face supports=0; nonfaces=[((4, 6, 8), False), ((3, 4, 6, 8), True), ((4, 6, 7, 8), True)]
+VERTEX lambda=2/3 v=6: face supports=25; nonfaces=[((3, 5, 7), True)]
+VERTEX lambda=2/3 v=7: face supports=0; nonfaces=[((1, 4, 6), False), ((1, 3, 4, 6), True), ((1, 4, 5, 6), True)]
+VERTEX lambda=2/3 v=8: face supports=0; nonfaces=[((1, 2, 5), False), ((1, 2, 4, 5), True), ((1, 2, 5, 6), True)]
+VERTEX lambda=4/5 v=1: face supports=0; nonfaces=[]
+VERTEX lambda=4/5 v=2: face supports=0; nonfaces=[]
+VERTEX lambda=4/5 v=3: face supports=0; nonfaces=[]
+VERTEX lambda=4/5 v=4: face supports=25; nonfaces=[((3, 5, 7), True)]
+VERTEX lambda=4/5 v=5: face supports=0; nonfaces=[]
+VERTEX lambda=4/5 v=6: face supports=25; nonfaces=[((3, 5, 7), True)]
+VERTEX lambda=4/5 v=7: face supports=0; nonfaces=[]
+VERTEX lambda=4/5 v=8: face supports=0; nonfaces=[]
+VERTEX refined v=1: [z2*z7*z8 - 8, z4*z6 - 10, z3, z5]; singular ideal=[1]
+VERTEX refined v=2: [z1*z3*z8 - 231, z4*z6 - 1155, z5, z7]; singular ideal=[1]
+VERTEX refined v=3: [z2*z4*z6 - 924, z5*z7 - 462, z1, z8]; singular ideal=[1]
+VERTEX refined v=5: [z4*z6*z8 - 60, z3*z7 - 45, z1, z2]; singular ideal=[1]
+VERTEX refined v=7: [z1*z4*z6 - 36, z3*z5 - 48, z2, z8]; singular ideal=[1]
+VERTEX refined v=8: [z1*z2*z5 - 270, z4*z6 - 180, z3, z7]; singular ideal=[1]
+VERTICES: lambda=1, all eight initial ideals are [1]
+VERTICES: lambda=3/2, all eight initial ideals are [1]
+VERTICES: lambda=2, all eight initial ideals are [1]
+VERTICES: lambda=5/2, all eight initial ideals are [1]
+SUCCESS: every ridge, edge, and vertex valuation model passes over QQ
+CROSS-CHECK: all fixed-two-jet Newton/local models tested here pass

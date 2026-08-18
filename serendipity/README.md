@@ -325,9 +325,17 @@ data with the main family above.
 
 All 56 historical finite-field pairs were
 independently reconstructed and confirmed
-flat. The four pairs
-$(1,1),(2,1),(3,1),(5,1)$ were tested for
-smoothness at $t=1$, and all four tested
-fibres were singular. This does not rule out
-smooth fibres for other pairs or at other
-nonzero values of $t$.
+flat. They all contain the fixed section
+
+```text
+[0:0:0:0:0:0:1:0],
+```
+
+along which every entry of the $x$-Jacobian
+vanishes identically in $t$. Consequently the
+geometric generic fibre of every one of the 56
+families is singular, so none is a smoothing
+over $\mathrm{GF}(32003)$. This eliminates this
+historical grid, not other deformation
+directions or the characteristic-zero
+smoothability problem.

@@ -1,8 +1,14 @@
 # Order-2 obstruction story
 
+> **Archived account.** The empty-complex convention used by this historical
+> calculation omitted 15 cotangent-cohomology classes. The exact value is
+> \(\dim T^2_0=27\), not 12, and the smoothing problem has since been solved.
+> See [`../../../README.md`](../../../README.md) and
+> [`../../../proofs/`](../../../proofs/).
+
 We write the Stanley--Reisner ideal as
 
-I_{M} =(f_{1},\ldots,f_{{16})\subset S.
+\(I_{M}=(f_{1},\ldots,f_{16})\subset S\).
 
 A first-order deformation replaces
 
@@ -33,15 +39,6 @@ the obstruction. The current script quotients
 by the allowed $h_{i}$-corrections and gives
 27 candidate quadratic equations on $T^1$.
 
-But the true obstruction target is
-
-$$
-T^2,
-\qquad \dim T^2=12.
-$$
-
-So the next step is to impose the
-second-syzygy relations and project the 27
-candidate quadrics to the canonical
-12-dimensional $T^2$.
-
+This was historically misidentified with a 12-dimensional obstruction
+target.  The corrected exact computation instead gives
+\(\dim T^2_0=27\), as recorded in the proof linked above.

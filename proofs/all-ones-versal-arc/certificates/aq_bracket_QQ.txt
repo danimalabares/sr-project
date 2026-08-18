@@ -1,0 +1,17 @@
+field=QQ
+model=semi-free_commutative_DG_algebra_resolution
+degree1_generators=16
+degree2_generators=30
+degree3_internal5_generators=16
+degree3_internal6_generators=120
+T2_degree_zero_dimension=27
+T3_degree_zero_dimension=24
+direction=transported_rational_top_component_point
+rank_ad_y_T2_to_T3=12
+rank_Dq_y=15
+ad_y_composed_Dq_y_zero=true
+kernel_ad_y_equals_image_Dq_y=true
+primary_bracket_plus_Dq_y_zero=true
+primary_self_bracket_at_y_zero=true
+partial_derivations_extend_by_tate_acyclicity=true
+intrinsic_bracket_not_yoneda=true

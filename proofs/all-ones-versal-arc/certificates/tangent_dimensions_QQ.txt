@@ -1,0 +1,3 @@
+field=QQ
+T2_degree_zero_dimension=27
+T3_degree_zero_dimension=24

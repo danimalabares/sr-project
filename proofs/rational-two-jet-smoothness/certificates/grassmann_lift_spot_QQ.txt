@@ -1,0 +1,17 @@
+Command:
+  env X_CHART=1 GRASSMANN_CHART=1 DEGREE_LIMIT=6 VERIFY_LIFT=1 M2 --script proofs/rational-two-jet-smoothness/verify_grassmann_mod_s3.m2
+
+Result: exit status 0
+
+two_jet_sha256=40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795
+checker_sha256=0f7d563eb5fa902b28ebaf04269ba999a4d897702527540e76eb994ef8c90508
+x_chart=1
+pivot_chart=1
+pivots={0, 1, 2, 3}
+coefficient_field=QQ
+incidence_generators=80
+module_columns=240
+degree_limit=6 remainder_zero=true
+lift_verified=true
+lift_nonzero_coefficients=8
+membership_proved=true

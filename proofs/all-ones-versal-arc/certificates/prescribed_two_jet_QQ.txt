@@ -1,0 +1,15 @@
+field=QQ
+historical_source_field=GF(32003)_centered_lift
+m2_two_jet_sha256=40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795
+base_export_sha256=40d1d011748a0b3528464067b6c320dacef073d56304363c005230eb2ec41cc5
+raw_cache_sha256=313a62104fc522b4bfbc204d4888dcd37b63a1e2ccd3f68be52417420ca17801
+foundation_sha256=46c33e7fa599ac877ebbcdbae06877a9fe357712319c517b2b5431927bf802f1
+first_order_cubics_exactly_equal=true
+second_order_difference_in_linearized_kernel=true
+second_order_difference_is_coordinate_derivation=true
+derivation_basis_nonzero_coefficients=((3, -5), (8, 3), (9, -44), (12, 15), (13, 14), (17, -6), (18, 18), (20, 22), (37, -352), (45, 6), (49, -12), (51, 22), (53, 20))
+historical_v2=(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+m2_v2=(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+rank_Dq_y=15
+cubic_base_coefficient_zero=true
+prescribed_two_jet_extends_to_order_three=true

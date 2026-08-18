@@ -26,8 +26,7 @@ def _find_repository_root():
         if (
             (
                 candidate
-                / "old-code"
-                / "cotangent"
+                / "foundations"
                 / "part-1.pkl"
             ).is_file()
             and (candidate / "rl").is_dir()
@@ -48,9 +47,7 @@ _RAW_DATA_FILE = (
     / "cache"
     / "raw_obstruction_data.sobj"
 )
-_PART1_DATA_FILE = (
-    _REPOSITORY_ROOT / "old-code" / "cotangent" / "part-1.pkl"
-)
+_PART1_DATA_FILE = _REPOSITORY_ROOT / "foundations" / "part-1.pkl"
 _QUADRATIC_SAMPLES_FILE = (
     _REPOSITORY_ROOT
     / "old-code"

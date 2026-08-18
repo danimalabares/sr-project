@@ -50,9 +50,13 @@ marker = 'pr("y8,y20 coefficient-grid probe")'
 if marker not in source_text:
     raise RuntimeError("could not locate the historical execution marker")
 definitions = source_text.split(marker, 1)[0]
+reconstruction_log_path = globals().get(
+    "_Y8_Y20_RECONSTRUCTION_LOG_PATH",
+    str(DATA / "reconstruction_audit.log"),
+)
 replacements = {
     'PICKLE_FILE = "../cotangent/part-1.pkl"':
-        'PICKLE_FILE = "old-code/cotangent/part-1.pkl"',
+        'PICKLE_FILE = "foundations/part-1.pkl"',
     'RAW_FILE = "../cotangent/order2/cache/raw_obstruction_data.sobj"':
         'RAW_FILE = "old-code/cotangent/order2/cache/raw_obstruction_data.sobj"',
     'QUADRIC_FILE = "../cotangent/order2/cache/obstruction_quadrics_ff32003.sage"':
@@ -60,7 +64,7 @@ replacements = {
     'FORMAL_LIFT_FILE = "../cotangent/order2/cache/formal_lift_to_order30.sobj"':
         'FORMAL_LIFT_FILE = "old-code/cotangent/order2/cache/formal_lift_to_order30.sobj"',
     'OUT_FILE = "cache/29_y8_y20_grid_probe.log"':
-        'OUT_FILE = %r' % str(DATA / "reconstruction_audit.log"),
+        'OUT_FILE = %r' % str(reconstruction_log_path),
 }
 for old, new in replacements.items():
     if old not in definitions:
@@ -299,79 +303,92 @@ def freeze_pair(y8_coefficient, y20_coefficient):
     return frozen
 
 
-print("Historical grid size:", len(Y8_GRID) * len(Y20_GRID))
-quadratic_count = sum(
-    y8_y20_point(y8_value, y20_value) is not None
-    for y20_value in Y20_GRID for y8_value in Y8_GRID
-)
-print("Historical quadratic survivors:", quadratic_count)
-assert quadratic_count == 56
-
-# The historical log is not checked in, so reproduce its 56 exact colon
-# verdicts once and retain the audit rather than relying on prose notes.
-grid_audit_path = DATA / "historical_56_pair_flatness_audit.sobj"
-grid_audit_text_path = DATA / "historical_56_pair_flatness_audit.txt"
-if grid_audit_path.is_file():
-    grid_audit = load(str(grid_audit_path))
-else:
-    grid_audit = []
-    for y20_value in Y20_GRID:
-        for y8_value in Y8_GRID:
-            pair = (int(y8_value), int(y20_value))
-            started = cputime()
-            y_grid = y8_y20_point(*pair)
-            state_grid, infos_grid = state_for_y(y_grid, MAX_ORDER)
-            reached_order4 = (
-                state_grid is not None
-                and all(infos_grid[order]["success"] for order in (2, 3, 4))
-            )
-            colon_equal = False
-            if reached_order4:
-                T_grid, t_grid, _, J_grid, _, _ = build_family_ideal(
-                    state_grid["gen_vectors"]
-                )
-                colon_equal = (
-                    J_grid.quotient(T_grid.ideal(t_grid)) == J_grid
-                )
-            record = {
-                "pair": pair,
-                "reached_order4": reached_order4,
-                "colon_equal": colon_equal,
-                "flat": reached_order4 and colon_equal,
-                "cpu_seconds": cputime(started),
-            }
-            grid_audit.append(record)
-            print(
-                "grid pair %s: order4=%s J:t=J=%s"
-                % (pair, reached_order4, colon_equal)
-            )
-    grid_audit = tuple(grid_audit)
-    save(grid_audit, str(grid_audit_path))
-    with open(grid_audit_text_path, "w") as output:
-        output.write("Historical 56-pair y8,y20 flatness audit\n")
-        for record in grid_audit:
-            output.write(
-                "%s order4=%s J:t=J=%s flat=%s cpu_seconds=%.3f\n"
-                % (
-                    record["pair"],
-                    record["reached_order4"],
-                    record["colon_equal"],
-                    record["flat"],
-                    record["cpu_seconds"],
-                )
-            )
-assert len(grid_audit) == 56
-assert all(record["flat"] for record in grid_audit)
-print("Historical exact flat pairs:", sum(
-    record["flat"] for record in grid_audit
-), "/ 56")
-
-for pair in KNOWN_PAIRS:
-    started = cputime()
-    frozen = freeze_pair(*pair)
-    print(
-        "reconstructed pair %s through order 6 in %.3f CPU seconds"
-        % (pair, cputime(started))
+def run_reconstruction():
+    """Reproduce the historical audit and freeze the four known pairs."""
+    print("Historical grid size:", len(Y8_GRID) * len(Y20_GRID))
+    quadratic_count = sum(
+        y8_y20_point(y8_value, y20_value) is not None
+        for y20_value in Y20_GRID for y8_value in Y8_GRID
     )
-out.close()
-print("Frozen historical families saved under", DATA)
+    print("Historical quadratic survivors:", quadratic_count)
+    assert quadratic_count == 56
+
+    # The historical log is not checked in, so reproduce its 56 exact colon
+    # verdicts once and retain the audit rather than relying on prose notes.
+    grid_audit_path = DATA / "historical_56_pair_flatness_audit.sobj"
+    grid_audit_text_path = DATA / "historical_56_pair_flatness_audit.txt"
+    if grid_audit_path.is_file():
+        grid_audit = load(str(grid_audit_path))
+    else:
+        grid_audit = []
+        for y20_value in Y20_GRID:
+            for y8_value in Y8_GRID:
+                pair = (int(y8_value), int(y20_value))
+                started = cputime()
+                y_grid = y8_y20_point(*pair)
+                state_grid, infos_grid = state_for_y(y_grid, MAX_ORDER)
+                reached_order4 = (
+                    state_grid is not None
+                    and all(
+                        infos_grid[order]["success"]
+                        for order in (2, 3, 4)
+                    )
+                )
+                colon_equal = False
+                if reached_order4:
+                    T_grid, t_grid, _, J_grid, _, _ = build_family_ideal(
+                        state_grid["gen_vectors"]
+                    )
+                    colon_equal = (
+                        J_grid.quotient(T_grid.ideal(t_grid)) == J_grid
+                    )
+                record = {
+                    "pair": pair,
+                    "reached_order4": reached_order4,
+                    "colon_equal": colon_equal,
+                    "flat": reached_order4 and colon_equal,
+                    "cpu_seconds": cputime(started),
+                }
+                grid_audit.append(record)
+                print(
+                    "grid pair %s: order4=%s J:t=J=%s"
+                    % (pair, reached_order4, colon_equal)
+                )
+        grid_audit = tuple(grid_audit)
+        save(grid_audit, str(grid_audit_path))
+        with open(grid_audit_text_path, "w") as output:
+            output.write("Historical 56-pair y8,y20 flatness audit\n")
+            for record in grid_audit:
+                output.write(
+                    "%s order4=%s J:t=J=%s flat=%s cpu_seconds=%.3f\n"
+                    % (
+                        record["pair"],
+                        record["reached_order4"],
+                        record["colon_equal"],
+                        record["flat"],
+                        record["cpu_seconds"],
+                    )
+                )
+    assert len(grid_audit) == 56
+    assert all(record["flat"] for record in grid_audit)
+    print("Historical exact flat pairs:", sum(
+        record["flat"] for record in grid_audit
+    ), "/ 56")
+
+    for pair in KNOWN_PAIRS:
+        started = cputime()
+        frozen = freeze_pair(*pair)
+        print(
+            "reconstructed pair %s through order 6 in %.3f CPU seconds"
+            % (pair, cputime(started))
+        )
+    print("Frozen historical families saved under", DATA)
+
+
+if globals().get("_Y8_Y20_RECONSTRUCTION_LIBRARY", False):
+    out.close()
+else:
+    try:
+        run_reconstruction()
+    finally:
+        out.close()

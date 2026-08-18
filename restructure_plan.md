@@ -1,5 +1,11 @@
 # SR project consolidation and conference-readiness plan
 
+> **Archived planning document (August 2, 2026).** This predates the
+> characteristic-zero smoothing proof now recorded in [`README.md`](README.md)
+> and [`proofs/`](proofs/). Statements below that the problem is open, or that
+> the degree-zero obstruction space has dimension 12, are obsolete. The exact
+> value is \(\dim T^2_0=27\).
+
 **Date:** August 2, 2026  
 **Primary repository:** `github.com/danimalabares/sr-project`  
 **Old private repository to retire:** local clone `~/github/daniel`, remote `github.com/sergunchik/daniel`  

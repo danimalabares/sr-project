@@ -1,4 +1,4 @@
-# In search of a smoothing 
+# A smoothing of the Grünbaum Stanley--Reisner variety
 
 In a [1967 paper](https://doi.org/10.1016/S0021-9800(67)80055-3), Grünbaum and Sreedharan
 discovered a triangulation 
@@ -7,54 +7,90 @@ with interesting combinatorial properties.
 The Stanley-Reisner variety
 $SR(\mathcal{M})$ is a union of linear
 subspaces in $\mathbb{P}^7$, and is highly
-singular. We look for a smoothing of
-$SR(\mathcal{M})$,
-that is, a flat family whose special 
-fibre is $SR(\mathcal{M})$
-and whose general fibre is a smooth variety.
+singular. We asked whether $SR(\mathcal{M})$ is smoothable: does it occur as
+the special fibre of a flat projective family whose geometric generic fibre
+is smooth?
 
-It is not known whether such a smoothing
-exists. The current state of the project
-may be summarized as follows:
+## Answer: yes
 
-* Preliminary computations show
-the dimension of the space $T^1$ of first-order
-deformations of $SR(\mathcal{M})$
-is 53. This has been observed via 
-two methods: using a formula by
-[Altmann–Christophersen, *Deforming Stanley–Reisner
-schemes*](https://doi.org/10.1007/s00208-010-0490-x) 
-which relies on the
-combinatorial structure of the underlying
-simplicial complex; and by direct
-computation considering syzygy
-constraints.
+The certificates in [`proofs/`](proofs/) construct such a family over
+$\operatorname{Spec}\mathbf Q[[s]]$. Consequently the Grünbaum
+Stanley--Reisner variety is smoothable in characteristic zero, and in
+particular over $\mathbf C$.
 
-* Preliminary computations show
-the dimension of the obstruction space
-$T^2$ is 12 and that there are
-27 quadratic obstruction conditions.
+The proof has three parts.
 
-* We found several deformation directions
-which lift up to high orders (up to 30); and
-a few flat families, but none which has been
-shown to have smooth general fibre.
+1. Exact cotangent-cohomology calculations give
 
-* There exists a smooth projective variety
- [studied by
-Gulliksen–Negård](https://zbmath.org/?q=an%3A0238.13015)
-whose graded  Betti table matches
-identically with that of $SR(\mathcal{M})$.
-We have not managed to prove whether they
-are deformation-equivalent.
+   \[
+   \dim T^1_0=53,\qquad \dim T^2_0=27,\qquad \dim T^3_0=24.
+   \]
 
+   At one explicit rational tangent direction $y$, the quadratic Kuranishi
+   map satisfies $q(y)=0$ and $\operatorname{rank}Dq_y=15$. A semi-free
+   commutative DG-algebra computation gives
 
-**Note.** This repository is currently being
-restructured for a more transparent
-computational flow and easier reading.
-Currently, the directory `rl/` contains the
-friendliest explanations and even some
-coding exercises.
+   \[
+   \operatorname{rank}([y,-]:T^2_0\to T^3_0)=12,
+   \qquad [y,-]Dq_y=0.
+   \]
+
+   Hence $\ker[y,-]=\operatorname{im}Dq_y$. The curved Bianchi identity then
+   kills every successive obstruction and extends the prescribed two-jet to
+   a formal arc to all orders over $\mathbf Q$. See
+   [`proofs/all-ones-versal-arc/`](proofs/all-ones-versal-arc/).
+
+2. The exact rational two-jet already forces smoothness of the geometric
+   generic fibre, independently of every coefficient of order $s^3$ and
+   higher. On each of the $8\cdot35$ affine projective/Grassmann charts, an
+   exact module calculation over $\mathbf Q$ proves
+
+   \[
+   s^2\in(F_i,J^{\mathsf T}K,s^3),
+   \]
+
+   where $K$ is the universal four-plane in the kernel of the affine
+   Jacobian. A hypothetical singular generic point extends over a finite DVR
+   extension with integral projective and Grassmann coordinates; evaluating
+   this identity would give $s^2=s^3c$, a valuation contradiction. See
+   [`proofs/rational-two-jet-smoothness/`](proofs/rational-two-jet-smoothness/).
+
+3. The formal embedded deformation is defined over $\mathbf Q$. Grothendieck
+   existence for the proper scheme
+   $\mathbf P^7_{\mathbf Q[[s]]}$
+   [algebraizes its compatible formal ideal
+   sheaves](https://stacks.math.columbia.edu/tag/0899), giving a projective
+   flat scheme over $\operatorname{Spec}\mathbf Q[[s]]$. Equivalently, after
+   base change to $\mathbf C$, this is the effectivity criterion in
+   Altmann--Christophersen: $L=\mathcal O_{SR(\mathcal M)}(1)$ is very ample,
+   $H^1(SR(\mathcal M),L)=0$ by their Theorem 2.2, and
+   [Theorem 3.1(v)](https://arxiv.org/html/0901.2502v1#S3.Thmtheorem1)
+   makes every formal deformation of $(SR(\mathcal M),L)$ effective.
+
+The central computations can be replayed from the repository root with
+Macaulay2 1.20 and SageMath 10.7:
+
+```sh
+M2 --script proofs/all-ones-versal-arc/export_base_QQ.m2
+M2 --script proofs/all-ones-versal-arc/export_t1_QQ.m2
+M2 --script proofs/all-ones-versal-arc/export_rational_two_jet.m2
+sage proofs/all-ones-versal-arc/transport_coordinates.sage
+sage proofs/all-ones-versal-arc/check_prescribed_two_jet.sage
+M2 --script proofs/all-ones-versal-arc/compute_aq_bracket.m2
+python3 proofs/rational-two-jet-smoothness/verify_grassmann_all.py
+```
+
+## Historical context
+
+The search first produced several directions that lifted to high finite order
+and several explicit flat families whose general fibres turned out to be
+singular. These negative and exploratory calculations remain in `rl/`,
+`serendipity/`, and `old-code/`; the proof above uses a different rational
+direction and an intrinsic all-orders obstruction argument.
+
+The repository is still being reorganized for a more transparent
+computational flow. The directory `rl/` contains the friendliest introductory
+explanations and coding exercises.
 
 # Repository map
 
@@ -67,6 +103,9 @@ sr-project/
 │   ├── GN2/
 │   ├── cotangent/
 │   └── more-lifting/
+├── proofs/
+│   ├── all-ones-versal-arc/
+│   └── rational-two-jet-smoothness/
 ├── rl/
 │   ├── README.md
 │   ├── sr_environment.sage
@@ -78,6 +117,10 @@ sr-project/
     ├── data/
     └── y8-y20-branch/
 ```
+
+* `proofs/` contains the exact characteristic-zero smoothing certificates:
+the all-orders obstruction calculation and the exhaustive two-jet
+singular-incidence verification.
 
 * `rl/` is the current workspace.
 The directory's name comes from the
