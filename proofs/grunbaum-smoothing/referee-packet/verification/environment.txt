@@ -1,0 +1,15 @@
+Macaulay2=1.20
+Macaulay2_git_description=version-1.20-6-a156a3cd4-dirty
+Macaulay2_build=x86_64-apple-darwin21.4.0
+Macaulay2_compile_time=May 14 2022, 00:16:18
+Macaulay2_compiler=clang 13.1.6 (clang-1316.0.21.2.3)
+M2_launcher_sha256=a768799d25c404f5cd33ef445c37c7c83a28ca86b6d3124ac5a8d6997fe8dfbe
+M2_binary_sha256=c6f0c89e69d18334031c78217ddb6b383d5a729bde32aeb5f70ee2da0eec9b6c
+VersalDeformations=3.0
+VersalDeformations_source_sha256=3363126cce0237f2c3a7ab8a8438372c5adcf83a6fb5be1fb84e7cea9bd61c3a
+DGAlgebras=1.1.0
+DGAlgebras_source_sha256=72adff5eb889703562b7cedfce10c93490fda171f5f9dd90a998eb69b7d433b0
+Python=3.13.7
+latexmk=4.79
+pdfTeX=3.141592653-2.6-1.40.25
+TeX_Live=2023

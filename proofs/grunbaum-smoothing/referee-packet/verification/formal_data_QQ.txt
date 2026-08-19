@@ -1,0 +1,12 @@
+field=QQ
+macaulay2_required=1.20
+VersalDeformations_version=3.0
+T1_degree_zero_dimension=53
+T2_degree_zero_dimension=27
+minimal_quadratic_base_equations=27
+direction={1, 3, 1, 2, 6, 1, 1, 1, 1, 1, 21, 28, 1, 5, 10, 55, 66, 15, 1, 18, 2, 35, 42, 1, 4, 10, 1, 25, 12, 30, 5, 33, 44, 1, 6, 3, 14, 7, 1, 9, 1, 6, 12, 20, 1, 4, 22, 1, 15, 1, 1, 8, 11}
+quadratic_kuranishi_at_y_zero=true
+cubic_kuranishi_at_y_zero=true
+rank_Dq_y=15
+base_arc_two_jet=s*y
+two_jet_rows=16

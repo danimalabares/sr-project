@@ -1,0 +1,15 @@
+field=QQ
+macaulay2_version=1.20
+two_jet_sha256=40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795
+checker_sha256=27edfdb4324e321f78159e1ee1d5679c9bc353c1b78b3a0fb65719b665d520b2
+x_charts=8
+grassmann_charts_per_x_chart=35
+chart_pairs=280
+incidence_generators_per_pair=80
+module_columns_per_pair=240
+degree_limit_6_passes=277
+degree_limit_8_passes=3
+degree_limit_8_pairs=[(2, 7), (6, 12), (8, 16)]
+all_s2_memberships_proved=true
+lift_spot_check=x1_grassmann1
+lift_nonzero_coefficients=8

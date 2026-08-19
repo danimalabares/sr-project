@@ -1,0 +1,65 @@
+// Verify a Singular lift certificate loaded before this file is executed.
+// The replay driver restores data/singular_lift_certificate.dump with
+// getdump in Singular's pre-file -c command, then executes this checker.
+// This file does not recompute syzygies or Groebner bases.
+
+proc requireZero(matrix M, string label)
+{
+  int i,j;
+  for (i=1; i<=nrows(M); i++)
+  {
+    for (j=1; j<=ncols(M); j++)
+    {
+      if (M[i,j] != 0)
+      {
+        print("FAILED: "+label+" at ("+string(i)+","+string(j)+") = "+string(M[i,j]));
+        ERROR("nonzero retained-certificate identity");
+      }
+    }
+  }
+}
+
+int retainedCertificationSucceeded=0;
+proc runRetainedCheck()
+{
+  int i,j;
+  if (nrows(D1) != 1 || ncols(D1) != 16) { ERROR("wrong D1 shape"); }
+  if (nrows(D2) != 16 || ncols(D2) != 150) { ERROR("wrong D2 shape"); }
+  if (nrows(D3) != 150 || ncols(D3) != 1040) { ERROR("wrong D3 shape"); }
+  if (nrows(Z) != 150 || ncols(Z) != 136) { ERROR("wrong Z shape"); }
+  if (nrows(H) != 150 || ncols(H) != 1176) { ERROR("wrong [D3 Z] shape"); }
+  if (nrows(K1matrix) != 16 || ncols(K1matrix) != 31) { ERROR("wrong K1 shape"); }
+  if (nrows(K2matrix) != 150 || ncols(K2matrix) != 141) { ERROR("wrong K2 shape"); }
+  if (nrows(L1) != 150 || ncols(L1) != 31) { ERROR("wrong L1 shape"); }
+  if (nrows(L2) != 1176 || ncols(L2) != 141) { ERROR("wrong L2 shape"); }
+
+  for (i=1; i<=150; i++)
+  {
+    for (j=1; j<=1040; j++)
+    {
+      if (H[i,j] != D3[i,j]) { ERROR("H does not begin with D3"); }
+    }
+    for (j=1; j<=136; j++)
+    {
+      if (H[i,1040+j] != Z[i,j]) { ERROR("H does not end with Z"); }
+    }
+  }
+
+  requireZero(D1*D2,"D1*D2");
+  requireZero(D2*D3,"D2*D3");
+  requireZero(D2*Z,"D2*Z");
+  requireZero(D1*K1matrix,"D1*K1");
+  requireZero(D2*L1-K1matrix,"D2*L1-K1");
+  requireZero(D2*K2matrix,"D2*K2");
+  requireZero(H*L2-K2matrix,"[D3 Z]*L2-K2");
+  retainedCertificationSucceeded=1;
+}
+
+runRetainedCheck();
+if (retainedCertificationSucceeded != 1)
+{
+  print("RETAINED_SINGULAR_LIFTS_FAILED");
+  quit;
+}
+print("RETAINED_SINGULAR_LIFTS_VERIFIED");
+quit;

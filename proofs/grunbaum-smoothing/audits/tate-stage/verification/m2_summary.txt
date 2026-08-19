@@ -1,0 +1,15 @@
+verdict=certified
+field=QQ
+D1_shape=1x16
+D2_shape=16x150
+D3_shape=150x1040
+Z_shape=150x136
+B_shape=150x1176
+D1_D2_zero=true
+D2_D3_zero=true
+D2_Z_zero=true
+ker_D1_equals_im_D2=true
+ker_D2_equals_im_D3_Z=true
+K1_generators=30
+K2_generators=136
+certificate=verification/m2_lifts.generated.m2

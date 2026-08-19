@@ -1,0 +1,6 @@
+all_exact_checks_passed=true
+special_fibre_CM_and_pure=true
+computed_formal_arc_input_checks=true
+computed_commutator_rank_mod_delta2=12
+incidence_memberships=280/280
+universal_two_jet_sha256=40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795

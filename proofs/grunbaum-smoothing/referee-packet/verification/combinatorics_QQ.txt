@@ -1,0 +1,13 @@
+field=QQ
+vertices=8
+tetrahedral_facets=20
+minimal_nonfaces=16
+minimal_nonfaces_all_cubic=true
+pure_dimension=3
+every_ridge_in_two_facets=true
+facet_dual_graph_connected=true
+faces_checked_for_reisner=97
+all_links_lower_reduced_homology_zero=true
+all_nonempty_dimensional_links_top_betti_one=true
+whole_complex_reduced_betti=(0, 0, 0, 1)
+stanley_reisner_ring_cohen_macaulay=true

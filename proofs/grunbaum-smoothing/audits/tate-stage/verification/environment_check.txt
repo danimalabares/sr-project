@@ -1,0 +1,13 @@
+Python=3.13.7
+Macaulay2=1.20
+Macaulay2_git_description=version-1.20-6-a156a3cd4-dirty
+Macaulay2_build=x86_64-apple-darwin21.4.0
+Macaulay2_compile_time=May 14 2022, 00:16:18
+Macaulay2_compiler=clang 13.1.6 (clang-1316.0.21.2.3)
+M2_launcher_sha256=a768799d25c404f5cd33ef445c37c7c83a28ca86b6d3124ac5a8d6997fe8dfbe
+M2_binary_sha256=c6f0c89e69d18334031c78217ddb6b383d5a729bde32aeb5f70ee2da0eec9b6c
+Macaulay2_noncore_packages_loaded=none
+Singular=4.4.1
+Singular_build_banner=Singular for x86_64-Darwin version 4.4.1 (44103, 64 bit) Sep 29 2025 21:38:55
+Singular_executable_sha256=7ca798755d93968a33b27ab6c3da2e39fb4e0519074c8f3a4c92144d860077c6
+Python_executable_sha256=2a28ba20062e3a264e0e22d0c5c34f760a16ce3fb41a08d22922bee8fc322a91

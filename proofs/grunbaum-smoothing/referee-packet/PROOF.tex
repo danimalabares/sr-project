@@ -1,0 +1,673 @@
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{computation}[theorem]{Exact computation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\QQ}{\mathbf Q}
+\newcommand{\PP}{\mathbf P}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Proj}{\operatorname{Proj}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Der}{\operatorname{Der}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\ad}{\operatorname{ad}}
+
+\title{A smoothing of the Gr\"unbaum Stanley--Reisner threefold\\
+\large Standalone proof and exact computational certificate}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the Stanley--Reisner threefold of the Gr\"unbaum--Sreedharan
+eight-vertex triangulated $3$-sphere is the special fibre of a flat projective
+family over $\QQ[[s]]$ with smooth geometric generic fibre.  The proof has
+three logically separate parts.  First, an intrinsic Andr\'e--Quillen bracket
+calculation and the curved Bianchi identity construct an all-orders formal
+deformation.  Second, 280 exact singular-incidence calculations show that its
+rational two-jet already forces generic smoothness, independently of all
+higher coefficients.  Third, Grothendieck existence algebraizes the formal
+closed subscheme, and a torsion argument proves flatness.  All
+$L_\infty$-algebras below use the ordinary unshifted cohomological convention:
+$\ell_n$ has degree $2-n$.  Every computer-assisted assertion is identified
+by its exact input, algorithm, output, and mathematical consequence.
+\end{abstract}
+
+\tableofcontents
+
+\section{The special fibre and the computational contract}
+
+Put $k=\QQ$, $S=k[x_1,\ldots,x_8]$, and let $\Delta$ have the following
+twenty tetrahedral facets:
+\[
+\begin{gathered}
+1234,1237,1267,1347,1567,2345,2367,3467,3456,4567,\\
+2358,2368,3568,1268,1568,1248,2458,1478,1578,4578.
+\end{gathered}
+\]
+This is the Gr\"unbaum--Sreedharan triangulation in the labelling fixed in
+\cite{GS}.  Its minimal nonfaces are the sixteen triples occurring in
+\[
+\begin{split}
+I=(\,&x_6x_7x_8,x_4x_6x_8,x_3x_7x_8,x_3x_5x_7,
+x_3x_4x_8,x_2x_7x_8,\\
+&x_2x_5x_7,x_2x_5x_6,x_2x_4x_7,x_2x_4x_6,
+x_1x_4x_6,x_1x_4x_5,\\
+&x_1x_3x_8,x_1x_3x_6,x_1x_3x_5,x_1x_2x_5\,)\subset S.
+\end{split}                                                    \tag{1.1}
+\]
+Denote the ordered cubic generators displayed in (1.1) by
+$m_0,\ldots,m_{15}$.  Write $A=S/I$ and $X_0=\Proj A\subset\PP^7_k$.
+
+\begin{computation}[special-fibre combinatorics]\label{comp:comb}
+The input of \path{code/verify_combinatorics.py} is exactly the twenty
+lines of \path{data/grunbaum_facets.txt}.  The script enumerates all faces
+and all inclusion-minimal nonfaces.  For every face $\sigma$, including the
+empty face, it constructs the simplicial boundary matrices of
+$\operatorname{lk}_\Delta(\sigma)$ and row-reduces them over $\QQ$ using
+\texttt{Fraction} arithmetic.  Thus no floating-point calculation occurs.
+
+The output is: 8 vertices, 20 facets, 16 minimal nonfaces (precisely the
+triples in (1.1)), 97 faces in total, pure dimension 3, every ridge in exactly
+two facets, connected facet-dual graph, and
+\[
+ \widetilde b(\Delta;\QQ)=(0,0,0,1),\qquad
+ \widetilde H_i(\operatorname{lk}_\Delta\sigma;\QQ)=0
+ \quad(i<\dim\operatorname{lk}_\Delta\sigma)
+\]
+for every $\sigma$.  By Reisner's criterion \cite{Reisner}, $A$ is
+Cohen--Macaulay of Krull dimension $4$.  Consequently $X_0$ is a pure
+Cohen--Macaulay projective threefold.  The certificate is
+\path{verification/combinatorics_QQ.txt}.
+\end{computation}
+
+We use intrinsic Andr\'e--Quillen cohomology.  Let $P\to A$ be a semi-free
+commutative Tate differential graded $k$-algebra resolution, homologically
+graded with differential of degree $-1$.  A derivation of cohomological degree
+$p$ lowers homological degree by $p$.  Set
+\[
+ C^p=\Der_k^p(P,A)_0,\qquad T^p_0(A)=H^p(C^\bullet),             \tag{1.2}
+\]
+where the subscript denotes internal degree zero.  Formula (1.2), rather than
+a naive higher Ext group of $I/I^2$, is the definition used below.
+
+\begin{remark}[an intentionally absent claim]\label{rem:no-t3dim}
+We do \emph{not} claim that $\dim T^3_0=24$.  A computation of
+$\Ext_A^2(I/I^2,A)_0$ gives 24, but for a non-lci quotient that group is not
+automatically intrinsic $T^3$.  The proof needs only the twelve independent
+intrinsic $T^3$ classes established in Proposition~\ref{prop:bracket}.
+\end{remark}
+
+\section{Construction of the all-orders formal deformation}
+
+\subsection{The intrinsic tangent Lie algebra and the unshifted convention}
+
+The dg Lie algebra $\mathfrak g=\Der_k(P,P)_0$, with differential
+$[d,-]$ and graded commutator, controls graded deformations of $A$; this is the
+tangent Lie algebra construction for a cofibrant resolution
+\cite{Hinich97,Hinich04}.  Since $\Omega_{P/k}$ is cofibrant as a dg
+$P$-module, applying $\operatorname{Hom}_P(\Omega_{P/k},-)$ to the
+quasi-isomorphism $P\to A$ gives a quasi-isomorphism
+\[
+ \Der_k(P,P)_0\longrightarrow\Der_k(P,A)_0.                    \tag{2.1}
+\]
+Thus the bracket induced on the cohomology of (1.2) is the intrinsic
+Andr\'e--Quillen tangent-Lie bracket.  It is not Yoneda multiplication on a
+conormal Ext group.
+
+Transfer $\mathfrak g$ to its cohomology $H$.  We use the ordinary
+cohomological $L_\infty$ convention throughout:
+\[
+ \ell_n:\bigwedge^n H\longrightarrow H,\qquad |\ell_n|=2-n.
+\]
+The model is minimal, so $\ell_1=0$.  For $t\in H^1\widehat\otimes\mathfrak m$
+define
+\[
+ \kappa(t)=\sum_{n\ge2}\frac1{n!}\ell_n(t,\ldots,t)\in
+ H^2\widehat\otimes\mathfrak m^2,                              \tag{2.2}
+\]
+and, for $w\in H^2$,
+\[
+ d_t(w)=\sum_{n\ge0}\frac1{n!}
+ \ell_{n+1}(\underbrace{t,\ldots,t}_{n},w)\in H^3.             \tag{2.3}
+\]
+The $L_\infty$ identities, applied to the curvature (2.2), give the curved
+Bianchi identity
+\[
+ d_t\kappa(t)=0.                                                \tag{2.4}
+\]
+Notice that (2.2)--(2.4) are unshifted formulas: Maurer--Cartan elements have
+degree $1$, obstructions degree $2$, and Bianchi values degree $3$.
+
+The completed Maurer--Cartan base is a hull for the graded deformation
+functor.  Make the change of a minimal hull presentation explicit.  If the
+27 equations in another set of 53 tangent coordinates are
+\[
+ G(t)=U(t)\,\kappa(\phi(t)),
+\]
+where $\phi$ has invertible linear part $\phi_1$ and $U(0)$ is invertible,
+then
+\[
+ B_G(t)=d_{\phi(t)}\circ U(t)^{-1}
+ \quad\hbox{satisfies}\quad B_G(t)G(t)=0.
+\]
+Its term linear in $t$ is
+$\ad_{\phi_1(t)}\circ U(0)^{-1}$.  We henceforth use the coordinates
+produced by the pinned \texttt{VersalDeformations} computation.  The
+constant relation-basis transport in (2.9) identifies its 27 obstruction
+coordinates with the Tate model, while the direct primary-commutator
+comparison in Proposition~\ref{prop:bracket} checks that the linear operator
+in the preceding display, in exactly these coordinates, is the computed
+intrinsic bracket
+(and that the differential of the quadratic equations is $-1$ times the
+primary commutator).  Thus the Bianchi induction below is invariant under
+the presentation change, rather than being an identity assumed of package
+coordinates.  From now on we again write $\kappa$ and $d_t$ for this
+transported tuple $G$ and operator $B_G$; (2.4) denotes the transported
+identity as well.
+
+\subsection{The rational direction and its initial two-jet}
+
+In the computed basis of $T^1_0(A)$, take the explicit vector
+\[
+\begin{split}
+y=(\,&1,3,1,2,6,1,1,1,1,1,21,28,1,5,10,55,66,15,1,18,2,\\
+&35,42,1,4,10,1,25,12,30,5,33,44,1,6,3,14,7,1,9,1,6,\\
+&12,20,1,4,22,1,15,1,1,8,11\,).
+\end{split}                                                     \tag{2.5}
+\]
+No property of how (2.5) was found is used.
+
+\begin{computation}[the degree-three miniversal calculation]
+\label{comp:formaldata}
+The exact inputs of \path{code/verify_formal_data.m2} are (1.1) and
+(2.5).  Over $\QQ$, \texttt{CT\^1(0,F0)} and \texttt{CT\^2(0,F0)} compute
+the degree-zero tangent and second cotangent-cohomology bases.  The command
+\texttt{versalDeformation} is run through order three with
+\texttt{SmartLift=>false} and \texttt{DefParam=>t}.  Its algorithm solves the
+deformation equation and records its obstruction coordinates by exact
+polynomial and module arithmetic.
+
+The asserted output is
+\[
+ \dim T^1_0=53,\quad \dim T^2_0=27,\quad q(y)=0,\quad
+ \rank Dq_y=15,\quad \kappa_3(y)=0,                            \tag{2.6}
+\]
+where $q=\kappa_2$ in these coordinates and $\kappa_3$ is the cubic base
+term.  The 27 quadratic equations are also checked to be a minimal tuple.
+The same run specializes the miniversal family along $t=sy$ and writes its
+sixteen first- and second-order cubic corrections to
+\path{data/universal_2jet_QQ.txt}; its SHA-256 digest is
+\[
+\texttt{40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795}.
+                                                                    \tag{2.7}
+\]
+Thus $t_2(s)=sy$ has zero curvature through $s^3$ and gives the displayed
+family two-jet.  The certificate is
+\path{verification/formal_data_QQ.txt}.
+\end{computation}
+
+\subsection{The intrinsic bracket calculation}
+
+We now explain both what the computer calculates and why it is intrinsic.
+The materialized part of the semi-free resolution has:
+\[
+\begin{array}{c|c|c}
+\text{generators}&\text{homological degree}&\text{internal degree}\\ \hline
+e_1,\ldots,e_{16}&1&3\\
+f_1,\ldots,f_{30}&2&4\\
+g_1,\ldots,g_{136}&3&5\text{ (16 times), }6\text{ (120 times).}
+\end{array}                                                       \tag{2.8}
+\]
+Here $d(e_i)$ is the $i$th generator of (1.1); the $f_j$ kill a basis of
+first syzygies, and the $g_a$ kill all cycles at the next stage.
+
+Positive-degree derivations vanish on the polynomial subring $S$ for degree
+reasons.  The degree-two cochain differential is therefore the linear
+$f$-part of the 136 elements $d(g_a)$.  The source formula used by
+\texttt{CT\^2},
+\[
+ \frac{\operatorname{Hom}_A((\operatorname{syz}F_0)/
+        (\text{Koszul syzygies}),A)}
+      {\im(\,{}^{\mathsf T}\!\operatorname{syz}F_0\,)},         \tag{2.9}
+\]
+is exactly $\ker\delta_2/\im\delta_1=T^2_0(A)$.  The package syzygy basis
+and the $f$-basis in (2.8) are related by a $30\times30$ matrix of constants.
+The script solves for it, checks its determinant is a unit, transports all 27
+classes by its transpose, and checks their closure on all 136 $g_a$.
+
+Let $\theta$ be the degree-one derivation representing $y$, and let
+$\eta_1,\ldots,\eta_{27}$ represent the transported $T^2_0$ basis.  The
+script first solves the closure equations for their values on every generator
+in (2.8), then computes
+\[
+ [\theta,\eta_j](g_a)=
+ \theta(\eta_j(g_a))-\eta_j(\theta(g_a)).                       \tag{2.10}
+\]
+It finally reduces the 27 columns (2.10) modulo the complete image of
+$\delta_2:C^2_0\to C^3_0$.
+
+The following extension argument is essential; without it a calculation on a
+truncated resolution would not prove a statement in $T^3$.
+
+\begin{lemma}[Tate extension]\label{lem:tate}
+A degree-$p$ derivation, $p=1$ or $2$, which is closed on the generators of
+(2.8), extends without changing those values to a closed derivation of the
+full Tate resolution $P$.
+\end{lemma}
+
+\begin{proof}
+Proceed through the remaining Tate generators in increasing homological
+degree.  If $z$ is newly adjoined in degree $n\ge4$, closure prescribes
+\[
+ d(\vartheta z)=(-1)^p\vartheta(dz).                            \tag{2.11}
+\]
+Indeed, closedness $[d,\vartheta]=0$ is exactly (2.11).  Because $d^2z=0$ and
+$\vartheta$ is already closed on earlier generators, the right side of
+(2.11) is a cycle of homological degree $n-p-1$.  This degree is positive.
+The Tate resolution is acyclic in positive homological degrees, so the cycle
+is a boundary.  A primitive has degree $n-p<n$, hence uses only generators
+already constructed.  The differential preserves internal degree, so the
+primitive can be chosen in the required internal homogeneous component.
+This defines $\vartheta(z)$ and completes the induction.  The low-degree
+cases, where positivity alone would not suffice, are precisely the equations
+solved and asserted by the script on (2.8).
+\end{proof}
+
+By Lemma~\ref{lem:tate}, $\theta$ and each $\eta_j$ extend globally.  Their
+commutators are therefore globally closed.  Consequently the columns (2.10)
+lie in $\ker\delta_3$, and the natural map
+\[
+ T^3_0(A)=\ker\delta_3/\im\delta_2
+ \longrightarrow C^3_0/\im\delta_2                             \tag{2.12}
+\]
+is injective on their span.  Rank computed in the right side of (2.12) is
+therefore their actual rank in intrinsic Andr\'e--Quillen $T^3_0$.
+
+\begin{proposition}[fixed-direction exactness]\label{prop:bracket}
+For the direction (2.5), the intrinsic bracket satisfies
+\[
+ \rank\bigl(\ad_y:T^2_0(A)\to T^3_0(A)\bigr)=12,\qquad
+ \ker\ad_y=\im Dq_y.                                           \tag{2.13}
+\]
+\end{proposition}
+
+\begin{proof}
+The exact inputs of \path{code/verify_aq_bracket.m2} are again (1.1) and
+(2.5).  The algorithm constructs (2.8), performs the basis transport (2.9),
+solves all closure equations, forms (2.10), and uses exact Gr\"obner/module
+arithmetic over $\QQ$ to compute its rank in (2.12).  Its output is rank 12.
+
+As an independent coordinate check inside the same run, the primary
+commutator of $\theta_y$ with each of the 53 degree-one basis derivations is
+computed in $T^2_0$.  Its matrix is exactly $-Dq_y$ in the obstruction
+coordinates returned by \texttt{VersalDeformations}; the minus sign is the
+differential convention and does not change its image.  The script also
+checks directly that
+\[
+ \ad_yDq_y=0,\qquad \rank Dq_y=15.                              \tag{2.14}
+\]
+Thus $\im Dq_y\subseteq\ker\ad_y$.  The domain of $\ad_y$ has dimension 27,
+so its kernel has dimension $27-12=15$, equal to the dimension of
+$\im Dq_y$.  This proves (2.13).  The complete output is
+\path{verification/aq_bracket_QQ.txt}.
+\end{proof}
+
+\subsection{Bianchi induction to every order}
+
+\begin{proposition}[all-orders arc]\label{prop:arc}
+There is a series
+\[
+ t(s)=sy+v_2s^2+v_3s^3+\cdots\in T^1_0(A)[[s]],\qquad v_2=0,    \tag{2.15}
+\]
+over $\QQ$ whose curvature vanishes identically and whose induced embedded
+family has the two-jet (2.7).
+\end{proposition}
+
+\begin{proof}
+By (2.6), $t_2(s)=sy$ has curvature $O(s^4)$.  Suppose inductively that a
+partial series has been chosen with
+\[
+ \kappa(t(s))=r_Ns^N+O(s^{N+1}),\qquad N\ge4.                  \tag{2.16}
+\]
+In the coefficient of $s^{N+1}$ in (2.4), all terms involving a curvature
+coefficient below $N$ vanish.  Since $t(s)=sy+O(s^2)$ and $\ell_1=0$, the
+only remaining term is
+\[
+ \ell_2(y,r_N)=\ad_y(r_N)=0.                                  \tag{2.17}
+\]
+Proposition~\ref{prop:bracket} gives $r_N\in\im Dq_y$.  Choose
+$v_{N-1}\in T^1_0(A)$ with
+\[
+ Dq_y(v_{N-1})=-r_N.                                          \tag{2.18}
+\]
+Adding $v_{N-1}s^{N-1}$ to $t(s)$ changes the coefficient of $s^N$ in
+the quadratic term by $Dq_y(v_{N-1})$.  In an $m$-ary term with $m\ge3$,
+one occurrence of the new coefficient has order at least
+$(N-1)+(m-1)\ge N+1$; two occurrences have still higher order.  Hence
+(2.18) kills precisely the residual in (2.16) without altering lower orders.
+Induction constructs (2.15), and completeness gives $\kappa(t(s))=0$.
+Every step solves a rational linear system, so all coefficients lie in
+$\QQ$.  Pullback of the formal miniversal family produces compatible flat
+graded deformations over $\QQ[s]/(s^n)$ for every $n$.
+\end{proof}
+
+\begin{lemma}[the formal ideal has sixteen cubic generators]
+\label{lem:cubics}
+Let $R=\QQ[[s]]$.  The formal embedded family of
+Proposition~\ref{prop:arc} is generated by homogeneous cubics
+\[
+ F_i=m_i+sg_i+s^2h_i+s^3R_i(s,x)\in
+ R[x_1,\ldots,x_8]\qquad(0\le i<16).                         \tag{2.19}
+\]
+Their reductions modulo $s^3$ are the file (2.7).
+\end{lemma}
+
+\begin{proof}
+Write $\widehat{\mathcal A}=\varprojlim_n\mathcal A_n$ for the compatible
+flat graded quotients furnished by the formal miniversal family, and let
+$\widehat{\mathcal I}$ be the degreewise kernel of
+$R[x_1,\ldots,x_8]\to\widehat{\mathcal A}$.  For each degree $d$, the
+module $(\mathcal A_n)_d$ is finite flat, hence free, over the Artinian local
+ring $R/(s^n)$, with rank independent of $n$.  Its inverse limit is therefore
+a finite free $R$-module.  It follows from
+\[
+ 0\longrightarrow\widehat{\mathcal I}_d
+ \longrightarrow R[x_1,\ldots,x_8]_d
+ \longrightarrow\widehat{\mathcal A}_d\longrightarrow0
+\]
+that $\widehat{\mathcal I}_d$ is finite free as well.
+
+The special degree-three kernel has basis $m_0,\ldots,m_{15}$ from (1.1).
+The sixteen computed equations modulo $s^3$ lift, by surjectivity from the
+finite free module $\widehat{\mathcal I}_3$, to cubics $F_i$ with exactly the
+two-jet (2.7).  Their reductions modulo $s$ form the displayed special basis,
+so Nakayama's lemma makes them an $R$-basis of
+$\widehat{\mathcal I}_3$.  For every
+$d\ge3$, the degree-$d$ part of
+$\widehat{\mathcal I}/(F_0,\ldots,F_{15})$ is a finite $R$-module whose
+reduction modulo $s$ is zero, because the special ideal (1.1) is generated
+by its cubics.  Nakayama again makes this quotient zero.  For $d<3$, the same
+argument applied directly to $\widehat{\mathcal I}_d$ gives zero.  Hence the sixteen
+cubics generate the full formal ideal.  A degree-three polynomial has only
+finitely many $x$-monomials, so its $s$-adic coefficient series make it an
+honest element of $R[x_1,\ldots,x_8]$, proving the claim.
+\end{proof}
+
+\section{The geometric generic fibre is smooth}
+
+Let
+\[
+ F_i^{(2)}=m_i+sg_i+s^2h_i\quad(0\le i<16)                    \tag{3.1}
+\]
+be the cubics in \path{data/universal_2jet_QQ.txt}.  By
+Lemma~\ref{lem:cubics}, the family from Proposition~\ref{prop:arc} has equations
+\[
+ F_i=F_i^{(2)}+s^3R_i(s,x),                                   \tag{3.2}
+\]
+with $R_i\in\QQ[[s]][x_1,\ldots,x_8]$ homogeneous of degree three in $x$.
+
+On the projective chart $x_v=1$, write $z_1,\ldots,z_7$ for the remaining
+coordinates and let $J$ be the $7\times16$ affine Jacobian of the equations.
+The flat family is Cohen--Macaulay of relative dimension three near the
+special fibre: this follows from Computation~\ref{comp:comb} and the standard
+flat Cohen--Macaulay fibre criterion (compare \cite[Tag 0E7T]{Stacks}).
+Thus a point of a fibre is singular exactly when $\rank J\le3$.  Equivalently,
+$\ker J^{\mathsf T}\subset k^7$ contains a four-plane.
+
+The Grassmannian $\Gr(4,7)$ has $\binom74=35$ standard affine charts.  On the
+chart indexed by a four-subset $P\subset\{1,\ldots,7\}$, let $K_P$ be the
+$7\times4$ matrix whose rows indexed by $P$ form the identity and whose other
+entries are twelve variables $a_1,\ldots,a_{12}$.  For a pair $(v,P)$ the
+singular-incidence ideal is
+\[
+ \mathcal J_{v,P}=(F_0,\ldots,F_{15},\ J^{\mathsf T}K_P).       \tag{3.3}
+\]
+It has $16+16\cdot4=80$ displayed generators.
+
+\begin{computation}[all 280 incidence memberships]\label{comp:incidence}
+The exact input is (3.1), verified by digest (2.7).  For each of the
+$8\cdot35=280$ pairs, \path{code/verify_incidence_chart.m2}
+dehomogenizes (3.1), constructs $J$ and $K_P$, and truncates (3.3) modulo
+$s^3$.  Put
+\[
+ B=\QQ[z_1,\ldots,z_7,a_1,\ldots,a_{12}].
+\]
+For every generator $q=q_0+sq_1+s^2q_2$, multiplication by all elements of
+$B[s]/(s^3)$ is represented exactly by the three columns
+\[
+ (q_0,q_1,q_2)^{\mathsf T},\quad(0,q_0,q_1)^{\mathsf T},\quad
+ (0,0,q_0)^{\mathsf T}.                                      \tag{3.4}
+\]
+The 80 generators therefore give a $3\times240$ module matrix.  Membership of
+$(0,0,1)^{\mathsf T}$ in its column module is exactly the assertion
+\[
+ s^2\in(\mathcal J_{v,P},s^3).                                \tag{3.5}
+\]
+
+The driver \path{code/verify_all_incidence.py} enumerates every pair and
+uses Macaulay2 exact rational module Gr\"obner reduction.  A zero remainder
+against a partial Gr\"obner basis is already a proof of membership: each
+basis column is obtained by exact module operations from the 240 input
+columns, and the zero reduction expresses the target in those columns.  A
+nonzero remainder is treated only as inconclusive.  Degree six proves 277
+pairs; degree eight proves the remaining pairs
+\[
+ (v,P)=(2,7),(6,12),(8,16).                                   \tag{3.6}
+\]
+The driver checks that its sorted result contains all 280 pairs.  On pair
+$(1,1)$ it additionally retains the change matrix and verifies the resulting
+identity in the original columns (eight coefficients are nonzero).  The exact
+output is \path{verification/incidence_all_QQ.txt}.  The mathematical
+consequence is (3.5) on every incidence chart.
+\end{computation}
+
+We spell out why 280 memberships exhaust every possible singular generic
+point and why the truncation is uniform in (3.2).
+
+\begin{proposition}[two-jet smoothness]\label{prop:smooth}
+Every flat projective continuation (3.2) has smooth geometric generic fibre.
+\end{proposition}
+
+\begin{proof}
+Suppose a geometric generic singular point exists.  The singular-incidence
+scheme is of finite type over $K=\QQ((s))$, so it has a point after some finite
+extension $K'/K$.  Choose a DVR $R'$ in the integral closure of $\QQ[[s]]$ in
+$K'$ with fraction field $K'$.  Properness of $\PP^7$ extends the projective
+point to $\Spec R'$.  Scale its homogeneous coordinates so that they are all
+integral and at least one, say $x_v$, is a unit.  This puts the section in one
+of the eight affine projective charts.
+
+At the generic point, singularity means $\dim\ker J^{\mathsf T}\ge4$; choose
+a four-dimensional subspace.  It is a $K'$-point of the proper Grassmannian
+$\Gr(4,7)$ and hence extends over $R'$.  Its Pl\"ucker coordinates may be
+scaled to be integral with at least one unit.  The unit Pl\"ucker coordinate
+selects one of the 35 standard charts, and the twelve entries of $K_P$ on
+that chart are integral.  Thus some one of the 280 pairs contains integral
+coordinates for both the point and its kernel four-plane.  The equations
+$J^{\mathsf T}K_P=0$, true over $K'$, remain true over $R'$ because their
+entries are integral and $R'$ injects into $K'$.
+
+Fix this chart.  Membership (3.5), lifted from the truncated polynomial ring,
+is an identity
+\[
+ s^2=\sum_{j=1}^{80}c_jq_j+s^3c_0                            \tag{3.7}
+\]
+with $c_j,c_0$ polynomial in $s,z,a$ and $q_j$ the truncated incidence
+generators.  For the actual continuation, each generator is
+$q'_j=q_j+s^3r_j$: differentiation with respect to an affine coordinate does
+not lower $s$-adic order.  Substitution in (3.7) gives
+\[
+ s^2=\sum_j c_jq'_j+s^3\left(c_0-\sum_jc_jr_j\right).          \tag{3.8}
+\]
+All quantities in parentheses evaluate to elements of $R'$ because every
+projective and Grassmann coordinate is integral and the coefficients of
+(3.2) lie in $\QQ[[s]]$.  Along the incidence section all $q'_j$ vanish, so
+(3.8) becomes
+\[
+ s^2=s^3c\qquad(c\in R').                                     \tag{3.9}
+\]
+If $v$ is the valuation of $R'$, then $v(s)>0$, whereas (3.9) implies
+$2v(s)=3v(s)+v(c)\ge3v(s)$, a contradiction.  Hence no geometric generic
+singular point exists.
+\end{proof}
+
+\section{Algebraization and flatness}
+
+Set $R=\QQ[[s]]$ and $R_n=R/(s^n)$.  Proposition~\ref{prop:arc} gives
+cartesian closed subschemes
+\[
+ X_n\subset\PP^7_{R_n},\qquad X_{n+1}\times_{R_{n+1}}R_n=X_n, \tag{4.1}
+\]
+each flat over $R_n$, with $X_1=X_0$.  We now justify both effectivity and
+flatness of the algebraized family.
+
+\begin{proposition}[effectivity]\label{prop:effectivity}
+The system (4.1) is the system of reductions of a closed subscheme
+$X\subset\PP^7_R$ that is proper over $R$.
+\end{proposition}
+
+\begin{proof}
+The ring $R$ is Noetherian and complete for $(s)$, and $\PP^7_R$ is separated
+and of finite type (indeed proper) over $R$.  The special member $X_1$ is
+projective over $\QQ$.  Thus every hypothesis of Grothendieck's algebraization
+theorem for compatible closed subschemes is satisfied; in the formulation
+\cite[Tag 0899]{Stacks}, (4.1) algebraizes to a closed immersion
+$X\hookrightarrow\PP^7_R$, and $X$ is proper over $R$.
+
+For completeness, the theorem applies to the compatible coherent quotients
+$\mathcal O_{\PP^7_{R_n}}\twoheadrightarrow\mathcal O_{X_n}$.
+Grothendieck existence algebraizes the quotient and its map; exactness and
+full faithfulness of completion show that the algebraized map is still
+surjective, hence its kernel is a coherent ideal sheaf.  This is why existence
+of a coherent sheaf alone is not being mistaken for existence of a closed
+subscheme.
+
+There is also a concrete description.  Lemma~\ref{lem:cubics} gives sixteen
+homogeneous cubics in $R[x_1,\ldots,x_8]$.  Their Proj has reductions (4.1), and
+the full-faithfulness part of Grothendieck existence identifies it with the
+closed subscheme just algebraized.  Consequently the equations used in the
+DVR argument are equations of the algebraized family, not merely unrelated
+formal functions.
+\end{proof}
+
+\begin{proposition}[flatness]\label{prop:flat}
+The morphism $X\to\Spec R$ is flat.
+\end{proposition}
+
+\begin{proof}
+It is enough to prove $R$-flatness at every stalk $B=\mathcal O_{X,x}$.
+If $x$ is on the generic fibre, $s$ is a unit.  Suppose $x$ specializes to
+the closed fibre and $sb=0$ in $B$.  For every $n\ge2$, the reduction
+$B/s^nB$ is flat over $R_n$ by (4.1).  In $R_n$ the annihilator of $s$ is
+$(s^{n-1})$.  Tensoring the corresponding kernel sequence with the flat
+$R_n$-module $B/s^nB$ gives
+\[
+ b\bmod s^nB\in s^{n-1}(B/s^nB).
+\]
+Thus $b\in s^{n-1}B$ for every $n$.  The local ring $B$ is Noetherian and
+$s$ lies in its Jacobson radical, so Krull intersection gives
+$\bigcap_ns^nB=0$ and hence $b=0$.  Therefore $B$ is $s$-torsion-free.
+Since $R$ is a DVR, an $R$-module is flat exactly when it is torsion-free.
+Thus every stalk is $R$-flat.
+\end{proof}
+
+\begin{theorem}[smoothing theorem]\label{thm:main}
+The Gr\"unbaum Stanley--Reisner threefold $X_0$ is smoothable in
+characteristic zero.  More precisely, there is a flat projective morphism
+\[
+ X\longrightarrow\Spec\QQ[[s]]
+\]
+whose special fibre is $X_0$ and whose geometric generic fibre is smooth.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:arc} constructs the compatible formal family;
+Propositions~\ref{prop:effectivity} and \ref{prop:flat} algebraize it and prove
+flatness; Proposition~\ref{prop:smooth} proves smoothness after algebraic
+closure of the fraction field.  The special fibre is (1.1) by construction.
+\end{proof}
+
+\section{Audit table for computer-assisted lemmas}
+
+\begin{center}
+\begin{tabular}{p{0.18\textwidth}p{0.25\textwidth}p{0.25\textwidth}p{0.21\textwidth}}
+\toprule
+Claim & Exact input & Exact algorithm and output & Consequence \\
+\midrule
+Special fibre & Twenty facets in \path{data/} & Enumerate faces; rational boundary-matrix ranks; 97 Reisner checks & Pure CM threefold; ideal (1.1) \\
+Initial arc data & Ideal (1.1), vector (2.5) & M2 miniversal deformation to degree 3; (2.6), digest (2.7) & Initial zero residual and fixed two-jet \\
+Intrinsic bracket & Same ideal and vector & Three Tate stages; extendable derivations; commutators modulo all $\delta_2$ boundaries; ranks 12 and 15 & $\ker\ad_y=\im Dq_y$ \\
+Generic smoothness & The regenerated two-jet & 280 exact module memberships over $\QQ$; 277 at degree 6, 3 at degree 8 & DVR contradiction for every higher continuation \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All four rows are run by \path{./verify.sh}.  The scripts contain assertions
+for dimensions, basis changes, closure equations, ranks, chart coverage,
+semantic output, and hashes.  The calculations are indispensable parts of
+the proof and are not concealed as heuristic evidence.
+
+\begin{thebibliography}{9}
+
+\bibitem{GS}
+B.~Gr\"unbaum and V.~P.~Sreedharan,
+\emph{An enumeration of simplicial $4$-polytopes with $8$ vertices},
+J. Combinatorial Theory \textbf{2} (1967), 437--465,
+\href{https://doi.org/10.1016/S0021-9800(67)80055-3}{doi:10.1016/S0021-9800(67)80055-3}.
+
+\bibitem{Hinich97}
+V.~Hinich,
+\emph{Homological algebra of homotopy algebras},
+Comm. Algebra \textbf{25} (1997), 3291--3323,
+\href{https://arxiv.org/abs/q-alg/9702015}{arXiv:q-alg/9702015}.
+
+\bibitem{Hinich04}
+V.~Hinich,
+\emph{Deformations of homotopy algebras},
+Comm. Algebra \textbf{32} (2004), 473--494,
+\href{https://doi.org/10.1081/AGB-120027907}{doi:10.1081/AGB-120027907}.
+
+\bibitem{Ilten}
+N.~O.~Ilten,
+\emph{Versal deformations and local Hilbert schemes},
+J. Software Algebra Geom. \textbf{4} (2012), 12--16,
+\href{https://doi.org/10.2140/jsag.2012.4.12}{doi:10.2140/jsag.2012.4.12}.
+
+\bibitem{Reisner}
+G.~A.~Reisner,
+\emph{Cohen--Macaulay quotients of polynomial rings},
+Adv. Math. \textbf{21} (1976), 30--49,
+\href{https://doi.org/10.1016/0001-8708(76)90114-6}{doi:10.1016/0001-8708(76)90114-6}.
+
+\bibitem{Stacks}
+The Stacks Project Authors,
+\emph{The Stacks Project},
+\href{https://stacks.math.columbia.edu/tag/0899}{Tag 0899}
+and \href{https://stacks.math.columbia.edu/tag/0E7T}{Tag 0E7T}.
+
+\end{thebibliography}
+
+\end{document}

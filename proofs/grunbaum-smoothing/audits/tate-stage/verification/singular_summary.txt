@@ -1,0 +1,5 @@
+SINGULAR_LOW_TATE_STAGE_CERTIFIED
+K1_generators=31
+K2_generators=141
+L1_shape=150x31
+L2_shape=1176x141

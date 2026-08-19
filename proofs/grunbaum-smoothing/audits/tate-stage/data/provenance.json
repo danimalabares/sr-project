@@ -1,0 +1,55 @@
+{
+  "format": "tate-stage-provenance-v1",
+  "observation_date": "2026-08-19",
+  "source_packet": {
+    "observed_root": "/Users/daniel/github/grunbaum-smoothing-referee",
+    "release_archive_sha256": "8244ef6272f895d787c9b21fe9f757e8a1ad67db9dde96ad7be774289193c57b",
+    "manifest_sha256": "ffc6cb2dbc77a1c0d8e71c8828a3f5e729598db4a94754e56f5426ec09176ce9",
+    "manifest_all_entries_verified": true,
+    "construction_file": "code/verify_aq_bracket.m2",
+    "construction_file_sha256": "7b49da5c17ccbff951b94384b547adcd6c73f8b151a95d8a78c3afa5d6b39f18",
+    "construction_file_manifest_sha256": "7b49da5c17ccbff951b94384b547adcd6c73f8b151a95d8a78c3afa5d6b39f18"
+  },
+  "observation_environment": {
+    "Macaulay2_version": "1.20",
+    "Macaulay2_git_description": "version-1.20-6-a156a3cd4-dirty",
+    "Macaulay2_launcher_sha256": "a768799d25c404f5cd33ef445c37c7c83a28ca86b6d3124ac5a8d6997fe8dfbe",
+    "Macaulay2_binary_sha256": "c6f0c89e69d18334031c78217ddb6b383d5a729bde32aeb5f70ee2da0eec9b6c",
+    "DGAlgebras_version": "1.1.0",
+    "DGAlgebras_source_sha256": "72adff5eb889703562b7cedfce10c93490fda171f5f9dd90a998eb69b7d433b0",
+    "random_seed": 0
+  },
+  "observation_method": {
+    "description": "The provenance-only extractor repeats the pinned packet's ordered ideal, freeDGAlgebra/setDiff construction, and two killCycles calls, then serializes the resulting F, R, and Z matrices in explicit bases. It asserts exact recomposition inside the same DG algebra. No certification conclusion uses killCycles.",
+    "extractor": "code/provenance_extract_only.m2",
+    "extractor_sha256": "62dc70a017cdccb1749e8ecd6e808ef9030f9883d30db0626b12b267c55bc9d0",
+    "canonicalizer": "code/canonicalize_provenance.py",
+    "canonicalizer_sha256": "03e652742eaa648f0f59f82abd16ebf22630df053db0edcb6bfa9945666fd66b",
+    "exact_recomposition_asserted": true
+  },
+  "frozen_input": {
+    "path": "data/tate_candidate.tsv",
+    "format": "tate-stage-sparse-v1",
+    "raw_extraction_sha256": "9e0691837d69ba2027cca1fef52e0598dcd83f0bc65e2c88379061bce9caa396",
+    "canonical_input_sha256": "9e0691837d69ba2027cca1fef52e0598dcd83f0bc65e2c88379061bce9caa396",
+    "canonicalization_changed_bytes": false,
+    "matrix_shapes": {
+      "F": "1x16",
+      "R": "16x30",
+      "Z": "150x136"
+    },
+    "nonzero_monomial_terms": {
+      "F": 16,
+      "R": 60,
+      "Z": 439
+    },
+    "basis_E1": "e_1,...,e_16",
+    "basis_E2": "f_1,...,f_30; e_i*e_j in lexicographic order i<j",
+    "g_source_internal_degrees": "5 repeated 16 times, then 6 repeated 120 times"
+  },
+  "separation_of_roles": {
+    "provenance_uses_DGAlgebras_and_killCycles": true,
+    "certification_uses_DGAlgebras_or_killCycles": false,
+    "fresh_replay_reads_source_packet": false
+  }
+}

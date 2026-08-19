@@ -1,0 +1,4 @@
+MACAULAY2_LOW_TATE_STAGE_CERTIFIED
+K1_generators=30
+K2_generators=136
+certificate=verification/m2_lifts.generated.m2

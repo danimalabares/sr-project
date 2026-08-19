@@ -1,0 +1,659 @@
+format	tate-stage-sparse-v1
+ring	QQ[x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_8]	GRevLex
+basis_E1	e_1,...,e_16
+basis_E2	f_1,...,f_30; e_i*e_j lexicographic i<j
+matrix	F	1	16
+matrix	R	16	30
+matrix	Z	150	136
+term	F	0	0	1	0	0	0	0	0	1	1	1
+term	F	0	1	1	0	0	0	1	0	1	0	1
+term	F	0	2	1	0	0	1	0	0	0	1	1
+term	F	0	3	1	0	0	1	0	1	0	1	0
+term	F	0	4	1	0	0	1	1	0	0	0	1
+term	F	0	5	1	0	1	0	0	0	0	1	1
+term	F	0	6	1	0	1	0	0	1	0	1	0
+term	F	0	7	1	0	1	0	0	1	1	0	0
+term	F	0	8	1	0	1	0	1	0	0	1	0
+term	F	0	9	1	0	1	0	1	0	1	0	0
+term	F	0	10	1	1	0	0	1	0	1	0	0
+term	F	0	11	1	1	0	0	1	1	0	0	0
+term	F	0	12	1	1	0	1	0	0	0	0	1
+term	F	0	13	1	1	0	1	0	0	1	0	0
+term	F	0	14	1	1	0	1	0	1	0	0	0
+term	F	0	15	1	1	1	0	0	1	0	0	0
+term	R	0	0	1	0	0	0	1	0	0	0	0
+term	R	0	1	1	0	0	1	0	0	0	0	0
+term	R	0	5	1	0	1	0	0	0	0	0	0
+term	R	1	0	-1	0	0	0	0	0	0	1	0
+term	R	1	4	1	0	0	1	0	0	0	0	0
+term	R	1	12	1	0	1	0	0	0	0	0	0
+term	R	1	15	1	1	0	0	0	0	0	0	0
+term	R	2	1	-1	0	0	0	0	0	1	0	0
+term	R	2	2	1	0	0	0	0	1	0	0	0
+term	R	2	3	1	0	0	0	1	0	0	0	0
+term	R	2	6	1	0	1	0	0	0	0	0	0
+term	R	2	18	1	1	0	0	0	0	0	0	0
+term	R	3	2	-1	0	0	0	0	0	0	0	1
+term	R	3	8	1	0	1	0	0	0	0	0	0
+term	R	3	23	1	1	0	0	0	0	0	0	0
+term	R	4	3	-1	0	0	0	0	0	0	1	0
+term	R	4	4	-1	0	0	0	0	0	1	0	0
+term	R	4	19	1	1	0	0	0	0	0	0	0
+term	R	5	5	-1	0	0	0	0	0	1	0	0
+term	R	5	6	-1	0	0	1	0	0	0	0	0
+term	R	5	7	1	0	0	0	0	1	0	0	0
+term	R	5	10	1	0	0	0	1	0	0	0	0
+term	R	6	7	-1	0	0	0	0	0	0	0	1
+term	R	6	8	-1	0	0	1	0	0	0	0	0
+term	R	6	9	1	0	0	0	0	0	1	0	0
+term	R	6	11	1	0	0	0	1	0	0	0	0
+term	R	6	26	1	1	0	0	0	0	0	0	0
+term	R	7	9	-1	0	0	0	0	0	0	1	0
+term	R	7	14	1	0	0	0	1	0	0	0	0
+term	R	7	27	1	1	0	0	0	0	0	0	0
+term	R	8	10	-1	0	0	0	0	0	0	0	1
+term	R	8	11	-1	0	0	0	0	1	0	0	0
+term	R	8	13	1	0	0	0	0	0	1	0	0
+term	R	9	12	-1	0	0	0	0	0	0	0	1
+term	R	9	13	-1	0	0	0	0	0	0	1	0
+term	R	9	14	-1	0	0	0	0	1	0	0	0
+term	R	9	16	1	1	0	0	0	0	0	0	0
+term	R	10	15	-1	0	0	0	0	0	0	0	1
+term	R	10	16	-1	0	1	0	0	0	0	0	0
+term	R	10	17	1	0	0	0	0	1	0	0	0
+term	R	10	21	1	0	0	1	0	0	0	0	0
+term	R	11	17	-1	0	0	0	0	0	1	0	0
+term	R	11	25	1	0	0	1	0	0	0	0	0
+term	R	11	28	1	0	1	0	0	0	0	0	0
+term	R	12	18	-1	0	0	0	0	0	0	1	0
+term	R	12	19	-1	0	0	0	1	0	0	0	0
+term	R	12	20	1	0	0	0	0	0	1	0	0
+term	R	12	22	1	0	0	0	0	1	0	0	0
+term	R	13	20	-1	0	0	0	0	0	0	0	1
+term	R	13	21	-1	0	0	0	1	0	0	0	0
+term	R	13	24	1	0	0	0	0	1	0	0	0
+term	R	14	22	-1	0	0	0	0	0	0	0	1
+term	R	14	23	-1	0	0	0	0	0	0	1	0
+term	R	14	24	-1	0	0	0	0	0	1	0	0
+term	R	14	25	-1	0	0	0	1	0	0	0	0
+term	R	14	29	1	0	1	0	0	0	0	0	0
+term	R	15	26	-1	0	0	0	0	0	0	1	0
+term	R	15	27	-1	0	0	0	0	0	1	0	0
+term	R	15	28	-1	0	0	0	1	0	0	0	0
+term	R	15	29	-1	0	0	1	0	0	0	0	0
+term	Z	0	0	1	0	0	1	0	0	0	0	0
+term	Z	0	4	1	0	1	0	0	0	0	0	0
+term	Z	0	16	1	0	0	0	0	0	1	0	1
+term	Z	0	61	1	1	0	0	0	0	1	0	0
+term	Z	0	66	1	1	0	0	0	1	0	0	0
+term	Z	1	0	-1	0	0	0	1	0	0	0	0
+term	Z	1	1	1	0	1	0	0	0	0	0	0
+term	Z	1	17	1	0	0	0	0	0	0	1	1
+term	Z	1	18	1	0	0	0	0	1	0	1	0
+term	Z	1	23	1	0	0	0	1	0	0	0	1
+term	Z	1	70	1	1	0	0	0	0	0	0	1
+term	Z	1	75	1	1	0	0	0	0	1	0	0
+term	Z	1	89	1	1	0	0	0	1	0	0	0
+term	Z	2	2	1	0	1	0	0	0	0	0	0
+term	Z	2	9	1	1	0	0	0	0	0	0	0
+term	Z	2	18	1	0	0	0	0	0	1	1	0
+term	Z	2	19	1	0	0	1	0	0	0	1	0
+term	Z	2	21	1	0	0	1	1	0	0	0	0
+term	Z	2	25	1	0	0	0	1	0	1	0	0
+term	Z	3	0	-1	0	0	0	0	0	1	0	0
+term	Z	3	7	1	1	0	0	0	0	0	0	0
+term	Z	3	20	1	0	0	1	0	0	0	0	1
+term	Z	3	21	-1	0	0	1	0	1	0	0	0
+term	Z	3	22	1	0	0	0	0	0	1	0	1
+term	Z	3	25	-1	0	0	0	0	1	1	0	0
+term	Z	3	28	1	0	1	0	0	0	0	0	1
+term	Z	3	42	1	0	1	0	1	0	0	0	0
+term	Z	3	43	1	0	1	0	0	1	0	0	0
+term	Z	4	0	1	0	0	0	0	0	0	1	0
+term	Z	4	8	1	1	0	0	0	0	0	0	0
+term	Z	4	22	-1	0	0	0	0	0	0	1	1
+term	Z	4	23	1	0	0	0	0	0	0	1	1
+term	Z	4	24	1	0	0	0	1	0	0	0	1
+term	Z	4	25	1	0	0	0	0	1	0	1	0
+term	Z	4	47	1	0	1	0	1	0	0	0	0
+term	Z	4	57	1	0	1	0	0	1	0	0	0
+term	Z	5	1	-1	0	0	1	0	0	0	0	0
+term	Z	5	4	-1	0	0	0	1	0	0	0	0
+term	Z	5	26	1	0	0	0	0	0	0	1	1
+term	Z	5	29	1	0	0	0	0	1	0	1	0
+term	Z	5	34	1	0	0	0	0	1	1	0	0
+term	Z	5	39	1	0	0	0	1	0	0	1	0
+term	Z	5	49	1	0	0	0	1	0	1	0	0
+term	Z	5	107	1	1	0	0	0	1	0	0	0
+term	Z	6	1	1	0	0	0	0	0	1	0	0
+term	Z	6	2	-1	0	0	0	0	1	0	0	0
+term	Z	6	27	1	0	0	0	0	0	0	1	1
+term	Z	6	28	-1	0	0	0	1	0	0	0	1
+term	Z	6	32	1	0	0	0	0	1	0	1	0
+term	Z	6	35	1	0	0	0	0	1	1	0	0
+term	Z	6	40	1	0	0	0	1	0	0	1	0
+term	Z	6	42	-1	0	0	0	2	0	0	0	0
+term	Z	6	43	-1	0	0	0	1	1	0	0	0
+term	Z	6	52	1	0	0	0	1	0	1	0	0
+term	Z	6	72	1	1	0	0	0	0	0	0	1
+term	Z	6	73	1	1	0	0	1	0	0	0	0
+term	Z	6	77	1	1	0	0	0	0	1	0	0
+term	Z	6	123	1	1	0	0	0	1	0	0	0
+term	Z	7	2	-1	0	0	1	0	0	0	0	0
+term	Z	7	3	1	0	0	0	1	0	0	0	0
+term	Z	7	29	1	0	0	0	0	0	1	1	0
+term	Z	7	30	1	0	1	0	0	0	0	1	0
+term	Z	7	31	1	0	0	1	0	0	0	1	0
+term	Z	7	34	1	0	0	0	0	0	2	0	0
+term	Z	7	35	1	0	0	1	0	0	1	0	0
+term	Z	7	36	1	0	1	0	0	0	1	0	0
+term	Z	7	107	1	1	0	0	0	0	1	0	0
+term	Z	7	109	1	1	1	0	0	0	0	0	0
+term	Z	8	2	1	0	0	0	0	0	0	0	1
+term	Z	8	14	1	1	0	0	0	0	0	0	0
+term	Z	8	31	-1	0	0	0	0	0	0	1	1
+term	Z	8	32	1	0	0	0	0	0	0	1	1
+term	Z	8	33	1	0	0	0	0	1	0	1	0
+term	Z	8	37	1	0	0	0	0	1	1	0	0
+term	Z	8	44	1	0	0	0	1	0	0	1	0
+term	Z	8	54	1	0	0	0	1	0	1	0	0
+term	Z	9	5	1	0	0	0	1	0	0	0	0
+term	Z	9	12	1	1	0	0	0	0	0	0	0
+term	Z	9	34	1	0	0	0	0	0	1	0	1
+term	Z	9	35	1	0	0	1	0	0	0	0	1
+term	Z	9	36	1	0	1	0	0	0	0	0	1
+term	Z	9	37	1	0	0	1	0	1	0	0	0
+term	Z	9	38	1	0	1	0	0	1	0	0	0
+term	Z	10	3	-1	0	0	0	0	1	0	0	0
+term	Z	10	4	-1	0	0	0	0	0	1	0	0
+term	Z	10	39	1	0	0	0	0	0	1	1	0
+term	Z	10	40	1	0	0	1	0	0	0	1	0
+term	Z	10	41	1	0	1	0	0	0	0	1	0
+term	Z	10	42	-1	0	0	1	1	0	0	0	0
+term	Z	10	43	-1	0	0	1	0	1	0	0	0
+term	Z	10	48	1	0	0	0	0	0	1	0	1
+term	Z	10	49	1	0	0	0	0	0	2	0	0
+term	Z	10	52	1	0	0	1	0	0	1	0	0
+term	Z	10	53	1	0	1	0	0	0	1	0	0
+term	Z	10	63	1	1	0	0	0	0	1	0	0
+term	Z	10	73	1	1	0	1	0	0	0	0	0
+term	Z	10	113	1	1	0	0	0	1	0	0	0
+term	Z	11	3	1	0	0	0	0	0	0	0	1
+term	Z	11	5	-1	0	0	0	0	0	1	0	0
+term	Z	11	43	1	0	0	1	0	0	0	0	1
+term	Z	11	44	1	0	0	1	0	0	0	1	0
+term	Z	11	45	1	0	1	0	0	0	0	1	0
+term	Z	11	50	-1	0	0	0	0	0	1	0	1
+term	Z	11	54	1	0	0	1	0	0	1	0	0
+term	Z	11	59	1	0	1	0	0	0	1	0	0
+term	Z	11	111	1	1	1	0	0	0	0	0	0
+term	Z	11	113	-1	1	0	0	0	0	0	0	1
+term	Z	11	117	1	1	0	0	1	0	0	0	0
+term	Z	11	131	1	1	0	1	0	0	0	0	0
+term	Z	12	4	1	0	0	0	0	0	0	1	0
+term	Z	12	6	1	1	0	0	0	0	0	0	0
+term	Z	12	46	1	0	0	0	1	0	1	0	0
+term	Z	12	47	-1	0	0	1	1	0	0	0	0
+term	Z	12	48	-1	0	0	0	0	0	0	1	1
+term	Z	12	50	1	0	0	0	0	1	0	1	0
+term	Z	12	51	1	0	0	0	1	0	0	1	0
+term	Z	12	56	1	0	0	0	0	1	1	0	0
+term	Z	12	57	-1	0	0	1	0	1	0	0	0
+term	Z	13	4	-1	0	0	0	0	0	0	0	1
+term	Z	13	5	-1	0	0	0	0	1	0	0	0
+term	Z	13	48	1	0	0	0	0	0	0	0	2
+term	Z	13	49	1	0	0	0	0	0	1	0	1
+term	Z	13	50	-1	0	0	0	0	1	0	0	1
+term	Z	13	51	-1	0	0	0	1	0	0	0	1
+term	Z	13	52	1	0	0	1	0	0	0	0	1
+term	Z	13	53	1	0	1	0	0	0	0	0	1
+term	Z	13	54	1	0	0	1	0	1	0	0	0
+term	Z	13	55	1	0	1	0	1	0	0	0	0
+term	Z	13	58	1	0	1	0	0	1	0	0	0
+term	Z	13	63	1	1	0	0	0	0	0	0	1
+term	Z	13	64	1	1	0	0	1	0	0	0	0
+term	Z	13	86	1	1	0	1	0	0	0	0	0
+term	Z	14	5	1	0	0	0	0	0	0	1	0
+term	Z	14	13	1	1	0	0	0	0	0	0	0
+term	Z	14	56	-1	0	0	0	0	0	1	0	1
+term	Z	14	57	1	0	0	1	0	0	0	0	1
+term	Z	14	58	-1	0	1	0	0	0	0	1	0
+term	Z	14	59	1	0	1	0	0	0	0	1	0
+term	Z	14	60	1	0	1	0	0	0	1	0	0
+term	Z	15	6	-1	0	1	0	0	0	0	0	0
+term	Z	15	8	-1	0	0	1	0	0	0	0	0
+term	Z	15	61	1	0	0	0	0	0	1	1	0
+term	Z	15	62	1	0	0	0	1	0	1	0	0
+term	Z	15	66	1	0	0	0	0	1	0	1	0
+term	Z	15	67	1	0	0	0	1	1	0	0	0
+term	Z	15	80	1	0	0	1	0	0	0	0	1
+term	Z	15	82	1	0	0	1	0	0	1	0	0
+term	Z	15	95	1	0	0	1	0	1	0	0	0
+term	Z	15	114	1	0	1	0	0	1	0	0	0
+term	Z	16	6	1	0	0	0	0	0	0	0	1
+term	Z	16	13	1	0	0	0	0	1	0	0	0
+term	Z	16	63	1	0	0	0	0	0	0	1	1
+term	Z	16	64	1	0	0	0	1	0	0	1	0
+term	Z	16	65	1	0	0	0	1	0	1	0	0
+term	Z	16	68	1	0	0	0	1	1	0	0	0
+term	Z	16	84	-1	0	0	1	0	0	0	0	1
+term	Z	16	86	1	0	0	1	0	0	0	1	0
+term	Z	16	87	1	0	0	1	0	0	1	0	0
+term	Z	16	98	1	0	0	1	0	1	0	0	0
+term	Z	16	120	1	0	1	0	0	1	0	0	0
+term	Z	17	11	1	0	0	1	0	0	0	0	0
+term	Z	17	13	1	0	1	0	0	0	0	0	0
+term	Z	17	66	1	0	0	0	0	0	0	1	1
+term	Z	17	67	1	0	0	0	1	0	0	0	1
+term	Z	17	68	1	0	1	0	1	0	0	0	0
+term	Z	17	69	1	1	0	0	1	0	0	0	0
+term	Z	17	114	1	0	1	0	0	0	0	0	1
+term	Z	17	115	-1	0	1	0	0	0	0	1	0
+term	Z	17	118	1	0	1	0	0	0	1	0	0
+term	Z	17	120	1	0	2	0	0	0	0	0	0
+term	Z	17	121	1	1	1	0	0	0	0	0	0
+term	Z	18	7	-1	0	0	0	1	0	0	0	0
+term	Z	18	9	-1	0	0	0	0	1	0	0	0
+term	Z	18	70	1	0	0	0	0	0	1	0	1
+term	Z	18	71	1	0	0	1	0	0	0	0	1
+term	Z	18	72	-1	0	1	0	0	0	0	0	1
+term	Z	18	73	-1	0	1	0	1	0	0	0	0
+term	Z	18	75	1	0	0	0	0	0	2	0	0
+term	Z	18	76	1	0	0	1	0	0	1	0	0
+term	Z	18	77	-1	0	1	0	0	0	1	0	0
+term	Z	18	81	1	0	0	0	1	0	1	0	0
+term	Z	18	89	1	0	0	0	0	1	1	0	0
+term	Z	18	93	1	0	0	1	0	1	0	0	0
+term	Z	18	100	1	0	0	0	1	1	0	0	0
+term	Z	18	108	1	0	1	0	0	1	0	0	0
+term	Z	19	7	1	0	0	0	0	0	0	1	0
+term	Z	19	8	1	0	0	0	0	0	1	0	0
+term	Z	19	74	1	0	0	1	0	0	0	0	1
+term	Z	19	78	1	0	0	1	0	0	1	0	0
+term	Z	19	83	1	0	0	0	1	0	1	0	0
+term	Z	19	90	1	0	0	1	0	1	0	0	0
+term	Z	19	101	1	0	0	0	1	1	0	0	0
+term	Z	19	126	1	0	1	0	0	1	0	0	0
+term	Z	20	8	1	0	0	0	1	0	0	0	0
+term	Z	20	10	1	0	0	0	0	1	0	0	0
+term	Z	20	75	1	0	0	0	0	0	1	1	0
+term	Z	20	76	1	0	0	1	0	0	0	1	0
+term	Z	20	77	-1	0	1	0	0	0	0	1	0
+term	Z	20	78	1	0	0	1	1	0	0	0	0
+term	Z	20	79	1	1	0	1	0	0	0	0	0
+term	Z	20	80	-1	0	0	0	1	0	0	0	1
+term	Z	20	81	1	0	0	0	1	0	0	1	0
+term	Z	20	83	1	0	0	0	2	0	0	0	0
+term	Z	20	84	1	0	1	0	1	0	0	0	0
+term	Z	20	85	1	1	0	0	1	0	0	0	0
+term	Z	21	8	-1	0	0	0	0	0	0	0	1
+term	Z	21	11	-1	0	0	0	0	1	0	0	0
+term	Z	21	80	1	0	0	0	0	0	0	0	2
+term	Z	21	81	-1	0	0	0	0	0	0	1	1
+term	Z	21	82	1	0	0	0	0	0	1	0	1
+term	Z	21	83	-1	0	0	0	1	0	0	0	1
+term	Z	21	84	-1	0	1	0	0	0	0	0	1
+term	Z	21	85	-1	1	0	0	0	0	0	0	1
+term	Z	21	86	1	0	1	0	0	0	0	1	0
+term	Z	21	87	1	0	1	0	0	0	1	0	0
+term	Z	21	88	1	1	0	0	0	0	1	0	0
+term	Z	21	95	1	0	0	0	0	1	0	0	1
+term	Z	21	96	-1	0	0	0	0	1	0	1	0
+term	Z	21	98	1	0	1	0	0	1	0	0	0
+term	Z	21	105	1	1	0	0	0	1	0	0	0
+term	Z	22	9	-1	0	0	0	0	0	0	1	0
+term	Z	22	10	-1	0	0	0	0	0	1	0	0
+term	Z	22	89	1	0	0	0	0	0	1	1	0
+term	Z	22	90	1	0	0	1	1	0	0	0	0
+term	Z	22	91	1	1	0	1	0	0	0	0	0
+term	Z	22	92	1	0	0	1	0	0	0	1	0
+term	Z	22	100	1	0	0	0	1	0	0	1	0
+term	Z	22	101	1	0	0	0	2	0	0	0	0
+term	Z	22	102	1	1	0	0	1	0	0	0	0
+term	Z	22	124	1	0	1	0	0	0	0	1	0
+term	Z	22	125	1	0	1	0	0	0	1	0	0
+term	Z	22	126	1	0	1	0	1	0	0	0	0
+term	Z	22	127	1	1	1	0	0	0	0	0	0
+term	Z	23	9	1	0	0	0	0	0	0	0	1
+term	Z	23	14	-1	0	1	0	0	0	0	0	0
+term	Z	23	92	-1	0	0	1	0	0	0	0	1
+term	Z	23	93	1	0	0	1	0	0	0	0	1
+term	Z	23	94	1	0	0	1	0	1	0	0	0
+term	Z	23	96	1	0	0	0	1	0	1	0	0
+term	Z	23	97	1	0	0	1	0	0	1	0	0
+term	Z	23	103	1	0	0	0	1	1	0	0	0
+term	Z	23	130	1	0	1	0	0	1	0	0	0
+term	Z	24	10	1	0	0	0	0	0	0	0	1
+term	Z	24	11	-1	0	0	0	1	0	0	0	0
+term	Z	24	95	1	0	0	0	1	0	0	0	1
+term	Z	24	96	-1	0	0	0	1	0	0	1	0
+term	Z	24	97	-1	0	0	1	0	0	0	1	0
+term	Z	24	98	1	0	1	0	1	0	0	0	0
+term	Z	24	99	1	1	0	1	0	0	0	0	0
+term	Z	24	104	1	1	0	0	1	0	0	0	0
+term	Z	24	128	-1	0	1	0	0	0	0	1	0
+term	Z	24	132	1	0	1	0	0	0	1	0	0
+term	Z	24	134	1	1	1	0	0	0	0	0	0
+term	Z	25	11	1	0	0	0	0	0	1	0	0
+term	Z	25	15	1	0	1	0	0	0	0	0	0
+term	Z	25	100	-1	0	0	0	0	0	0	1	1
+term	Z	25	101	-1	0	0	0	1	0	0	0	1
+term	Z	25	102	-1	1	0	0	0	0	0	0	1
+term	Z	25	103	-1	0	0	0	0	1	0	1	0
+term	Z	25	104	-1	1	0	0	0	0	1	0	0
+term	Z	25	105	1	1	0	0	0	0	1	0	0
+term	Z	25	106	1	1	0	0	0	1	0	0	0
+term	Z	26	12	-1	0	0	0	0	0	1	0	0
+term	Z	26	14	1	0	0	1	0	0	0	0	0
+term	Z	26	107	1	0	0	0	0	0	1	0	1
+term	Z	26	108	1	0	0	1	0	0	0	0	1
+term	Z	26	109	1	0	1	0	0	0	0	0	1
+term	Z	26	110	1	0	1	0	0	1	0	0	0
+term	Z	26	111	-1	0	1	0	1	0	0	0	0
+term	Z	26	113	1	0	0	0	1	0	0	0	1
+term	Z	26	115	1	0	0	0	1	0	1	0	0
+term	Z	26	116	1	0	0	0	1	1	0	0	0
+term	Z	26	117	-1	0	0	0	2	0	0	0	0
+term	Z	26	124	-1	0	0	1	0	0	0	0	1
+term	Z	26	128	1	0	0	1	0	0	1	0	0
+term	Z	26	129	1	0	0	1	0	1	0	0	0
+term	Z	26	131	-1	0	0	1	1	0	0	0	0
+term	Z	27	12	1	0	0	0	0	0	0	1	0
+term	Z	27	13	-1	0	0	0	1	0	0	0	0
+term	Z	27	112	1	0	1	0	0	1	0	0	0
+term	Z	27	118	-1	0	0	0	1	0	1	0	0
+term	Z	27	119	1	0	0	0	1	1	0	0	0
+term	Z	27	125	-1	0	0	1	0	0	0	0	1
+term	Z	27	132	-1	0	0	1	0	0	1	0	0
+term	Z	27	133	1	0	0	1	0	1	0	0	0
+term	Z	28	13	1	0	0	0	0	0	1	0	0
+term	Z	28	15	-1	0	0	1	0	0	0	0	0
+term	Z	28	113	-1	0	0	0	0	0	0	1	1
+term	Z	28	114	1	0	0	0	0	0	1	0	1
+term	Z	28	115	-1	0	0	0	0	0	1	1	0
+term	Z	28	116	-1	0	0	0	0	1	0	1	0
+term	Z	28	117	1	0	0	0	1	0	0	1	0
+term	Z	28	118	1	0	0	0	0	0	2	0	0
+term	Z	28	119	-1	0	0	0	0	1	1	0	0
+term	Z	28	120	1	0	1	0	0	0	1	0	0
+term	Z	28	121	1	1	0	0	0	0	1	0	0
+term	Z	28	122	1	1	0	0	0	1	0	0	0
+term	Z	29	14	-1	0	0	0	0	0	0	1	0
+term	Z	29	15	1	0	0	0	1	0	0	0	0
+term	Z	29	123	1	0	0	0	0	0	0	1	1
+term	Z	29	124	1	0	0	0	0	0	0	1	1
+term	Z	29	125	1	0	0	0	0	0	1	0	1
+term	Z	29	126	1	0	0	0	1	0	0	0	1
+term	Z	29	127	1	1	0	0	0	0	0	0	1
+term	Z	29	128	-1	0	0	0	0	0	1	1	0
+term	Z	29	129	-1	0	0	0	0	1	0	1	0
+term	Z	29	130	1	0	0	0	0	1	0	1	0
+term	Z	29	131	1	0	0	0	1	0	0	1	0
+term	Z	29	132	1	0	0	0	0	0	2	0	0
+term	Z	29	133	-1	0	0	0	0	1	1	0	0
+term	Z	29	134	1	1	0	0	0	0	1	0	0
+term	Z	29	135	1	1	0	0	0	1	0	0	0
+term	Z	30	16	1	0	0	0	0	0	0	0	0
+term	Z	31	17	1	0	0	0	0	0	0	0	0
+term	Z	32	18	1	0	0	0	0	0	0	0	0
+term	Z	33	23	1	0	0	0	0	0	0	0	0
+term	Z	34	26	1	0	0	0	0	0	0	0	0
+term	Z	35	29	1	0	0	0	0	0	0	0	0
+term	Z	36	34	1	0	0	0	0	0	0	0	0
+term	Z	37	39	1	0	0	0	0	0	0	0	0
+term	Z	38	49	1	0	0	0	0	0	0	0	0
+term	Z	39	61	1	0	0	0	0	0	0	0	0
+term	Z	40	66	1	0	0	0	0	0	0	0	0
+term	Z	41	70	1	0	0	0	0	0	0	0	0
+term	Z	42	75	1	0	0	0	0	0	0	0	0
+term	Z	43	89	1	0	0	0	0	0	0	0	0
+term	Z	44	107	1	0	0	0	0	0	0	0	0
+term	Z	45	22	-1	0	0	0	0	0	0	0	0
+term	Z	45	23	1	0	0	0	0	0	0	0	0
+term	Z	46	25	1	0	0	0	0	0	0	0	0
+term	Z	47	24	1	0	0	0	0	0	0	0	0
+term	Z	48	48	-1	0	0	0	0	0	0	0	0
+term	Z	49	50	1	0	0	0	0	0	0	0	0
+term	Z	50	56	1	0	0	0	0	0	0	0	0
+term	Z	51	51	1	0	0	0	0	0	0	0	0
+term	Z	52	46	1	0	0	0	0	0	0	0	0
+term	Z	53	62	1	0	0	0	0	0	0	0	0
+term	Z	54	67	1	0	0	0	0	0	0	0	0
+term	Z	55	80	1	0	0	0	0	0	0	0	0
+term	Z	56	82	1	0	0	0	0	0	0	0	0
+term	Z	57	95	1	0	0	0	0	0	0	0	0
+term	Z	58	114	1	0	0	0	0	0	0	0	0
+term	Z	59	19	1	0	0	0	0	0	0	0	0
+term	Z	60	20	1	0	0	0	0	0	0	0	0
+term	Z	61	27	1	0	0	0	0	0	0	0	0
+term	Z	62	32	1	0	0	0	0	0	0	0	0
+term	Z	63	35	1	0	0	0	0	0	0	0	0
+term	Z	64	40	1	0	0	0	0	0	0	0	0
+term	Z	65	52	1	0	0	0	0	0	0	0	0
+term	Z	66	81	1	0	0	0	0	0	0	0	0
+term	Z	67	100	1	0	0	0	0	0	0	0	0
+term	Z	68	71	1	0	0	0	0	0	0	0	0
+term	Z	69	76	1	0	0	0	0	0	0	0	0
+term	Z	70	93	1	0	0	0	0	0	0	0	0
+term	Z	71	108	1	0	0	0	0	0	0	0	0
+term	Z	71	123	1	0	0	0	0	0	0	0	0
+term	Z	72	21	-1	0	0	0	0	0	0	0	0
+term	Z	73	31	-1	0	0	0	0	0	0	0	0
+term	Z	73	32	1	0	0	0	0	0	0	0	0
+term	Z	74	33	1	0	0	0	0	0	0	0	0
+term	Z	75	37	1	0	0	0	0	0	0	0	0
+term	Z	76	44	1	0	0	0	0	0	0	0	0
+term	Z	77	54	1	0	0	0	0	0	0	0	0
+term	Z	78	96	1	0	0	0	0	0	0	0	0
+term	Z	79	103	1	0	0	0	0	0	0	0	0
+term	Z	80	92	-1	0	0	0	0	0	0	0	0
+term	Z	80	93	1	0	0	0	0	0	0	0	0
+term	Z	81	97	1	0	0	0	0	0	0	0	0
+term	Z	82	94	1	0	0	0	0	0	0	0	0
+term	Z	83	130	1	0	0	0	0	0	0	0	0
+term	Z	84	28	-1	0	0	0	0	0	0	0	0
+term	Z	85	43	-1	0	0	0	0	0	0	0	0
+term	Z	86	57	-1	0	0	0	0	0	0	0	0
+term	Z	87	42	-1	0	0	0	0	0	0	0	0
+term	Z	88	47	-1	0	0	0	0	0	0	0	0
+term	Z	89	83	1	0	0	0	0	0	0	0	0
+term	Z	90	101	1	0	0	0	0	0	0	0	0
+term	Z	91	74	1	0	0	0	0	0	0	0	0
+term	Z	92	78	1	0	0	0	0	0	0	0	0
+term	Z	93	90	1	0	0	0	0	0	0	0	0
+term	Z	94	126	1	0	0	0	0	0	0	0	0
+term	Z	95	30	1	0	0	0	0	0	0	0	0
+term	Z	96	36	1	0	0	0	0	0	0	0	0
+term	Z	97	41	1	0	0	0	0	0	0	0	0
+term	Z	98	53	1	0	0	0	0	0	0	0	0
+term	Z	99	63	1	0	0	0	0	0	0	0	0
+term	Z	100	113	1	0	0	0	0	0	0	0	0
+term	Z	101	72	-1	0	0	0	0	0	0	0	0
+term	Z	102	77	-1	0	0	0	0	0	0	0	0
+term	Z	103	123	-1	0	0	0	0	0	0	0	0
+term	Z	104	109	1	0	0	0	0	0	0	0	0
+term	Z	105	38	1	0	0	0	0	0	0	0	0
+term	Z	106	45	1	0	0	0	0	0	0	0	0
+term	Z	107	59	1	0	0	0	0	0	0	0	0
+term	Z	108	115	1	0	0	0	0	0	0	0	0
+term	Z	109	116	1	0	0	0	0	0	0	0	0
+term	Z	110	108	1	0	0	0	0	0	0	0	0
+term	Z	110	124	-1	0	0	0	0	0	0	0	0
+term	Z	111	128	1	0	0	0	0	0	0	0	0
+term	Z	112	129	1	0	0	0	0	0	0	0	0
+term	Z	113	110	1	0	0	0	0	0	0	0	0
+term	Z	114	58	-1	0	0	0	0	0	0	0	0
+term	Z	114	59	1	0	0	0	0	0	0	0	0
+term	Z	115	60	1	0	0	0	0	0	0	0	0
+term	Z	116	118	-1	0	0	0	0	0	0	0	0
+term	Z	117	119	1	0	0	0	0	0	0	0	0
+term	Z	118	125	-1	0	0	0	0	0	0	0	0
+term	Z	119	132	-1	0	0	0	0	0	0	0	0
+term	Z	120	133	1	0	0	0	0	0	0	0	0
+term	Z	121	112	1	0	0	0	0	0	0	0	0
+term	Z	122	55	1	0	0	0	0	0	0	0	0
+term	Z	123	64	1	0	0	0	0	0	0	0	0
+term	Z	124	117	-1	0	0	0	0	0	0	0	0
+term	Z	125	73	-1	0	0	0	0	0	0	0	0
+term	Z	126	86	1	0	0	0	0	0	0	0	0
+term	Z	127	131	-1	0	0	0	0	0	0	0	0
+term	Z	128	111	-1	0	0	0	0	0	0	0	0
+term	Z	129	65	1	0	0	0	0	0	0	0	0
+term	Z	130	68	1	0	0	0	0	0	0	0	0
+term	Z	131	84	-1	0	0	0	0	0	0	0	0
+term	Z	132	87	1	0	0	0	0	0	0	0	0
+term	Z	133	98	1	0	0	0	0	0	0	0	0
+term	Z	134	120	1	0	0	0	0	0	0	0	0
+term	Z	135	69	1	0	0	0	0	0	0	0	0
+term	Z	136	85	-1	0	0	0	0	0	0	0	0
+term	Z	137	88	1	0	0	0	0	0	0	0	0
+term	Z	138	105	1	0	0	0	0	0	0	0	0
+term	Z	139	121	1	0	0	0	0	0	0	0	0
+term	Z	140	102	-1	0	0	0	0	0	0	0	0
+term	Z	141	104	-1	0	0	0	0	0	0	0	0
+term	Z	141	105	1	0	0	0	0	0	0	0	0
+term	Z	142	106	1	0	0	0	0	0	0	0	0
+term	Z	143	122	1	0	0	0	0	0	0	0	0
+term	Z	144	79	1	0	0	0	0	0	0	0	0
+term	Z	145	91	1	0	0	0	0	0	0	0	0
+term	Z	146	127	1	0	0	0	0	0	0	0	0
+term	Z	147	99	1	0	0	0	0	0	0	0	0
+term	Z	148	134	1	0	0	0	0	0	0	0	0
+term	Z	149	135	1	0	0	0	0	0	0	0	0
+gdegree	0	5
+gdegree	1	5
+gdegree	2	5
+gdegree	3	5
+gdegree	4	5
+gdegree	5	5
+gdegree	6	5
+gdegree	7	5
+gdegree	8	5
+gdegree	9	5
+gdegree	10	5
+gdegree	11	5
+gdegree	12	5
+gdegree	13	5
+gdegree	14	5
+gdegree	15	5
+gdegree	16	6
+gdegree	17	6
+gdegree	18	6
+gdegree	19	6
+gdegree	20	6
+gdegree	21	6
+gdegree	22	6
+gdegree	23	6
+gdegree	24	6
+gdegree	25	6
+gdegree	26	6
+gdegree	27	6
+gdegree	28	6
+gdegree	29	6
+gdegree	30	6
+gdegree	31	6
+gdegree	32	6
+gdegree	33	6
+gdegree	34	6
+gdegree	35	6
+gdegree	36	6
+gdegree	37	6
+gdegree	38	6
+gdegree	39	6
+gdegree	40	6
+gdegree	41	6
+gdegree	42	6
+gdegree	43	6
+gdegree	44	6
+gdegree	45	6
+gdegree	46	6
+gdegree	47	6
+gdegree	48	6
+gdegree	49	6
+gdegree	50	6
+gdegree	51	6
+gdegree	52	6
+gdegree	53	6
+gdegree	54	6
+gdegree	55	6
+gdegree	56	6
+gdegree	57	6
+gdegree	58	6
+gdegree	59	6
+gdegree	60	6
+gdegree	61	6
+gdegree	62	6
+gdegree	63	6
+gdegree	64	6
+gdegree	65	6
+gdegree	66	6
+gdegree	67	6
+gdegree	68	6
+gdegree	69	6
+gdegree	70	6
+gdegree	71	6
+gdegree	72	6
+gdegree	73	6
+gdegree	74	6
+gdegree	75	6
+gdegree	76	6
+gdegree	77	6
+gdegree	78	6
+gdegree	79	6
+gdegree	80	6
+gdegree	81	6
+gdegree	82	6
+gdegree	83	6
+gdegree	84	6
+gdegree	85	6
+gdegree	86	6
+gdegree	87	6
+gdegree	88	6
+gdegree	89	6
+gdegree	90	6
+gdegree	91	6
+gdegree	92	6
+gdegree	93	6
+gdegree	94	6
+gdegree	95	6
+gdegree	96	6
+gdegree	97	6
+gdegree	98	6
+gdegree	99	6
+gdegree	100	6
+gdegree	101	6
+gdegree	102	6
+gdegree	103	6
+gdegree	104	6
+gdegree	105	6
+gdegree	106	6
+gdegree	107	6
+gdegree	108	6
+gdegree	109	6
+gdegree	110	6
+gdegree	111	6
+gdegree	112	6
+gdegree	113	6
+gdegree	114	6
+gdegree	115	6
+gdegree	116	6
+gdegree	117	6
+gdegree	118	6
+gdegree	119	6
+gdegree	120	6
+gdegree	121	6
+gdegree	122	6
+gdegree	123	6
+gdegree	124	6
+gdegree	125	6
+gdegree	126	6
+gdegree	127	6
+gdegree	128	6
+gdegree	129	6
+gdegree	130	6
+gdegree	131	6
+gdegree	132	6
+gdegree	133	6
+gdegree	134	6
+gdegree	135	6
+end	tate-stage-sparse-v1

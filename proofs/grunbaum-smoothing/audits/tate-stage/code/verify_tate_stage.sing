@@ -1,0 +1,230 @@
+// Exact independent low Tate-stage check over QQ.
+// Expected input (loaded below) defines F[1][16], R[16][30], Z[150][136].
+// It must not define or use a DG-algebra package.
+
+option(redSB);
+ring S = 0,(x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_8),(dp,C);
+< "data/tate_input.sing";
+
+proc requireZero(matrix M, string label)
+{
+  int i,j;
+  for (i=1; i<=nrows(M); i++)
+  {
+    for (j=1; j<=ncols(M); j++)
+    {
+      if (M[i,j] != 0)
+      {
+        print("FAILED: "+label+" at ("+string(i)+","+string(j)+") = "+string(M[i,j]));
+        ERROR("nonzero exact matrix entry");
+      }
+    }
+  }
+}
+
+proc pairNumber(int i, int j)
+{
+  // 1-based position of (i,j), i<j, in
+  // (1,2),(1,3),...,(1,16),(2,3),...,(15,16).
+  int a;
+  int ans=0;
+  for (a=1; a<i; a++) { ans=ans+(16-a); }
+  return(ans+j-i);
+}
+
+proc shiftE2(int i)
+{
+  if (i<=30) { return(4); }
+  return(6);
+}
+
+proc shiftE3(int i)
+{
+  if (i<=480) { return(7); }
+  return(9);
+}
+
+proc shiftZ(int i)
+{
+  if (i<=16) { return(5); }
+  return(6);
+}
+
+proc requireHomogeneousDegree(poly q, int expected, string label)
+{
+  if (q != 0)
+  {
+    ideal qIdeal=q;
+    if (homog(qIdeal) != 1)
+    {
+      print("FAILED: nonhomogeneous entry in "+label+": "+string(q));
+      ERROR("nonhomogeneous matrix entry");
+    }
+    if (deg(q) != expected)
+    {
+      print("FAILED: wrong degree in "+label+": expected "+string(expected)
+        +", got "+string(deg(q))+" for "+string(q));
+      ERROR("wrong internal grading shift");
+    }
+  }
+}
+
+// Canonical homogeneous bases and their internal shifts:
+// E0: 1, shift 0.
+// E1: e_i (1<=i<=16), each shift 3.
+// E2: f_j (1<=j<=30), shift 4, followed by e_i e_j (i<j), shift 6.
+// E3: e_i f_j (i outer, j inner), shift 7, followed by
+//     e_i e_j e_k (i<j<k), shift 9.
+// Z has source shifts 5 (columns 1..16), then 6 (columns 17..136).
+
+int certificationSucceeded=0;
+proc runCheck()
+{
+matrix D1[1][16];
+matrix D2[16][150];
+matrix D3[150][1040];
+int i,j,k,c,p;
+
+if (size(gInternalDegrees) != 136) { ERROR("wrong g shift vector length"); }
+for (j=1; j<=136; j++)
+{
+  if (gInternalDegrees[j] != shiftZ(j)) { ERROR("wrong g source shift"); }
+}
+
+for (i=1; i<=16; i++) { D1[1,i]=F[1,i]; }
+
+// d(f_j)=sum_i R[i,j] e_i.
+for (i=1; i<=16; i++)
+{
+  for (j=1; j<=30; j++) { D2[i,j]=R[i,j]; }
+}
+
+// d(e_i e_j)=F_i e_j-F_j e_i.
+for (i=1; i<=15; i++)
+{
+  for (j=i+1; j<=16; j++)
+  {
+    c=30+pairNumber(i,j);
+    D2[i,c]=-F[1,j];
+    D2[j,c]= F[1,i];
+  }
+}
+
+// d(e_i f_j)=F_i f_j-e_i d(f_j).  Odd e's anticommute.
+for (i=1; i<=16; i++)
+{
+  for (j=1; j<=30; j++)
+  {
+    c=(i-1)*30+j;
+    D3[j,c]=F[1,i];
+    for (k=1; k<=16; k++)
+    {
+      if (k<i) { p=30+pairNumber(k,i); D3[p,c]= D3[p,c]+R[k,j]; }
+      if (i<k) { p=30+pairNumber(i,k); D3[p,c]= D3[p,c]-R[k,j]; }
+    }
+  }
+}
+
+// d(e_i e_j e_k)=F_i e_j e_k-F_j e_i e_k+F_k e_i e_j.
+c=480;
+for (i=1; i<=14; i++)
+{
+  for (j=i+1; j<=15; j++)
+  {
+    for (k=j+1; k<=16; k++)
+    {
+      c=c+1;
+      D3[30+pairNumber(j,k),c]= F[1,i];
+      D3[30+pairNumber(i,k),c]=-F[1,j];
+      D3[30+pairNumber(i,j),c]= F[1,k];
+    }
+  }
+}
+if (c != 1040) { ERROR("wrong E3 basis size"); }
+
+// Verify all internal shifts, including structural zeros forced by a
+// negative expected coefficient degree.
+for (j=1; j<=16; j++)
+{
+  requireHomogeneousDegree(D1[1,j],3,"D1");
+}
+for (i=1; i<=16; i++)
+{
+  for (j=1; j<=150; j++)
+  {
+    requireHomogeneousDegree(D2[i,j],shiftE2(j)-3,"D2");
+  }
+}
+for (i=1; i<=150; i++)
+{
+  for (j=1; j<=1040; j++)
+  {
+    requireHomogeneousDegree(D3[i,j],shiftE3(j)-shiftE2(i),"D3");
+  }
+  for (j=1; j<=136; j++)
+  {
+    if (shiftZ(j)-shiftE2(i) < 0)
+    {
+      if (Z[i,j] != 0) { ERROR("Z has an entry of impossible negative degree"); }
+    }
+    else
+    {
+      requireHomogeneousDegree(Z[i,j],shiftZ(j)-shiftE2(i),"Z");
+    }
+  }
+}
+
+// The three chain/cycle identities requested in the audit.
+requireZero(D1*D2,"D1*D2");
+requireZero(D2*D3,"D2*D3");
+requireZero(D2*Z,"D2*Z");
+
+module MD1=D1;
+module MD2=D2;
+module imageStage2=MD2;
+
+// Singular's documented syz operation gives generators for ker(D1).
+// The retained lift L1 is an explicit identity D2*L1=K1.
+module K1=syz(MD1,"std");
+matrix K1matrix=K1;
+requireZero(D1*K1matrix,"D1*K1");
+matrix L1=lift(imageStage2,K1);
+requireZero(D2*L1-K1matrix,"D2*L1-K1");
+
+// H=[D3 Z].  Its containment in ker(D2) was checked above.
+matrix H[150][1176];
+for (i=1; i<=150; i++)
+{
+  for (j=1; j<=1040; j++) { H[i,j]=D3[i,j]; }
+  for (j=1; j<=136; j++)  { H[i,1040+j]=Z[i,j]; }
+}
+module imageStage3=H;
+
+// The crucial independent computation: generators for ker(D2), followed
+// by an explicit lift of every such generator through [D3 Z].
+module K2=syz(MD2,"std");
+matrix K2matrix=K2;
+requireZero(D2*K2matrix,"D2*K2");
+matrix L2=lift(imageStage3,K2);
+requireZero(H*L2-K2matrix,"[D3 Z]*L2-K2");
+
+// An ASCII dump retains K1,K2,L1,L2 and every matrix used in their exact
+// identity checks.  getdump can reload it for a certificate-only replay.
+export D1,D2,D3,H,K1matrix,K2matrix,L1,L2;
+export MD1,MD2,K1,K2,imageStage2,imageStage3;
+dump(":w verification/singular_lifts.generated.dump");
+print("SINGULAR_LOW_TATE_STAGE_CERTIFIED");
+print("K1_generators="+string(ncols(K1matrix)));
+print("K2_generators="+string(ncols(K2matrix)));
+print("L1_shape="+string(nrows(L1))+"x"+string(ncols(L1)));
+print("L2_shape="+string(nrows(L2))+"x"+string(ncols(L2)));
+certificationSucceeded=1;
+}
+
+runCheck();
+if (certificationSucceeded != 1)
+{
+  print("SINGULAR_LOW_TATE_STAGE_FAILED");
+  quit;
+}
+quit;

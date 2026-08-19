@@ -1,0 +1,13 @@
+verdict=certified
+date=2026-08-19
+copy=fresh temporary directory
+sandbox=macOS sandbox-exec with deny-default profile
+network=denied
+write_scope=fresh temporary run root only
+original_audit_read=denied and probed
+source_packet_read=denied and probed
+sr_project_read=denied and probed
+full_verify=passed
+manifest=passed
+wrapper=fresh_replay.sh
+profile=code/fresh_replay.sb
