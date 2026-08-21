@@ -1,5 +1,12 @@
 # All-ones versal-base arc
 
+> **Superseded proof status.**  The exact finite calculations in this
+> directory remain useful inputs, but they do not by themselves prove
+> \(\dim T^3_0=24\) or construct an all-orders formal arc.  The completed
+> characteristic-zero argument is
+> [`../grunbaum-smoothing/COMPLETION.md`](../grunbaum-smoothing/COMPLETION.md),
+> together with the independent Tate-stage certificate cited there.
+
 This directory gives an exact finite-order calculation for the tangent
 direction
 
@@ -121,13 +128,14 @@ ker [y,-] = image Dq_y
 ```
 
 The primary DG-algebra commutator is checked to equal \(-Dq_y\) in the
-actual `VersalDeformations` coordinates.  The curved Bianchi identity then
-shows that every successive residual of a partial arc lies in
-`image(Dq_y)`, so it can be killed by the next base coefficient.  Since the
-prescribed two-jet above has `v2=0` and zero cubic residual, it extends to a
-formal base arc to all orders over \(\mathbf Q\).  See
-[AQ_BRACKET.md](AQ_BRACKET.md) for the chain model and its Tate-extension
-lemma, and [BIANCHI.md](BIANCHI.md) for the induction.
+actual `VersalDeformations` coordinates.  These exact identities are inputs
+to the current proof, but this directory's finite package calculation does
+not by itself compare the package equations with the classical
+Maurer--Cartan deformation problem or construct an all-orders arc.  The
+fixed-two-jet induction and that missing comparison are supplied in
+[`../grunbaum-smoothing/COMPLETION.md`](../grunbaum-smoothing/COMPLETION.md).
+See [AQ_BRACKET.md](AQ_BRACKET.md) for the chain model and
+[BIANCHI.md](BIANCHI.md) for the historical induction argument.
 
 As an independent finite-order cross-check, `lift_bianchi.m2` recursively
 lifts all 24 linear syzygies through every exported base term.  It verifies

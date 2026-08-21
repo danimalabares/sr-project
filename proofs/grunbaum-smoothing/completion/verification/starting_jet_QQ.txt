@@ -1,0 +1,10 @@
+field=QQ
+macaulay2_required=1.20
+VersalDeformations_version=3.0
+base=QQ[s]/(s^4)
+family_generators=16
+complete_special_first_syzygies=30
+quadratic_and_cubic_base_terms_at_y_zero=true
+specialized_family_times_relations_zero=true
+reduction_mod_s3_is_exported_two_jet=true
+two_jet_sha256=40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795

@@ -1,5 +1,11 @@
 # Bianchi identity and the all-orders rational arc
 
+> **Superseded proof status.**  The abstract Bianchi identity below is valid,
+> but this note's old application to the finite package equations omitted the
+> graded classical Maurer--Cartan comparison and incorrectly identified a
+> conormal Ext group with intrinsic \(T^3\).  The corrected all-orders proof is
+> [`../grunbaum-smoothing/COMPLETION.md`](../grunbaum-smoothing/COMPLETION.md).
+
 This note combines the formal characteristic-zero Bianchi identity with the
 exact tangent-Lie bracket calculation for the Grünbaum sphere.
 
@@ -45,17 +51,16 @@ Bianchi matrix and does not change the rank of its linear row space.
 
 ## Exact data for this ring
 
-For \(A=S/I\) and \(M=I/I^2\), cotangent transitivity gives
+For \(A=S/I\) and \(M=I/I^2\), `check_tangent_dimensions.m2`
+computes over \(\mathbf Q\)
 
 \[
-T^i_{A/k}\cong\operatorname{Ext}^{i-1}_A(M,A),\qquad i\geq2.
+\dim T^2_0=27,\qquad
+\dim\operatorname{Ext}^2_A(M,A)_0=24.
 \]
 
-`check_tangent_dimensions.m2` proves over \(\mathbf Q\) that
-
-\[
-\dim T^2_0=27,\qquad \dim T^3_0=24.
-\]
+Because this quotient is not lci, the second number is not automatically
+\(\dim T^3_0\), and no such dimension claim is used in the corrected proof.
 
 The quadratic term has exactly 24 minimal linear syzygies.  The script
 `lift_bianchi.m2` lifts all of them against every currently exported base
@@ -127,14 +132,14 @@ and graded-Jacobi identity rather than inferring them from dimensions.  Since
 \ker\operatorname{ad}_y=\operatorname{im}Dq_y.
 \]
 
-Only the first three stages of the Tate model need to be materialized.  The
-degree-one and degree-two derivations used in the bracket extend inductively
-to the full acyclic resolution: on each new generator the required value is a
-primitive of a positive-degree cycle.  Thus their computed commutator is a
-genuine \(T^3\) cocycle.  The construction and this extension lemma are
-spelled out in [AQ_BRACKET.md](AQ_BRACKET.md).
+The independent
+[`tate-stage` certificate](../grunbaum-smoothing/audits/tate-stage/MATHEMATICAL_CERTIFICATE.md)
+proves that the materialized stages compute the required kernels and images.
+Thus the twelve computed commutator classes are genuine intrinsic
+\(T^3\)-classes.  The chain construction is spelled out in
+[AQ_BRACKET.md](AQ_BRACKET.md).
 
-## All-orders induction
+## Historical versal-base induction
 
 Suppose a partial base arc satisfies
 
@@ -155,12 +160,16 @@ Dq_yv_{N-1}=-r_N.
 
 `check_prescribed_two_jet.sage` proves that the transported rational direction
 has \(q(y)=0\), that the prescribed second-order lift induces \(v_2=0\), and
-that its cubic base coefficient vanishes.  It therefore supplies the initial
-partial arc to which the induction applies.  The result is a formal
-characteristic-zero versal-base arc extending that two-jet to every order.
+that its cubic base coefficient vanishes.  The displayed induction would then
+produce a formal arc if the finite package tuple had first been identified,
+in the same coordinates and obstruction basis, with the classical graded
+Maurer--Cartan deformation problem.  This directory did not establish that
+comparison.  The corrected proof bypasses it: it starts from an actual flat
+\(\mathbf Q[s]/(s^4)\)-deformation and performs the fixed-two-jet induction
+directly in the controlling DG Lie algebra.
 
-This argument does not require a complete polynomial export of the Kuranishi
-map or the stronger global statement `rank(beta)=24`.  Dimension equality
+That abstract induction does not require a complete polynomial export of the
+Kuranishi map or the stronger global statement `rank(beta)=24`.  Dimension equality
 alone would not have sufficed; the decisive input is the directly computed
-fixed-direction André--Quillen bracket.  Ordinary Yoneda multiplication on
-\(\operatorname{Ext}_A(I/I^2,A)\) is not this bracket.
+fixed-direction tangent-DG-Lie commutator.  Ordinary Yoneda multiplication on
+\(\operatorname{Ext}_A(I/I^2,A)\) is not that operation.

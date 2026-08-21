@@ -13,8 +13,8 @@ is smooth?
 
 ## Answer: yes
 
-The certificates in [`proofs/`](proofs/) construct such a family over
-$\operatorname{Spec}\mathbf Q[[s]]$. Consequently the Grünbaum
+The proof and exact certificates in [`proofs/`](proofs/) construct such a
+family over $\operatorname{Spec}\mathbf Q[[s]]$. Consequently the Grünbaum
 Stanley--Reisner variety is smoothable in characteristic zero, and in
 particular over $\mathbf C$.
 
@@ -23,22 +23,25 @@ The proof has three parts.
 1. Exact cotangent-cohomology calculations give
 
    \[
-   \dim T^1_0=53,\qquad \dim T^2_0=27,\qquad \dim T^3_0=24.
+   \dim T^1_0=53,\qquad \dim T^2_0=27.
    \]
 
    At one explicit rational tangent direction $y$, the quadratic Kuranishi
-   map satisfies $q(y)=0$ and $\operatorname{rank}Dq_y=15$. A semi-free
-   commutative DG-algebra computation gives
+   map satisfies $q(y)=0$ and $\operatorname{rank}Dq_y=15$. A certified
+   initial segment of a Tate resolution and the graded commutator of its
+   derivations give
 
    \[
-   \operatorname{rank}([y,-]:T^2_0\to T^3_0)=12,
-   \qquad [y,-]Dq_y=0.
+   T^1_0\xrightarrow{[y,-]}T^2_0\xrightarrow{[y,-]}T^3_0,
+   \qquad \operatorname{rank}=15,12,
    \]
 
-   Hence $\ker[y,-]=\operatorname{im}Dq_y$. The curved Bianchi identity then
-   kills every successive obstruction and extends the prescribed two-jet to
-   a formal arc to all orders over $\mathbf Q$. See
-   [`proofs/all-ones-versal-arc/`](proofs/all-ones-versal-arc/).
+   with the sequence exact at $T^2_0$. The package output first gives an
+   actual flat deformation over $\mathbf Q[s]/(s^4)$. A direct
+   Maurer--Cartan Bianchi induction then kills every successive obstruction,
+   starting in order $s^4$ and therefore preserving the prescribed equations
+   modulo $s^3$. See the audited
+   [`completion proof`](proofs/grunbaum-smoothing/COMPLETION.md).
 
 2. The exact rational two-jet already forces smoothness of the geometric
    generic fibre, independently of every coefficient of order $s^3$ and
@@ -55,29 +58,23 @@ The proof has three parts.
    this identity would give $s^2=s^3c$, a valuation contradiction. See
    [`proofs/rational-two-jet-smoothness/`](proofs/rational-two-jet-smoothness/).
 
-3. The formal embedded deformation is defined over $\mathbf Q$. Grothendieck
-   existence for the proper scheme
-   $\mathbf P^7_{\mathbf Q[[s]]}$
-   [algebraizes its compatible formal ideal
-   sheaves](https://stacks.math.columbia.edu/tag/0899), giving a projective
-   flat scheme over $\operatorname{Spec}\mathbf Q[[s]]$. Equivalently, after
-   base change to $\mathbf C$, this is the effectivity criterion in
-   Altmann--Christophersen: $L=\mathcal O_{SR(\mathcal M)}(1)$ is very ample,
-   $H^1(SR(\mathcal M),L)=0$ by their Theorem 2.2, and
-   [Theorem 3.1(v)](https://arxiv.org/html/0901.2502v1#S3.Thmtheorem1)
-   makes every formal deformation of $(SR(\mathcal M),L)$ effective.
+3. The completed graded algebra is degreewise free over $\mathbf Q[[s]]$.
+   Lifting the eight degree-one coordinates and applying Nakayama's lemma
+   gives sixteen honest cubics in
+   $\mathbf Q[[s]][x_1,\ldots,x_8]$, literally equal to the certified
+   two-jet modulo $s^3$, and these cubics generate the full ideal. Their
+   Proj is therefore the required projective flat family. No separate
+   identification of package equations with a completed miniversal hull is
+   assumed.
 
-The central computations can be replayed from the repository root with
-Macaulay2 1.20 and SageMath 10.7:
+The audited proof computations can be replayed from the repository root with
+the pinned tools documented in each directory (the first two replays are
+substantially more expensive):
 
 ```sh
-M2 --script proofs/all-ones-versal-arc/export_base_QQ.m2
-M2 --script proofs/all-ones-versal-arc/export_t1_QQ.m2
-M2 --script proofs/all-ones-versal-arc/export_rational_two_jet.m2
-sage proofs/all-ones-versal-arc/transport_coordinates.sage
-sage proofs/all-ones-versal-arc/check_prescribed_two_jet.sage
-M2 --script proofs/all-ones-versal-arc/compute_aq_bracket.m2
-python3 proofs/rational-two-jet-smoothness/verify_grassmann_all.py
+(cd proofs/grunbaum-smoothing/referee-packet && ./verify.sh)
+(cd proofs/grunbaum-smoothing/audits/tate-stage && ./verify.sh)
+(cd proofs/grunbaum-smoothing/completion && ./verify.sh)
 ```
 
 ## Historical context
@@ -105,6 +102,7 @@ sr-project/
 │   └── more-lifting/
 ├── proofs/
 │   ├── all-ones-versal-arc/
+│   ├── grunbaum-smoothing/
 │   └── rational-two-jet-smoothness/
 ├── rl/
 │   ├── README.md
@@ -118,9 +116,9 @@ sr-project/
     └── y8-y20-branch/
 ```
 
-* `proofs/` contains the exact characteristic-zero smoothing certificates:
-the all-orders obstruction calculation and the exhaustive two-jet
-singular-incidence verification.
+* `proofs/` contains the exact characteristic-zero smoothing proof and
+certificates: the certified tangent-DG-Lie calculation, the fixed-two-jet
+all-orders argument, and the exhaustive singular-incidence verification.
 
 * `rl/` is the current workspace.
 The directory's name comes from the

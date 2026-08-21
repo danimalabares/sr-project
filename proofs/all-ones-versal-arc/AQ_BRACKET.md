@@ -1,5 +1,12 @@
 # The intrinsic André--Quillen bracket at the rational direction
 
+> **Corrected status.**  This computation does not prove
+> \(\dim T^3_0=24\): the number 24 is
+> \(\dim\operatorname{Ext}^2_A(I/I^2,A)_0\), which need not equal intrinsic
+> \(T^3_0\) for this non-lci quotient.  The rank-12 claim becomes intrinsic
+> after the independent Tate-stage completeness certificate used in
+> [`../grunbaum-smoothing/COMPLETION.md`](../grunbaum-smoothing/COMPLETION.md).
+
 `compute_aq_bracket.m2` computes the tangent-Lie operation
 
 \[
@@ -68,10 +75,9 @@ script is therefore their rank in \(T^3_0\).
 
 ## Exact result and cross-checks
 
-The computation proves
+The computation, together with that Tate-stage certificate, proves
 
 \[
- \dim T^3_0=24,\qquad
  \operatorname{rank}[y,-]=12.
 \]
 
