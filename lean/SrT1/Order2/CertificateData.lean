@@ -1,8 +1,7 @@
-set_option linter.style.longLine false
-set_option linter.style.setOption false
-
 import SrT1.Order2.Basic
 
+set_option linter.style.longLine false
+set_option linter.style.setOption false
 set_option linter.style.header false
 set_option maxHeartbeats 0
 set_option maxRecDepth 1000000
