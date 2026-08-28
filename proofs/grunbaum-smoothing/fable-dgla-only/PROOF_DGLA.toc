@@ -1,0 +1,23 @@
+\contentsline {section}{\numberline {1}Statement, data, and conventions}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}The special fibre}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Gradings and sign conventions}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}How every assertion is certified}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}The Tate resolution and the two derivation algebras}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The resolution}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Which dg Lie algebra controls what}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Tangent identifications}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Maurer--Cartan elements give embedded flat graded families}{6}{section.3}%
+\contentsline {section}{\numberline {4}The certified $R_4$ family is a genuine truncated Maurer--Cartan element}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}The certified matrices}{8}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Lifting the matrices to a square-zero Tate differential}{8}{subsection.4.2}%
+\contentsline {section}{\numberline {5}The exact sequence at $H^2$}{9}{section.5}%
+\contentsline {subsection}{\numberline {5.1}The computed derivations and their global closure}{9}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}From the script's cocycle to the actual linear coefficient}{10}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Exactness}{11}{subsection.5.3}%
+\contentsline {section}{\numberline {6}The strict all-orders induction}{11}{section.6}%
+\contentsline {section}{\numberline {7}The algebraic family over $\mathbf Q[[s]]$}{13}{section.7}%
+\contentsline {section}{\numberline {8}The generic fibre: Cohen--Macaulay, equidimensional, smooth}{14}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Cohen--Macaulayness and equidimensionality}{14}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Singularity as a linear-algebra incidence}{14}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Smoothness of the geometric generic fibre}{15}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Dependency ledger}{17}{section.9}%

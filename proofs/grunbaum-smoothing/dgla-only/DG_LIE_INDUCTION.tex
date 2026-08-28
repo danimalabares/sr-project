@@ -1,0 +1,171 @@
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}[lemma]{Remark}
+\newcommand{\MC}{\operatorname{MC}}
+\newcommand{\ad}{\operatorname{ad}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\QQ}{\mathbf Q}
+
+\title{A fixed-two-jet extension lemma for complete strict dg Lie algebras}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+We use the ordinary cohomological convention.  Thus a dg Lie algebra
+$(\mathfrak h,\partial,[-,-])$ has $\partial$ of degree $1$, its bracket has
+degree $0$, and Maurer--Cartan elements have degree $1$.  No transferred or
+higher operations occur in this note.
+
+Give
+\[
+ s\mathfrak h[[s]]=\prod_{j\geq 1}s^j\mathfrak h
+\]
+the complete separated filtration
+$F^q=s^q\mathfrak h[[s]]$.  Its Maurer--Cartan equation is
+\[
+ \partial\alpha+\frac12[\alpha,\alpha]=0.
+\]
+
+\begin{lemma}[fixed-two-jet strict extension]\label{lem:strict-extension}
+Let $\mathfrak h$ be a dg Lie algebra over a field of characteristic zero.
+Suppose
+\[
+ \bar\alpha=s a_1+s^2a_2+s^3a_3
+       \in\MC\bigl(\mathfrak h\otimes (s)/(s^4)\bigr),
+ \qquad a=a_1.
+\]
+If
+\[
+ \ker\bigl(\ad_a:H^2(\mathfrak h)\longrightarrow H^3(\mathfrak h)\bigr)
+ =
+ \im\bigl(\ad_a:H^1(\mathfrak h)\longrightarrow H^2(\mathfrak h)\bigr),
+ \tag{1}
+\]
+then there is
+\[
+ \alpha_\infty\in\MC(s\mathfrak h[[s]])
+ \quad\text{such that}\quad
+ \alpha_\infty\equiv\bar\alpha\pmod {s^3}.
+\]
+In particular, the coefficients of $s$ and $s^2$ are unchanged.
+\end{lemma}
+
+\begin{proof}
+For $\gamma\in s\mathfrak h^1[[s]]$, put
+\[
+ \mathcal F(\gamma)=\partial\gamma+\frac12[\gamma,\gamma].
+\]
+The dg Lie identities give the strict Bianchi identity
+\[
+ \partial\mathcal F(\gamma)+[\gamma,\mathcal F(\gamma)]=0.
+ \tag{2}
+\]
+Indeed, since $|\gamma|=1$,
+\[
+ \partial\left(\frac12[\gamma,\gamma]\right)
+ =\frac12\bigl([\partial\gamma,\gamma]-[\gamma,\partial\gamma]\bigr)
+ =-[\gamma,\partial\gamma],
+\]
+and graded Jacobi in characteristic zero gives
+$[\gamma,[\gamma,\gamma]]=0$.
+
+Choose any lift $\gamma$ of $\bar\alpha$ to
+$s\mathfrak h^1[[s]]$.  Its curvature is $O(s^4)$.  Suppose inductively that
+for some $N\geq4$ we have
+\[
+ \mathcal F(\gamma)
+ =s^N r_N+s^{N+1}r_{N+1}+O(s^{N+2}),
+ \qquad \gamma=sa+O(s^2).
+ \tag{3}
+\]
+The coefficients of $s^N$ and $s^{N+1}$ in (2) are respectively
+\[
+ \partial r_N=0,
+ \qquad
+ \partial r_{N+1}+[a,r_N]=0.
+ \tag{4}
+\]
+Thus $r_N$ is a degree-two cocycle and
+$[a,r_N]$ is a boundary.  Equivalently,
+\[
+ [r_N]\in
+ \ker\bigl(\ad_a:H^2(\mathfrak h)\longrightarrow H^3(\mathfrak h)\bigr).
+\]
+By (1), there is a closed $v\in\mathfrak h^1$ for which
+\[
+ [r_N]+[a,v]=0\quad\text{in }H^2(\mathfrak h).
+\]
+Choose $w\in\mathfrak h^1$ satisfying
+\[
+ r_N+[a,v]=\partial w.                                      \tag{5}
+\]
+Set
+\[
+ \delta=s^{N-1}v-s^Nw,
+ \qquad \gamma'=\gamma+\delta.                              \tag{6}
+\]
+The exact curvature-change formula is
+\[
+ \mathcal F(\gamma+\delta)-\mathcal F(\gamma)
+ =\partial\delta+[\gamma,\delta]+\frac12[\delta,\delta].   \tag{7}
+\]
+Here $\partial v=0$, $\gamma-sa=O(s^2)$, and $2N-2\geq N+1$.
+Consequently the coefficient of $s^N$ on the right of (7) is
+\[
+ [a,v]-\partial w.
+\]
+Together with (5), this cancels $r_N$, while every omitted term has order at
+least $N+1$.  Hence
+\[
+ \mathcal F(\gamma')=O(s^{N+1}).
+\]
+
+Iterating (6) gives a Cauchy sequence.  More explicitly, the step indexed by
+$N$ changes only coefficients in orders at least $N-1$, so every fixed
+coefficient eventually stabilizes.  Completeness gives a coefficientwise
+limit $\alpha_\infty$, continuity of $\partial$ and the bracket gives
+\(
+ \mathcal F(\alpha_\infty)\in\bigcap_Ns^N\mathfrak h[[s]]=0,
+\)
+and separatedness is used in the last equality.  Since the first correction
+has order $s^3$, the limit agrees with $\bar\alpha$ modulo $s^3$.
+\end{proof}
+
+\begin{remark}[the initial $s^4$ step]
+If the chosen lift has no terms beyond $s^3$, its first curvature
+coefficients are
+\[
+ r_4=[a_1,a_3]+\frac12[a_2,a_2],
+ \qquad r_5=[a_2,a_3].
+\]
+Equation (4) says
+\[
+ \partial r_4=0,
+ \qquad \partial r_5+[a_1,r_4]=0.
+\]
+The correction is $s^3v_3-s^4w_4$.  This displays directly why the first and
+second-order coefficients are fixed.
+\end{remark}
+
+\begin{remark}[what is not preserved]
+The conclusion is deliberately congruence modulo $s^3$, not modulo $s^4$.
+At the first step the term $s^3v_3$ may change $a_3$.  To retain the entire
+given element modulo $s^4$, one would need the stronger condition
+$[r_4]=0$ in $H^2(\mathfrak h)$, so that a boundary correction beginning in
+order $s^4$ suffices.  Exactness (1) alone does not imply this stronger
+vanishing.
+\end{remark}
+
+\end{document}

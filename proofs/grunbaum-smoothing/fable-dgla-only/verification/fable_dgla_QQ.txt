@@ -1,0 +1,14 @@
+field=QQ
+VersalDeformations_version=3.0
+relative_H1_dimension=109
+coordinate_boundary_image_dimension=56
+absolute_H1_dimension=53
+relative_minus_coordinate_equals_absolute=true
+T2_degree_zero_dimension=27
+base_equations_vanish_at_y_through_order_three=true
+specialized_family_times_relations_zero=true
+complete_special_first_syzygies=30
+family_corrections_homogeneous_x_degree_3=true
+relation_corrections_homogeneous_x_degree_1=true
+starting_mc_linear_e_values_equal_T1_y=true
+two_jet_matches_frozen_input=true

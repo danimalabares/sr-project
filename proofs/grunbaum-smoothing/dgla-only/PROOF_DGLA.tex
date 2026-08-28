@@ -1,0 +1,914 @@
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{computation}[theorem]{Verified computation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\QQ}{\mathbf Q}
+\newcommand{\PP}{\mathbf P}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Proj}{\operatorname{Proj}}
+\newcommand{\Der}{\operatorname{Der}}
+\newcommand{\MC}{\operatorname{MC}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\ad}{\operatorname{ad}}
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\Tor}{\operatorname{Tor}}
+
+\title{A strict dg Lie proof of the Gr\"unbaum--Sreedharan\
+Stanley--Reisner smoothing theorem}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the Stanley--Reisner threefold associated with the
+Gr\"unbaum--Sreedharan eight-vertex triangulated three-sphere is the special
+fibre of a flat projective scheme over $\QQ[[s]]$ whose geometric generic
+fibre is smooth.  The deformation controller is the strict dg Lie algebra of
+internal-weight-zero derivations of a Tate resolution relative to the fixed
+polynomial ring.  An exact deformation over $\QQ[s]/(s^4)$ is lifted directly
+to a square-zero Tate differential.  The ordinary Maurer--Cartan equation,
+the strict Bianchi identity, and a certified exact sequence in degrees
+$1,2,3$ then extend its prescribed two-jet to all orders.  No transferred
+structure and no higher multilinear operation is used.
+\end{abstract}
+
+\tableofcontents
+
+\section{Statement and exact input}
+
+Put $k=\QQ$, $S=k[x_1,\ldots,x_8]$, and let $\Delta$ have facets
+\[
+\begin{gathered}
+1234,1237,1267,1347,1567,2345,2367,3467,3456,4567,\\
+2358,2368,3568,1268,1568,1248,2458,1478,1578,4578.
+\end{gathered}
+\]
+Its Stanley--Reisner ideal is
+\[
+\begin{split}
+I=(\,&x_6x_7x_8,x_4x_6x_8,x_3x_7x_8,x_3x_5x_7,
+x_3x_4x_8,x_2x_7x_8,\\
+&x_2x_5x_7,x_2x_5x_6,x_2x_4x_7,x_2x_4x_6,
+x_1x_4x_6,x_1x_4x_5,\\
+&x_1x_3x_8,x_1x_3x_6,x_1x_3x_5,x_1x_2x_5\,)\subset S.
+\end{split}                                                    \tag{1.1}
+\]
+Write these ordered monomials as $m_1,\ldots,m_{16}$, set $A=S/I$, and put
+$X_0=\Proj A\subset\PP^7_k$.  For $n\geq1$ let
+\[
+ R_n=k[s]/(s^n),\qquad R=k[[s]].
+\]
+
+\begin{theorem}[smoothing theorem]\label{thm:main}
+There is a flat projective morphism
+\[
+ X\longrightarrow\Spec\QQ[[s]]
+\]
+whose special fibre is $X_0$ and whose geometric generic fibre is smooth.
+Consequently $X_0$ is smoothable in characteristic zero.
+\end{theorem}
+
+This is the exact conclusion proved here.  In particular, no assertion about
+the canonical bundle, a Calabi--Yau structure, irreducibility, or a named
+smooth threefold is part of the theorem.
+
+\begin{computation}[special fibre]\label{comp:special}
+The exact rational computation
+\path{../referee-packet/code/verify_combinatorics.py} verifies that the
+displayed complex has $20$ tetrahedral facets and precisely the sixteen
+minimal nonfaces in (1.1).  It verifies Reisner's vanishing condition on all
+$97$ faces by exact boundary-matrix row reduction over $\QQ$.  Thus $A$ is
+Cohen--Macaulay of Krull dimension $4$, and $X_0$ is an equidimensional
+Cohen--Macaulay projective threefold.  The deterministic output is
+\path{../referee-packet/verification/combinatorics_QQ.txt}.
+\end{computation}
+
+\section{The strict controller and its classical meaning}
+
+\subsection{Gradings and derivations}
+
+Choose a full internally graded Tate resolution $P\to A$ over $S$ which
+continues the independently certified low Tate stages described in
+Section~\ref{sec:h3}.  It is a
+semi-free graded-commutative dg $S$-algebra in nonnegative homological
+degrees, its differential $d$ lowers homological degree by one and preserves
+internal weight, and
+\[
+ H_0(P)=A,\qquad H_i(P)=0\quad(i>0).
+\]
+Tate resolutions exist by Avramov~\cite[Proposition 6.1.4]{Avramov}; over a
+$\QQ$-algebra the usual graded-commutative description agrees with the
+divided-power description needed in general.
+
+A cohomological degree-$p$ derivation lowers Tate homological degree by $p$.
+Define two strict dg Lie algebras, always retaining internal weight zero,
+\[
+ \mathfrak g=\Der_k(P,P)_0,
+ \qquad
+ \mathfrak h=\Der_S(P,P)_0.
+\]
+For $\theta\in\mathfrak g^p$ and $\eta\in\mathfrak g^q$, set
+\[
+ \partial\theta=[d,\theta]
+   =d\theta-(-1)^p\theta d,
+ \qquad
+ [\theta,\eta]=\theta\eta-(-1)^{pq}\eta\theta.              \tag{2.1}
+\]
+The commutator of derivations is again a derivation, and (2.1) gives strict
+dg Lie algebras.
+
+The relative algebra $\mathfrak h$ is the correct fixed-coordinate
+controller: its degree-zero automorphisms fix $S$, hence fix the eight
+projective coordinates.  The absolute algebra $\mathfrak g$ is nevertheless
+the one whose $H^1$ is the computed abstract tangent space.  These statements
+are compatible, rather than competing, because
+\[
+ \mathfrak h^p=\mathfrak g^p\quad(p\geq1).                   \tag{2.2}
+\]
+Indeed, a positive-degree derivation sends $P_0=S$ to a negative homological
+degree, which is zero.  It follows that
+\[
+ H^1(\mathfrak h)\twoheadrightarrow H^1(\mathfrak g),
+ \qquad H^q(\mathfrak h)\xrightarrow{\sim}H^q(\mathfrak g)
+ \quad(q\geq2).                                              \tag{2.3}
+\]
+The first arrow need not be an isomorphism.  In fact, the exact package
+calculation gives dimensions $109$ and $53$ for the relative embedded
+tangent space and the absolute tangent space respectively.  We never identify
+them.
+
+The augmentation induces a quasi-isomorphism
+\[
+ \Der_k(P,P)_0\longrightarrow\Der_k(P,A)_0.                 \tag{2.4}
+\]
+To see this directly, write the source and target as
+$\operatorname{Hom}_P(\Omega_{P/k},P)_0$ and
+$\operatorname{Hom}_P(\Omega_{P/k},A)_0$.  The module of differentials of a
+semi-free algebra is semi-free, so Hom from it preserves the quasi-isomorphism
+$P\to A$; compare Avramov~\cite[Corollary 6.2.4]{Avramov}.  Hence
+\[
+ H^q(\mathfrak g)=T^q_0(A).                                  \tag{2.5}
+\]
+The identical argument with $\Omega_{P/S}$ gives
+\[
+ \Der_S(P,P)_0\longrightarrow\Der_S(P,A)_0
+\quad\text{as a quasi-isomorphism}.                          \tag{2.6}
+\]
+Here $\Der_S^0(P,A)=0$, and a relative degree-one cocycle is exactly an
+$S$-linear map $I\to A$ of internal degree zero.  Consequently
+$H^1(\mathfrak h)=\operatorname{Hom}_S(I,A)_0$.  The exact computation in
+\path{verify_relative_controller.m2} obtains dimensions $109$ for this
+space, $56$ for the graded Jacobian/coordinate-boundary image, and $53$ for
+the absolute quotient.
+The bracket used below is the bracket induced by the literal commutator in
+(2.1), not a product on a conormal Ext group.
+
+\subsection{Maurer--Cartan elements give embedded flat algebras}
+
+For $R_n$, let
+\[
+ \widehat{\mathfrak h}_n
+ =\mathfrak h\otimes_k(s)/(s^n),
+\]
+and over $R$ let
+\[
+ \widehat{\mathfrak h}=s\mathfrak h[[s]],
+ \qquad F^r\widehat{\mathfrak h}=s^r\mathfrak h[[s]].       \tag{2.7}
+\]
+This filtration is complete and separated, the differential preserves it,
+and brackets add filtration orders.
+
+\begin{lemma}[filtered lifting of a Tate differential]\label{lem:cyclelift}
+Let $P_{<q}$ be the subalgebra generated by the Tate generators of
+homological degree less than $q$, and assume
+$H_{q-2}(P_{<q},d)=0$, where $q\geq3$.  Let $D$ be a square-zero
+weight-preserving differential on $P_{<q}\otimes R_n$ with
+$D\equiv d\pmod s$.  Every homogeneous $d$-cycle
+$c_0\in(P_{<q})_{q-1}$ has a homogeneous lift
+$c\equiv c_0\pmod s$ satisfying $Dc=0$.
+\end{lemma}
+
+\begin{proof}
+Construct
+\(
+ c^{(r)}=c_0+su_1+\cdots+s^{r-1}u_{r-1}
+\)
+so that $Dc^{(r)}\in s^rP_{<q}\otimes R_n$.  This holds for $r=1$
+because $dc_0=0$.  Write
+\[
+ Dc^{(r)}=s^r\rho_r\pmod {s^{r+1}}.
+\]
+The identity $D^2=0$ on $P_{<q}$ gives
+\[
+ 0=D(Dc^{(r)})=s^rd\rho_r\pmod {s^{r+1}},
+\]
+so $d\rho_r=0$.  The class of $\rho_r$ lies in homological degree $q-2$;
+by hypothesis choose a homogeneous $u_r$ with $du_r=-\rho_r$.  Then
+\[
+ c^{(r+1)}=c^{(r)}+s^ru_r
+\]
+satisfies $Dc^{(r+1)}\in s^{r+1}P_{<q}\otimes R_n$.  After the
+$(n-1)$st step its image $c$ in $R_n$ is a $D$-cycle.  Taking the internal
+homogeneous component matching $c_0$ at every step is legitimate because
+$d$ and $D$ preserve weight.
+\end{proof}
+
+\begin{proposition}[direct classical realization]\label{prop:realization}
+Let $\alpha\in\widehat{\mathfrak h}_n^1$ satisfy
+\[
+ \partial\alpha+\frac12[\alpha,\alpha]=0.                   \tag{2.8}
+\]
+Then $D=d+\alpha$ is a square-zero, $S\otimes R_n$-linear,
+weight-preserving derivation on $P\otimes R_n$.  If
+\[
+ B_n=H_0(P\otimes R_n,D),
+\]
+then $B_n$ is a flat graded embedded deformation of $A$ in the fixed
+coordinates.  If $e_1,\ldots,e_{16}$ are the degree-one Tate generators with
+$d(e_i)=m_i$, then, literally,
+\[
+ B_n=R_n[x_1,\ldots,x_8]/(D(e_1),\ldots,D(e_{16})),           \tag{2.9}
+\]
+and every $D(e_i)$ is a cubic.
+
+Conversely, every marked flat graded quotient of $R_n[x_1,\ldots,x_8]$
+specializing to $A$ admits, after choices of homogeneous Tate lifts, a
+differential $D=d+\alpha$ of this form.  Conjugating $D$ by a nilpotent
+relative degree-zero automorphism changes the semi-free trivialization while
+fixing $S$ and induces an isomorphic embedded deformation.  No converse
+classification of all isomorphisms by gauge is needed below.
+\end{proposition}
+
+\begin{proof}
+For a degree-one derivation,
+\[
+ (d+\alpha)^2=\partial\alpha+\frac12[\alpha,\alpha],
+\]
+so (2.8) is exactly $D^2=0$.  Relative derivations vanish on $S$, and weight
+zero makes $D(e_i)$ homogeneous of internal degree three.  Since every
+homological-degree-one element is an $S\otimes R_n$-linear combination of
+the $e_i$, the degree-zero boundaries form exactly the ideal in (2.9).
+
+Filter $(P\otimes R_n,D)$ by powers of $s$.  The filtration is finite, and
+its associated-graded differential is $d$.  Its spectral sequence has
+\[
+ E_1=H(P)\otimes_k\gr(R_n)
+     =A\otimes_k\gr(R_n)
+\]
+in homological degree zero and is zero in positive homological degrees.
+Thus $(P\otimes R_n,D)$ is exact in positive degrees.  In each internal
+degree it is a free $R_n$-resolution of the finite module $(B_n)_j$.
+Tensoring this resolution with $k$ gives $P_j$, so
+\[
+ \Tor^{R_n}_1(k,(B_n)_j)=H_1(P_j)=0.
+\]
+The local criterion for flatness~\cite[Tag 00MK]{StacksFlat} makes every
+$(B_n)_j$ flat, hence free, over the Artinian local ring $R_n$.
+
+For the converse, let $J$ be the kernel of a marked flat quotient
+$R_n[x]\twoheadrightarrow B_n$.  Degreewise base change in
+\[
+ 0\longrightarrow J\longrightarrow R_n[x]\longrightarrow B_n
+ \longrightarrow0
+\]
+is exact.  Lift the basis $m_1,\ldots,m_{16}$ of $I_3$ to elements
+$F_i\in J_3$.  Nakayama's lemma, first in degree three and then in every
+degree, says that the $F_i$ generate $J$.  The kernel of
+\[
+ R_n[x](-3)^{16}\xrightarrow{(F_1,\ldots,F_{16})}R_n[x]
+\]
+also commutes with reduction, as follows in two steps.  In
+$0\to J\to R_n[x]\to B_n\to0$, both the middle and right modules are
+$R_n$-flat, so $J$ is $R_n$-flat.  If $K$ is the displayed first-syzygy
+kernel, then
+$0\to K\to R_n[x](-3)^{16}\to J\to0$ and
+$\Tor^{R_n}_1(k,J)=0$ identify $K\otimes k$ with the full special kernel.
+Hence the
+thirty special first syzygies lift to genuine relations among the $F_i$.
+Define $D$ on $e_i$ and $f_j$ by these equations and lifted relations.
+
+It remains only to extend $D$ over the later Tate generators.  If $z$ has
+homological degree $q\geq3$, then $dz$ is a cycle of degree $q-1$ in
+$P_{<q}$.  By the staged Tate construction, all homology through degree
+$q-2$ has already been killed.  Lemma~\ref{lem:cyclelift} therefore gives a
+$D$-cycle $c_z\equiv dz\pmod s$; set $D(z)=c_z$.  Induction in the Tate
+generators constructs $D$.  Since the square of an odd derivation is again a
+derivation, checking $D^2$ on the generators proves $D^2=0$ everywhere.  The
+difference $D-d$ is the required relative Maurer--Cartan element.  A
+nilpotent exponential of a relative degree-zero derivation conjugates $D$ and
+gives the stated one-way gauge assertion.
+\end{proof}
+
+The converse is used below in an even stronger form: the relevant
+$R_4$ differential is constructed explicitly through the first relations,
+and the remaining extension is the last paragraph of the proof.  Thus no
+abstract comparison of deformation hulls is invoked.
+
+\section{The exact \texorpdfstring{$R_4$}{R4} deformation is an actual
+Maurer--Cartan element}
+
+\subsection{The certified presentation and flatness}
+
+The exact tangent direction in the ordered $53$-element absolute tangent
+basis is
+\[
+\begin{split}
+y=(\,&1,3,1,2,6,1,1,1,1,1,21,28,1,5,10,55,66,15,1,18,2,\\
+&35,42,1,4,10,1,25,12,30,5,33,44,1,6,3,14,7,1,9,1,6,\\
+&12,20,1,4,22,1,15,1,1,8,11\,).
+\end{split}                                                    \tag{3.1}
+\]
+
+The pinned calculation produces matrices $F_0,F_1,F_2,F_3$ and
+$Q_0,Q_1,Q_2,Q_3$.  After substituting $t=sy$, set
+\[
+ F^{[3]}=\sum_{i=0}^3F_i,
+ \qquad Q^{[3]}=\sum_{i=0}^3Q_i
+\]
+over $R_4[x_1,\ldots,x_8]$.
+
+\begin{computation}[starting deformation]\label{comp:start}
+The script \path{../completion/verify_starting_jet.m2} verifies, by exact
+arithmetic over $\QQ$, that
+\[
+ F^{[3]}Q^{[3]}=0,                                           \tag{3.2}
+\]
+that $Q_0$ is the complete thirty-column first-syzygy matrix of $F_0$, and
+that $F^{[3]}\bmod s^3$ is byte-for-byte the sixteen-row file
+\path{../referee-packet/data/universal_2jet_QQ.txt}.  Its SHA--256 is
+\[
+\texttt{40e64e61674b6a4e61f1ea6822dc79327bf4ba397285f84ed8738c4c18cd1795}.
+\tag{3.3}
+\]
+The certificate is \path{../completion/verification/starting_jet_QQ.txt}.
+\end{computation}
+
+Let
+\[
+ A_4=R_4[x]/(F^{[3]}).
+\]
+This is an actual flat algebra, not merely a matrix satisfying a formal
+equation.  In an internal degree $j$, let $K_j$ be the kernel of the map
+defined by $F^{[3]}$.  Since the columns of $Q^{[3]}$ lie in $K_j$ and reduce
+to a generating set of the entire special kernel, the reduction map
+\[
+ K_j\otimes_{R_4}k\longrightarrow\ker(F_0)_j
+\]
+is onto.  Extend the presentation on the left by a free module.  After
+tensoring with $k$, this surjectivity says precisely that
+\(
+ \Tor^{R_4}_1(k,(A_4)_j)=0.
+\)
+The local criterion~\cite[Tag 00MK]{StacksFlat} makes $(A_4)_j$ free.  This
+holds in every internal degree, so $A_4$ is a flat graded embedded
+deformation.  Its quotient $A_4/s^3A_4$ is the printed two-jet.
+
+\subsection{A differential on the audited Tate resolution}
+
+We now construct the promised Maurer--Cartan representative rather than
+deducing one from the package terminology.  The certified beginning of $P$
+has generators
+\[
+\begin{array}{c|c|c}
+ &\text{homological degree}&\text{internal weight}\\ \hline
+e_1,\ldots,e_{16}&1&3\\
+f_1,\ldots,f_{30}&2&4\\
+g_1,\ldots,g_{136}&3&5\text{ (16 times), }6\text{ (120 times).}
+\end{array}                                                     \tag{3.4}
+\]
+Let $R_0$ be the relation matrix used for $d(f)$ in this Tate model.  The
+strict bracket script computes an invertible constant matrix $U$ with
+\[
+ Q_0U=R_0,
+ \qquad \det U=1.                                             \tag{3.5}
+\]
+On $P\otimes R_4$, define
+\[
+ D(e_i)=F_i^{[3]},
+ \qquad
+ D(f_j)=\sum_i(Q^{[3]}U)_{ij}e_i.                             \tag{3.6}
+\]
+Equations (3.2) and (3.5) give $D^2(e_i)=D^2(f_j)=0$, and
+$D\equiv d\pmod s$.
+
+Extend $D$ over each $g_a$ and then every later Tate generator by
+Lemma~\ref{lem:cyclelift}.  For a generator of homological degree $q\geq3$,
+the obstruction at each $s$-order is a $d$-cycle in degree $q-2>0$ and has a
+homogeneous primitive in degree $q-1$, which cannot involve that generator or
+a later one.  The
+completeness of the thirty $f$-stage and the $136$-generator $g$-stage needed
+here is independently certified in Section~\ref{sec:h3}; all later stages are
+Tate stages by construction.  We obtain a square-zero differential on the
+same underlying semi-free algebra,
+\[
+ D=d+\bar\alpha,
+ \qquad
+ \bar\alpha\in
+ \MC\bigl(\mathfrak h\otimes(s)/(s^4)\bigr).                 \tag{3.7}
+\]
+Its degree-zero homology is exactly $A_4$, because its degree-one boundaries
+are the sixteen entries of $F^{[3]}$.  Its linear coefficient is the strict
+degree-one cocycle whose values on the $e_i$ are $T^1y$; its image in
+$H^1(\mathfrak g)$ is therefore the computed class $y$.  This proves the
+required connection between the $R_4$ matrices and an actual truncated
+Maurer--Cartan element.
+
+\section{The certified degree-\texorpdfstring{$1,2,3$}{1,2,3} exact
+sequence}\label{sec:h3}
+
+\subsection{What the 136 cycles certify}
+
+Let $D_1,D_2$ be the chain maps in homological degrees one and two of the
+materialized Tate algebra.  Let $D_3$ denote the differentials of the
+decomposable degree-three elements $e_if_j$ and $e_ie_je_k$, and let $Z$ be
+the $150\times136$ matrix whose columns are the proposed $d(g_a)$.
+
+\begin{computation}[complete low Tate stages]\label{comp:tate}
+The independent audit in \path{../audits/tate-stage/} reconstructs all four
+matrices from the canonical sparse input and proves over $\QQ[x_1,\ldots,x_8]$
+\[
+ D_1D_2=0,\qquad D_2D_3=0,\qquad D_2Z=0,
+\]
+and the unbounded graded-module equalities
+\[
+ \ker D_1=\im D_2,
+ \qquad
+ \ker D_2=\im[D_3\;Z].                                      \tag{4.1}
+\]
+Macaulay2 computes full homogeneous syzygy modules and two-sided lifts;
+Singular independently recomputes the modules and lifts.  The result is
+\path{../audits/tate-stage/MATHEMATICAL_CERTIFICATE.md}.
+\end{computation}
+
+The precise meaning of (4.1) is worth emphasizing.  The $136$ columns are
+cycles in homological degree two.  Their classes span
+\[
+ \ker D_2/\im D_3,                                           \tag{4.2}
+\]
+so adjoining the $g_a$ kills all remaining degree-two homology.  They are not
+asserted to be a basis of $H^3$, and no total dimension of $H^3$ is used.
+Equation (4.1) proves that no additional Tate generators of homological
+degree at most three are missing; a full Tate resolution can continue with
+generators of degree at least four.
+
+\subsection{Why the computed columns are genuine
+\texorpdfstring{$H^3$}{H3} classes}
+
+Let
+\[
+ C^p=\Der_k^p(P,A)_0.
+\]
+On (3.4),
+\[
+ C^1=(A_3)^{16},\quad C^2=(A_4)^{30},\quad
+ C^3=(A_5)^{16}\oplus(A_6)^{120}.                            \tag{4.3}
+\]
+The exact bracket calculation produces a closed degree-one derivation
+$\theta$ representing $y$ and closed degree-two derivations
+$\eta_1,\ldots,\eta_{27}$ representing a basis of $H^2$.  It solves and
+rechecks their closure equations on every $e_i,f_j,g_a$.
+It also constructs degree-one derivations
+$\psi_1,\ldots,\psi_{53}$ for the absolute tangent basis and checks their
+closure through every $f_j$; their later extension is included in the next
+lemma.
+
+\begin{lemma}[extension of the computed derivations]\label{lem:derextend}
+Each of $\theta,\eta_1,\ldots,\eta_{27}$ extends, without changing its values
+on (3.4), to a closed derivation of the full Tate resolution.  Each
+$\psi_i$ extends without changing its values on the $e$- and $f$-generators.
+\end{lemma}
+
+\begin{proof}
+For a $\psi_i$, the first unchecked generators are the $g_a$ of degree three.
+The right side of its closure equation is a degree-one cycle.  The equality
+$\ker D_1=\im D_2$ in Computation~\ref{comp:tate} says exactly that this
+cycle has a degree-two primitive in the algebra generated by the $e$ and
+$f$.  Thus every $\psi_i$ extends through all the $g_a$ without changing the
+values used by the primary-commutator calculation.
+
+Suppose a degree-$p$ derivation $\vartheta$, with $p=1$ or $2$, is already
+closed on earlier generators, and let $z$ be a new Tate generator of degree
+$q\geq4$.  Closedness on $z$ requires
+\[
+ d(\vartheta z)=(-1)^p\vartheta(dz).                          \tag{4.4}
+\]
+The right side is a cycle of homological degree $q-p-1>0$.  It is a boundary
+because $P$ is acyclic in positive degree.  A primitive has degree
+$q-p<q$, hence uses only earlier generators.  Its component of the required
+internal weight is still a primitive.  Induction proves the assertion.  The
+low cases excluded by the inequality are exactly the closure equations
+checked on (3.4).
+\end{proof}
+
+The commutators $[\theta,\eta_j]$ are therefore global closed degree-three
+derivations.  Under (2.4), their cochains lie in the kernel of the outgoing
+map $C^3\to C^4$.  Consequently
+\[
+ H^3(C)=\ker(C^3\to C^4)/\im(C^2\to C^3)
+ \hookrightarrow C^3/\im(C^2\to C^3).                       \tag{4.5}
+\]
+Independence of these already-closed columns in the quotient on the right is
+therefore independence in genuine $H^3$.  This is the rigorous role of the
+$136$-cycle certificate; a bare degree-three generator count would not prove
+(4.5).
+
+\subsection{Exactness, with both maps computed}
+
+\begin{proposition}[fixed-direction strict exactness]\label{prop:exact}
+Let $a\in Z^1(\mathfrak h)$ be the linear coefficient of (3.7).  Then
+\[
+ H^1(\mathfrak h)\xrightarrow{\ad_a}H^2(\mathfrak h)
+ \xrightarrow{\ad_a}H^3(\mathfrak h)                        \tag{4.6}
+\]
+is exact at $H^2$.  The image of the first map has dimension $15$ and the
+second map has rank $12$ on the $27$-dimensional middle space.
+\end{proposition}
+
+\begin{proof}
+The script \path{../referee-packet/code/verify_aq_bracket.m2} performs the
+following exact operations.
+
+First relate its chosen cocycle $\theta$ to the coefficient $a$ of the
+actual differential (3.7).  Both have absolute cohomology class $y$, by the
+last paragraph of Section~3, so
+\[
+ a-\theta=\partial\xi\qquad\text{for some }\xi\in\mathfrak g^0.
+ \tag{4.7}
+\]
+If $z$ is any closed relative derivation of positive degree, then
+\[
+ [a-\theta,z]=[\partial\xi,z]=\partial[\xi,z].              \tag{4.8}
+\]
+The cochain $[\xi,z]$ has positive degree and is therefore relative by
+(2.2).  Thus $\ad_a$ and $\ad_\theta$ induce the same maps on relative
+$H^1$ and $H^2$.  In particular, it is enough to compute with the literal
+$\theta$ used by the script; this is a chain-level comparison, not an appeal
+to invariance of any transferred operation.
+
+First, it transports all $27$ package obstruction columns through the
+constant relation-basis change (3.5), checks that they are closed, proves
+that they are independent modulo boundaries, and proves that no further
+internal-degree-zero $H^2$ cocycle remains.  Thus they are a basis of the
+$27$-dimensional $H^2$.
+
+Second, it computes the literal graded commutators
+\[
+ [\theta,\eta_j]=\theta\eta_j-\eta_j\theta
+\]
+on all $136$ generators $g_a$.  By Lemma~\ref{lem:derextend} and (4.5), the
+rank $12$ found modulo every degree-three boundary is the rank of
+\[
+ A_y=\ad_y:H^2(\mathfrak g)\longrightarrow H^3(\mathfrak g).
+\]
+
+Third, it separately computes the primary commutators of $\theta$ with all
+$53$ degree-one absolute tangent basis derivations.  For two degree-one
+derivations the bracket is the signed sum
+$\theta\psi+\psi\theta$.  The resulting map
+\[
+ B_y=\ad_y:H^1(\mathfrak g)\longrightarrow H^2(\mathfrak g)
+\]
+has rank $15$.  More precisely, the script proves the matrix identity
+\[
+ B_y=-J\,Dq_y,                                                \tag{4.9}
+\]
+where $J$ is the verified isomorphism from the $27$ package obstruction
+coordinates to the displayed $H^2$ basis.  It also checks directly, on those
+strict commutator matrices,
+\[
+ A_yB_y=0.                                                    \tag{4.10}
+\]
+Thus (4.10), not the rank of $Dq_y$ alone, gives
+$\im B_y\subseteq\ker A_y$.  Rank--nullity gives
+\[
+ \dim\ker A_y=27-12=15=\dim\im B_y,
+\]
+so equality follows.
+
+Finally transfer this statement from the absolute algebra to the relative
+controller.  By (2.2)--(2.3), $H^2$ and $H^3$ and the second map are literally
+the same, while every absolute degree-one class has a relative cocycle
+representative.  Conversely, the extra relative classes become absolute
+boundaries.  If such a class is represented by $\partial\xi$, with
+$\xi\in\mathfrak g^0$, then
+\[
+ [a,\partial\xi]=-\partial[a,\xi],                            \tag{4.11}
+\]
+because $\partial a=0$; moreover $[a,\xi]$ has positive degree and is
+therefore relative.  Hence the extra classes contribute zero to $H^2$, and
+the images of the relative and absolute first maps coincide.  Exactness of
+(4.6) follows.
+\end{proof}
+
+The deterministic output
+\path{../referee-packet/verification/aq_bracket_QQ.txt} records the $27$
+classes, ranks $12$ and $15$, the zero composite, and the primary identity
+(4.9).  Notice that the proof neither asserts nor needs a dimension for the
+whole group $H^3$.
+
+\section{Strict Bianchi induction to all orders}
+
+For $\gamma\in s\mathfrak h^1[[s]]$, define its curvature by
+\[
+ \mathcal F(\gamma)=\partial\gamma+\frac12[\gamma,\gamma].   \tag{5.1}
+\]
+The dg Lie axioms give the strict Bianchi identity
+\[
+ \partial\mathcal F(\gamma)+[\gamma,\mathcal F(\gamma)]=0.  \tag{5.2}
+\]
+Indeed,
+$\partial(\frac12[\gamma,\gamma])=-[\gamma,\partial\gamma]$
+and graded Jacobi gives $[\gamma,[\gamma,\gamma]]=0$.
+
+\begin{lemma}[fixed-two-jet extension]\label{lem:induction}
+Let $\bar\alpha\in\MC(\mathfrak h\otimes(s)/(s^4))$ have linear
+coefficient $a$.  If (4.6) is exact at $H^2$, then there is
+\[
+ \alpha_\infty\in\MC(s\mathfrak h[[s]])
+ \quad\text{with}\quad
+ \alpha_\infty\equiv\bar\alpha\pmod{s^3}.                  \tag{5.3}
+\]
+\end{lemma}
+
+\begin{proof}
+Lift $\bar\alpha$ arbitrarily to $\gamma=sa+O(s^2)$.  Its curvature is
+$O(s^4)$.  Suppose, for $N\geq4$, that
+\[
+ \mathcal F(\gamma)=s^Nr_N+s^{N+1}r_{N+1}+O(s^{N+2}).       \tag{5.4}
+\]
+The coefficients of $s^N$ and $s^{N+1}$ in (5.2) give
+\[
+ \partial r_N=0,
+ \qquad \partial r_{N+1}+[a,r_N]=0.                         \tag{5.5}
+\]
+Thus the obstruction coefficient is a cocycle and its class lies in the
+kernel of $\ad_a:H^2\to H^3$.  Exactness supplies a closed
+$v\in\mathfrak h^1$ such that
+\[
+ [r_N]+[a,v]=0.
+\]
+Choose $w\in\mathfrak h^1$ with
+\[
+ r_N+[a,v]=\partial w.                                      \tag{5.6}
+\]
+Replace
+\[
+ \gamma\quad\text{by}\quad
+ \gamma'=\gamma+s^{N-1}v-s^Nw.                             \tag{5.7}
+\]
+The exact change formula
+\[
+ \mathcal F(\gamma')-\mathcal F(\gamma)
+ =\partial(\gamma'-\gamma)+[\gamma,\gamma'-\gamma]
+  +\frac12[\gamma'-\gamma,\gamma'-\gamma]
+\]
+shows that the order-$s^N$ change is $[a,v]-\partial w$, which cancels $r_N$
+by (5.6).  All other terms have order at least $N+1$: $\partial v=0$,
+$\gamma-sa=O(s^2)$, and $2N-2\geq N+1$.
+
+The corrections are Cauchy in the filtration (2.7), so they converge
+coefficientwise.  Continuity of (5.1), together with
+$\bigcap_Ns^N\mathfrak h[[s]]=0$, gives zero curvature in the limit.  At the
+initial $N=4$ step the correction is $s^3v-s^4w$; consequently the
+coefficients of $s$ and $s^2$ are unchanged, proving (5.3).
+\end{proof}
+
+Apply the lemma to (3.7) and Proposition~\ref{prop:exact}.  This gives
+$\alpha_\infty$.  It is important that the conclusion preserves the
+$R_3$ reduction, not necessarily the whole $R_4$ element: the first
+correction may change the coefficient of $s^3$.  Preserving the printed
+first and second-order terms is exactly what the smoothness certificate
+requires.
+
+\section{The formal embedded family and its algebraization}
+
+Put $D_\infty=d+\alpha_\infty$ and define the literal cubics
+\[
+ F_i(s)=D_\infty(e_i)\in R[x_1,\ldots,x_8]_3.                \tag{6.1}
+\]
+By (5.3) and Computation~\ref{comp:start},
+\[
+ F_i(s)=F_i^{(2)}+s^3H_i(s,x),                               \tag{6.2}
+\]
+where the sixteen $F_i^{(2)}$ are exactly the rows of the frozen two-jet and
+$H_i$ is homogeneous cubic in $x$.  There are only finitely many cubic
+monomials, so (6.1) is an honest element of $R[x]$, not a second completion
+in the $x$-variables.
+
+Let
+\[
+ B=R[x_1,\ldots,x_8]/(F_1(s),\ldots,F_{16}(s)),
+ \qquad X=\Proj B.                                           \tag{6.3}
+\]
+For every $n$, Proposition~\ref{prop:realization} applied to
+$\alpha_\infty\bmod s^n$ gives
+\[
+ B/s^nB
+ =H_0(P\otimes R_n,D_\infty\bmod s^n),                     \tag{6.4}
+\]
+and every internal-degree piece of (6.4) is free over $R_n$.
+
+We check flatness over $R$, rather than assuming it from formal effectivity.
+Each $B_j$ is a finite $R$-module.  If $sb=0$ in $B_j$, then flatness of
+$B_j/s^nB_j$ over $R_n$ implies
+\[
+ b\in s^{n-1}B_j\quad\text{for every }n\geq2,
+\]
+because the annihilator of $s$ on a free $R_n$-module is $s^{n-1}$ times
+that module.  Krull intersection gives $b=0$.  Hence $B_j$ is torsion-free,
+and therefore free over the DVR $R$.  The direct sum $B=\bigoplus_jB_j$ is
+$R$-flat.  On a standard projective chart, $(B_{x_i})_0$ is a direct summand
+of the flat localization $B_{x_i}$, so $X\to\Spec R$ is flat.
+
+Equation (6.3) is also an explicit algebraization of the compatible formal
+family (6.4): it is a closed subscheme of $\PP^7_R$, is projective over $R$,
+and has exactly those reductions.  Alternatively, the compatible closed
+subschemes satisfy every hypothesis of the Stacks Project algebraization
+lemma~\cite[Tag 0899]{StacksAlg}: $R$ is Noetherian and $(s)$-adically
+complete, $\PP^7_R$ is separated of finite type, the squares are cartesian,
+and $X_0$ is proper.  The explicit cubics identify that algebraized closed
+subscheme with (6.3).  Thus no formal family is being silently substituted
+for an algebraic one.
+
+\section{The 280 incidence certificates and smoothness}
+
+On the projective chart $x_v=1$, write $z_1,\ldots,z_7$ for the other affine
+coordinates and let $J$ be the $7\times16$ affine Jacobian of the cubics.  A
+four-plane in $\ker J^{\mathsf T}$ is represented on one of the $35$
+standard charts of $\operatorname{Gr}(4,7)$ by a $7\times4$ matrix $K_P$
+whose pivot rows form the identity.  For each of the $8\cdot35=280$ pairs,
+the truncated singular-incidence ideal has the $80$ displayed generators
+\[
+ \mathcal J_{v,P}^{(2)}
+ =(F_1^{(2)},\ldots,F_{16}^{(2)},(J^{(2)})^{\mathsf T}K_P).
+\tag{7.1}
+\]
+
+\begin{computation}[all incidence charts]\label{comp:incidence}
+The scripts \path{../referee-packet/code/verify_incidence_chart.m2} and
+\path{../referee-packet/code/verify_all_incidence.py} prove, over exact
+$\QQ$ arithmetic, that on every chart
+\[
+ s^2\in(\mathcal J_{v,P}^{(2)},s^3).                          \tag{7.2}
+\]
+They encode the $80$ generators of (7.1) over
+$\QQ[z_1,\ldots,z_7,a_1,\ldots,a_{12}][s]/(s^3)$ as a
+$3\times240$ module matrix and prove that $(0,0,1)^{\mathsf T}$ belongs to
+its column module.  Exact partial Gr\"obner reduction proves $277$ charts at
+degree limit six; degree limit eight proves precisely $(v,P)=(2,7),(6,12)$,
+and $(8,16)$.  The driver verifies that all $280$ pairs occur and checks one
+retained lift back to the original columns.  The certificate is
+\path{../referee-packet/verification/incidence_all_QQ.txt}.
+\end{computation}
+
+The certificates assert exactly (7.2).  They do not, by themselves, assert
+that a fibre is smooth; that conclusion is the following geometric argument.
+
+\begin{proposition}[two-jet smoothness]\label{prop:smooth}
+Every flat projective continuation satisfying (6.2) has smooth geometric
+generic fibre.
+\end{proposition}
+
+\begin{proof}
+The special fibre is Cohen--Macaulay and equidimensional of dimension three
+by Computation~\ref{comp:special}.  For a proper flat family over $R$, the
+Cohen--Macaulay fibre criterion and constancy of relative dimension make the
+morphism Cohen--Macaulay of relative dimension three; these are exactly the
+opening reductions in the Stacks smoothing lemma~\cite[Tag 0E7T]{StacksSmooth}.
+Thus a point of a fibre is singular precisely when the affine Jacobian has
+rank at most three, equivalently when $\ker J^{\mathsf T}$ contains a
+four-plane.
+
+Suppose the geometric generic fibre has a singular point.  The incidence
+scheme is of finite type over $K=\QQ((s))$, so it has a closed point after a
+finite extension $K'/K$.  Let $R'$ be a DVR of the integral closure of $R$
+in $K'$ lying over $(s)$.  Properness of $\PP^7_R$ extends the point over
+$R'$, and properness of $\operatorname{Gr}(4,7)_R$ extends a chosen
+four-plane in the kernel.  After scaling, some projective coordinate and some
+Pl\"ucker coordinate are units.  Hence one of the $280$ chart pairs has all
+of its point and four-plane coordinates in $R'$.
+
+On this chart, (7.2) is an exact polynomial identity
+\[
+ s^2=\sum_jc_jq_j+s^3c_0,                                   \tag{7.3}
+\]
+where the $q_j$ are the truncated incidence generators.  Equation (6.2)
+changes each equation, and each affine partial derivative, only by $s^3$
+times an integral power series.  Replacing $q_j$ by the actual incidence
+generator $q'_j$ in (7.3) therefore gives
+\[
+ s^2=\sum_jc_jq'_j+s^3c
+\]
+with $c\in R'$ after evaluation at the integral incidence section.  All
+$q'_j$ vanish there, so $s^2=s^3c$.  The valuation of $s$ in $R'$ is
+positive, whereas this equality would give
+\[
+ 2v(s)=3v(s)+v(c)\geq3v(s),
+\]
+a contradiction.  The geometric generic fibre is smooth.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Computation~\ref{comp:start} and the direct Tate lift (3.6)--(3.7) give a
+truncated relative Maurer--Cartan element with the certified two-jet.
+Proposition~\ref{prop:exact} and Lemma~\ref{lem:induction} produce the
+all-orders strict Maurer--Cartan element without changing that two-jet.
+Equations (6.1)--(6.4) give a flat projective family with special fibre
+$X_0$, and Proposition~\ref{prop:smooth} proves that its geometric generic
+fibre is smooth.
+\end{proof}
+
+\section{Logical and computational dependency ledger}
+
+\begin{center}
+\begin{tabular}{p{0.19\textwidth}p{0.34\textwidth}p{0.35\textwidth}}
+\toprule
+Statement & Evidence & Exact consequence used\\
+\midrule
+Special fibre & Exact combinatorial replay; Reisner's criterion & Pure CM
+threefold with ideal (1.1)\\
+$R_4$ start & Exact $F^{[3]}Q^{[3]}=0$, complete special syzygies, byte
+comparison & Flat embedded deformation and literal two-jet\\
+Low Tate stage & Independent Macaulay2 and Singular full syzygy modules &
+$136$ cycles span (4.2); no missing low generators\\
+Strict exactness & Closed global derivations; all primary and secondary
+commutators; ranks and direct zero composite & Exactness (4.6), without a
+total $H^3$ dimension\\
+All orders & Equations (5.1)--(5.7) & Complete relative Maurer--Cartan element
+fixing coefficients of $s,s^2$\\
+Generic smoothness & $280$ exact memberships plus projective/Grassmannian
+properness & Valuation contradiction for every higher continuation\\
+Algebraization & Sixteen coefficientwise cubic series; alternatively Tag
+0899 & Actual projective $R$-scheme, not only formal data\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The computations do not prove a total value for $\dim H^3$, do not preserve
+the full $s^3$ coefficient of the starting $R_4$ object, and do not identify
+the generic fibre beyond its smoothness.  None of those stronger statements
+is needed.
+
+\begin{thebibliography}{9}
+
+\bibitem{Avramov}
+L.~L.~Avramov,
+\emph{Infinite free resolutions}, in \emph{Six Lectures on Commutative
+Algebra}, Progress in Mathematics 166, Birkh\"auser, 1998, pp.~1--118.
+
+\bibitem{GS}
+B.~Gr\"unbaum and V.~P.~Sreedharan,
+\emph{An enumeration of simplicial $4$-polytopes with $8$ vertices},
+J. Combinatorial Theory \textbf{2} (1967), 437--465,
+\href{https://doi.org/10.1016/S0021-9800(67)80055-3}
+{doi:10.1016/S0021-9800(67)80055-3}.
+
+\bibitem{Reisner}
+G.~A.~Reisner,
+\emph{Cohen--Macaulay quotients of polynomial rings},
+Adv. Math. \textbf{21} (1976), 30--49,
+\href{https://doi.org/10.1016/0001-8708(76)90114-6}
+{doi:10.1016/0001-8708(76)90114-6}.
+
+\bibitem{StacksFlat}
+The Stacks Project Authors,
+\emph{The Stacks Project},
+\href{https://stacks.math.columbia.edu/tag/00MK}{Tag 00MK}, local criterion
+for flatness.
+
+\bibitem{StacksAlg}
+The Stacks Project Authors,
+\emph{The Stacks Project},
+\href{https://stacks.math.columbia.edu/tag/0899}{Tag 0899}, Grothendieck
+algebraization for compatible closed subschemes.
+
+\bibitem{StacksSmooth}
+The Stacks Project Authors,
+\emph{The Stacks Project},
+\href{https://stacks.math.columbia.edu/tag/0E7T}{Tag 0E7T}, smoothing lemma.
+
+\end{thebibliography}
+
+\end{document}

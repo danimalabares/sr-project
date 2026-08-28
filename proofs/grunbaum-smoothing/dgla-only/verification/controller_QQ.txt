@@ -1,0 +1,7 @@
+field=QQ
+VersalDeformations_version=3.0
+relative_H1_dimension=109
+coordinate_boundary_image_dimension=56
+absolute_H1_dimension=53
+relative_minus_coordinate_equals_absolute=true
+starting_mc_linear_e_values_equal_T1_y=true

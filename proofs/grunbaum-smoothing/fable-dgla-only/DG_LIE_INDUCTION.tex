@@ -1,0 +1,303 @@
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}[lemma]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[lemma]{Remark}
+
+\newcommand{\MC}{\operatorname{MC}}
+\newcommand{\ad}{\operatorname{ad}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\QQ}{\mathbf Q}
+\newcommand{\h}{\mathfrak h}
+
+\title{An all-orders extension lemma with a prescribed two-jet,\\
+in a strict differential graded Lie algebra}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $\h$ be a dg Lie algebra over a field of characteristic zero and let
+$\bar\alpha$ be a Maurer--Cartan element over $(s)/(s^4)$ with linear
+coefficient $a$.  If the adjoint sequence
+$H^1(\h)\to H^2(\h)\to H^3(\h)$ of $a$ is exact at $H^2$, then
+$\bar\alpha$ extends to a Maurer--Cartan element of $s\,\h[[s]]$ agreeing
+with $\bar\alpha$ modulo $s^3$.  The proof is a direct obstruction
+induction using only the differential, the binary bracket, and the strict
+Bianchi identity; every sign and index is displayed, and the initial
+$s^4$-step is written out.  This note is self-contained and makes no
+reference to any structure other than a strict dg Lie algebra.
+\end{abstract}
+
+\section{Setting and conventions}
+
+Let $k$ be a field of characteristic zero and
+$(\h,\partial,[-,-])$ a dg Lie algebra over $k$ in the cohomological
+convention: $\partial$ has degree $+1$ and satisfies $\partial^2=0$; the
+bracket has degree $0$, is graded antisymmetric,
+$[x,y]=-(-1)^{|x||y|}[y,x]$, satisfies the graded Jacobi identity
+\[
+ [x,[y,z]]=[[x,y],z]+(-1)^{|x||y|}[y,[x,z]],
+\tag{1.1}\label{eq:jacobi}
+\]
+and $\partial$ is a degree-one derivation of it:
+\[
+ \partial[x,y]=[\partial x,y]+(-1)^{|x|}[x,\partial y].
+\tag{1.2}\label{eq:leibniz}
+\]
+
+Give
+\[
+ \widehat\h=s\,\h[[s]]=\prod_{j\geq1}s^j\h,
+ \qquad
+ F^r\widehat\h=s^r\h[[s]]\quad(r\geq1),
+\]
+the $s$-adic filtration; it is complete
+($\widehat\h=\varprojlim\widehat\h/F^r$) and separated
+($\bigcap_rF^r=0$), $\partial F^r\subseteq F^r$, and
+$[F^r,F^{r'}]\subseteq F^{r+r'}$.  For $n\geq1$ put
+$\h_n=\h\otimes_k(s)/(s^n)$.  For $\gamma\in\widehat\h^1$ (or
+$\gamma\in\h_n^1$) define the curvature
+\[
+ \mathcal F(\gamma)=\partial\gamma+\tfrac12[\gamma,\gamma]
+ \ \in\ \widehat\h^2 ,
+\]
+and $\MC(-)=\{\gamma:\mathcal F(\gamma)=0\}$.
+
+\section{The strict Bianchi identity}
+
+\begin{lemma}\label{lem:bianchi}
+For every $\gamma\in\widehat\h^1$,
+\[
+ \partial\mathcal F(\gamma)+[\gamma,\mathcal F(\gamma)]=0 .
+\tag{2.1}\label{eq:bianchi}
+\]
+\end{lemma}
+
+\begin{proof}
+All operations are continuous in the filtration, so it suffices to verify
+the identity formally.  Since $|\gamma|=1$, graded antisymmetry gives
+$[\partial\gamma,\gamma]=-(-1)^{2\cdot1}[\gamma,\partial\gamma]
+=-[\gamma,\partial\gamma]$, whence, by \eqref{eq:leibniz},
+\[
+ \partial\bigl(\tfrac12[\gamma,\gamma]\bigr)
+ =\tfrac12\bigl([\partial\gamma,\gamma]-[\gamma,\partial\gamma]\bigr)
+ =-[\gamma,\partial\gamma].
+\]
+Together with $\partial^2\gamma=0$ this gives
+$\partial\mathcal F(\gamma)=-[\gamma,\partial\gamma]$.  On the other hand,
+\eqref{eq:jacobi} with $x=y=z=\gamma$ reads
+$[\gamma,[\gamma,\gamma]]=[[\gamma,\gamma],\gamma]
+-[\gamma,[\gamma,\gamma]]$, while antisymmetry gives
+$[[\gamma,\gamma],\gamma]=-[\gamma,[\gamma,\gamma]]$; hence
+$3[\gamma,[\gamma,\gamma]]=0$ and, in characteristic zero,
+$[\gamma,[\gamma,\gamma]]=0$.  Therefore
+\[
+ [\gamma,\mathcal F(\gamma)]
+ =[\gamma,\partial\gamma]+\tfrac12[\gamma,[\gamma,\gamma]]
+ =[\gamma,\partial\gamma],
+\]
+and the two displays sum to zero.
+\end{proof}
+
+\begin{lemma}[exact curvature-change formula]\label{lem:change}
+For $\gamma,\delta\in\widehat\h^1$,
+\[
+ \mathcal F(\gamma+\delta)-\mathcal F(\gamma)
+ =\partial\delta+[\gamma,\delta]+\tfrac12[\delta,\delta].
+\tag{2.2}\label{eq:change}
+\]
+\end{lemma}
+
+\begin{proof}
+Expand; $[\delta,\gamma]=-(-1)^{1\cdot1}[\gamma,\delta]=[\gamma,\delta]$.
+\end{proof}
+
+\section{The extension lemma}
+
+\begin{lemma}[fixed-two-jet extension]\label{lem:main}
+Let
+\[
+ \bar\alpha=sa_1+s^2a_2+s^3a_3\ \in\ \MC(\h_4),
+ \qquad a:=a_1\in\h^1 .
+\]
+Assume
+\[
+ \ker\bigl(\ad_a:H^2(\h)\to H^3(\h)\bigr)
+ \subseteq
+ \im\bigl(\ad_a:H^1(\h)\to H^2(\h)\bigr).
+\tag{3.1}\label{eq:exactness}
+\]
+Then there exists
+$\alpha_\infty\in\MC(\widehat\h)$ with
+$\alpha_\infty\equiv\bar\alpha\pmod{s^3}$; in particular the coefficients
+of $s$ and $s^2$ of $\alpha_\infty$ are $a_1$ and $a_2$.
+\end{lemma}
+
+Hypothesis \eqref{eq:exactness} is stated as an inclusion because the
+reverse inclusion is automatic here: by the Jacobi identity
+$2[a,[a,x]]=[[a,a],x]$, and the coefficient of $s^2$ in
+$\mathcal F(\bar\alpha)=0$ gives $[a,a]=-2\partial a_2$, so for any
+cocycle $x$ one has $[a,[a,x]]=-[\partial a_2,x]=-\partial[a_2,x]$, a
+boundary.  Hence $\im\ad_a\subseteq\ker\ad_a$ at $H^2$ for the linear
+coefficient of any Maurer--Cartan element over $(s)/(s^3)$, and
+\eqref{eq:exactness} upgrades this inclusion to the equality
+$\ker=\im$.  (In the geometric application the inclusion is additionally
+verified by an exact matrix computation.)
+
+\begin{proof}
+\emph{Well-formedness of the linear coefficient.}
+The coefficient of $s^1$ in $\mathcal F(\bar\alpha)=0$ is
+$\partial a_1=0$, so $a=a_1\in Z^1(\h)$ and $\ad_a$ is defined on
+cohomology; the coefficients of $s^2$ and $s^3$ give
+\[
+ \partial a_2+\tfrac12[a_1,a_1]=0,
+ \qquad
+ \partial a_3+[a_1,a_2]=0 .
+\tag{3.2}\label{eq:lowmc}
+\]
+
+\emph{Initial lift.}  Let
+$\gamma^{(4)}=sa_1+s^2a_2+s^3a_3\in\widehat\h^1$ (all higher coefficients
+zero).  Expanding and using \eqref{eq:lowmc},
+\[
+ \mathcal F(\gamma^{(4)})
+ =s^4r_4+s^5r_5+s^6r_6,
+ \qquad
+ r_4=[a_1,a_3]+\tfrac12[a_2,a_2],\quad
+ r_5=[a_2,a_3],\quad
+ r_6=\tfrac12[a_3,a_3].
+\tag{3.3}\label{eq:initial}
+\]
+In particular $\mathcal F(\gamma^{(4)})\in F^4\widehat\h$: this is the
+initial case $N=4$ of the induction below.
+
+\emph{Induction hypothesis.}  For some $N\geq4$ we have
+$\gamma^{(N)}\in\widehat\h^1$ with
+\[
+ \gamma^{(N)}\equiv\bar\alpha\pmod{s^3},
+ \qquad
+ \gamma^{(N)}=sa+O(s^2),
+ \qquad
+ \mathcal F(\gamma^{(N)})\in F^N\widehat\h .
+\tag{3.4}\label{eq:hyp}
+\]
+Write $\mathcal F(\gamma^{(N)})=s^Nr_N+s^{N+1}r_{N+1}+O(s^{N+2})$ with
+$r_N,r_{N+1}\in\h^2$.
+
+\emph{Step 1: $r_N$ is a cocycle.}  Insert the expansions
+$\gamma^{(N)}=\sum_{m\geq1}s^m\gamma_m$ (with $\gamma_1=a$) and
+$\mathcal F(\gamma^{(N)})=\sum_{n\geq N}s^nr_n$ into the Bianchi identity
+\eqref{eq:bianchi} and take the coefficient of $s^N$: every bracket term
+$[\gamma_m,r_n]$ has total order $m+n\geq1+N>N$, so only
+$\partial r_N=0$ survives.
+
+\emph{Step 2: $[r_N]\in\ker\ad_a$.}  The coefficient of $s^{N+1}$ in
+\eqref{eq:bianchi} is
+\[
+ \partial r_{N+1}+[\gamma_1,r_N]=0,
+ \qquad\text{i.e.}\qquad
+ [a,r_N]=-\partial r_{N+1}\in B^3(\h).
+\]
+Hence the class $[r_N]\in H^2(\h)$ lies in
+$\ker(\ad_a:H^2\to H^3)$.
+
+\emph{Step 3: choice of the correction.}  By \eqref{eq:exactness} there is
+a class $\beta\in H^1(\h)$ with $\ad_a\beta=-[r_N]$.  Choose a cocycle
+representative $v\in Z^1(\h)$ of $\beta$; then $[r_N+[a,v]]=0$ in
+$H^2(\h)$, so there exists $w\in\h^1$ with
+\[
+ r_N+[a,v]=\partial w .
+\tag{3.5}\label{eq:vw}
+\]
+Define
+\[
+ \delta_N=s^{N-1}v-s^Nw,
+ \qquad
+ \gamma^{(N+1)}=\gamma^{(N)}+\delta_N .
+\tag{3.6}\label{eq:step}
+\]
+
+\emph{Step 4: the correction kills $r_N$ and disturbs nothing below.}
+Apply \eqref{eq:change} with $\delta=\delta_N$:
+\begin{itemize}
+\item $\partial\delta_N=s^{N-1}\partial v-s^N\partial w
+=-s^N\partial w$, since $\partial v=0$;
+\item $[\gamma^{(N)},\delta_N]
+=[sa,s^{N-1}v]+[\gamma^{(N)}-sa,s^{N-1}v]-[\gamma^{(N)},s^Nw]
+=s^N[a,v]+F^{N+1}$, since $\gamma^{(N)}-sa\in F^2$;
+\item $\tfrac12[\delta_N,\delta_N]\in F^{2N-2}\subseteq F^{N+2}$,
+because $2N-2\geq N+2$ for $N\geq4$.
+\end{itemize}
+Hence
+\[
+ \mathcal F(\gamma^{(N+1)})
+ =\mathcal F(\gamma^{(N)})+s^N\bigl([a,v]-\partial w\bigr)+F^{N+1}
+ =s^N\bigl(r_N+[a,v]-\partial w\bigr)+F^{N+1}
+ =F^{N+1}
+\]
+by \eqref{eq:vw}.  Moreover $\delta_N\in F^{N-1}\subseteq F^3$, so
+$\gamma^{(N+1)}\equiv\bar\alpha\pmod{s^3}$ and its coefficient of $s$
+is still $a$; \eqref{eq:hyp} holds with $N+1$.
+
+\emph{Step 5: convergence.}  For each fixed $j\geq1$ the coefficient of
+$s^j$ in $\gamma^{(N)}$ is constant for $N\geq j+2$ (the step $N$ changes
+orders $\geq N-1$ only), so the sequence converges coefficientwise in the
+complete filtered module $\widehat\h$ to a limit $\alpha_\infty$ with
+$\alpha_\infty\equiv\gamma^{(N)}\pmod{F^{N-1}}$ for every $N$.  The
+coefficient of $s^j$ in $\mathcal F(\alpha_\infty)$ is a universal finite
+polynomial expression in the coefficients
+$\alpha_1,\ldots,\alpha_j$ of $\alpha_\infty$; these coincide with the
+corresponding coefficients of $\gamma^{(j+2)}$, whose curvature lies in
+$F^{j+2}$, so that coefficient vanishes.  As $j$ was arbitrary and
+$\bigcap F^r=0$, we get $\mathcal F(\alpha_\infty)=0$.  The congruence
+$\alpha_\infty\equiv\bar\alpha\pmod{s^3}$ holds because every correction
+$\delta_N$ lies in $F^{N-1}\subseteq F^3$.
+\end{proof}
+
+\begin{remark}[the initial step, concretely]
+At $N=4$ the correction is $\delta_4=s^3v-s^4w$ with
+$r_4=[a_1,a_3]+\tfrac12[a_2,a_2]$ from \eqref{eq:initial}.  Thus the first
+coefficient that can change is that of $s^3$, which is why the conclusion
+preserves $\bar\alpha$ modulo $s^3$ and not modulo $s^4$.  The signs in
+Step~4 depend only on: $\partial v=0$; the degree-one self-pairing rule
+$[\delta,\gamma]=[\gamma,\delta]$ for odd elements; and the normalization
+$\tfrac12$ in the curvature, which matches the change formula
+\eqref{eq:change}.
+\end{remark}
+
+\begin{remark}[sharpness of the preserved jet]\label{rem:sharp}
+Preservation modulo $s^4$ would require choosing $v=0$ at the first step,
+i.e.\ $[r_4]=0$ in $H^2(\h)$, so that a pure boundary correction
+$-s^4w$ suffices.  Hypothesis \eqref{eq:exactness} yields only
+$[r_4]\in\ker\ad_a=\im\ad_a$ and does not imply $[r_4]=0$.  In the
+geometric application, only the reduction modulo $s^3$ (the printed
+two-jet) is needed downstream, so the lemma as stated is exactly strong
+enough.
+\end{remark}
+
+\begin{remark}[why no higher operations are hiding here]
+The proof manipulates: the given filtered dg Lie structure; finitely many
+coefficient-extraction maps $\widehat\h\to\h$; and linear algebra in
+$H^1,H^2,H^3$.  The obstruction $r_N$ is a coefficient of the curvature of
+an explicit element, not the value of a transferred $n$-ary operation on
+cohomology classes; no choice of homotopy, contraction, or reduced model
+on cohomology is ever made, and the element $\alpha_\infty$ lives in $\widehat\h$
+itself, not in its cohomology.  This is the precise sense in which the
+lemma replaces, rather than repackages, an
+``all-orders vanishing of transferred curvature'' argument.
+\end{remark}
+
+\end{document}

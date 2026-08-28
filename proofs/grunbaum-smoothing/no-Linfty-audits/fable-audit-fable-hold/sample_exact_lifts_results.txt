@@ -1,0 +1,8 @@
+sample_exact_lifts.sh results, 2026-08-27 (300 s budget per pair)
+lift_exact chart=1 pivots=1,2,3,4: 1
+lift_exact chart=3 pivots=2,4,5,7: 1
+lift_exact chart=2 pivots=1,2,6,7: SKIPPED_TIMEOUT_300s
+lift_exact chart=8 pivots=4,5,6,7: 1
+lift_exact chart=6 pivots=2,3,4,5: SKIPPED_TIMEOUT_300s
+lift_exact chart=4 pivots=1,4,5,6: SKIPPED_TIMEOUT_300s
+SAMPLE_EXACT_LIFTS_DONE
